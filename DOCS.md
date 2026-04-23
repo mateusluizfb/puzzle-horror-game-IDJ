@@ -1,4 +1,4 @@
-# SimpleGameEngine — Documentation
+# Documentation
 
 A 2D game engine built on top of SDL2, developed as part of the IDJ course at UnB. The engine follows a **Component-Entity-State** architecture and ships with a zombie-shooter demo game.
 
