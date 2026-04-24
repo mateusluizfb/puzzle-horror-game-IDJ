@@ -18,7 +18,8 @@
 # ---------------------------------------------------------------------------
 ENGINE_INC = engine/include/core engine/include/math engine/include/rendering \
              engine/include/physics engine/include/input engine/include/audio \
-             engine/include/tiles engine/include/camera engine/include/utils
+             engine/include/tiles engine/include/camera engine/include/utils \
+             engine/include/lib
 GAME_INC   = game/include/entities game/include/controllers \
              game/include/states game/include/systems
 
@@ -78,6 +79,9 @@ $(BIN_PATH)/tiles_%.o: engine/src/tiles/%.cpp | folders
 	$(COMPILER) $(INC_PATHS) $< -c $(FLAGS) -o $@
 
 $(BIN_PATH)/camera_%.o: engine/src/camera/%.cpp | folders
+	$(COMPILER) $(INC_PATHS) $< -c $(FLAGS) -o $@
+
+$(BIN_PATH)/lib_%.o: engine/src/lib/%.cpp | folders
 	$(COMPILER) $(INC_PATHS) $< -c $(FLAGS) -o $@
 
 $(BIN_PATH)/entities_%.o: game/src/entities/%.cpp | folders

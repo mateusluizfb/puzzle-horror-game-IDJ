@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <TileSet.h>
+#include <XmlParser.h>
 
 class TileMap : public Component {
 private:
@@ -15,6 +16,10 @@ private:
   int mapWidth;
   int mapHeight;
   int mapDepth;
+  bool isTmx;
+
+  void LoadTxt(const std::string& file);
+  void LoadTmx(const std::string& file);
 
 public:
   TileMap(GameObject &associated, std::string file, TileSet *tileSet);
@@ -24,6 +29,8 @@ public:
   int& At(int x, int y, int z = 0);
 
   void RenderLayer();
+  void RenderLayerTxt();
+  void RenderLayerTmx();
   void Render() override;
   void Update(float dt) override;
 

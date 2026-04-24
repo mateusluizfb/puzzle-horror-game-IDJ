@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "Game.h"
 #include "StageState.h"
+#include "DebugState.h"
 #include "Camera.h"
 #include "Text.h"
 
@@ -46,6 +47,12 @@ void TitleState::Update(float dt) {
   {
     Log::info("TITLE_STATE - Enter key pressed, popping TitleState");
     Game::GetInstance().Push(new StageState());
+  }
+
+  if (inputManager.KeyPress(SDLK_d))
+  {
+    Log::info("TITLE_STATE - D key pressed, opening DebugState");
+    Game::GetInstance().Push(new DebugState());
   }
 
   UpdateArray(dt);
