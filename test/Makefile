@@ -5,18 +5,19 @@ ifeq ($(UNAME_S),Linux)
 		-I../engine/include -I../engine/include/core -I../engine/include/math \
 		-I../engine/include/rendering -I../engine/include/physics -I../engine/include/input \
 		-I../engine/include/audio -I../engine/include/tiles -I../engine/include/camera \
-		-I../engine/include/utils \
+		-I../engine/include/utils -I../engine/include/lib \
 		-I../game/include -I../game/include/entities -I../game/include/controllers \
 		-I../game/include/states -I../game/include/systems
 	LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lgtest -lgtest_main -pthread
 else
 	BREW_PREFIX := $(shell brew --prefix)
+	GTEST_PREFIX := $(shell brew --prefix googletest)
 
-	CXXFLAGS = -g -Wall -std=c++17 -I$(BREW_PREFIX)/include/SDL2 \
+	CXXFLAGS = -g -Wall -std=c++17 -I$(BREW_PREFIX)/include/SDL2 -I$(GTEST_PREFIX)/include \
 		-I../engine/include -I../engine/include/core -I../engine/include/math \
 		-I../engine/include/rendering -I../engine/include/physics -I../engine/include/input \
 		-I../engine/include/audio -I../engine/include/tiles -I../engine/include/camera \
-		-I../engine/include/utils \
+		-I../engine/include/utils -I../engine/include/lib \
 		-I../game/include -I../game/include/entities -I../game/include/controllers \
 		-I../game/include/states -I../game/include/systems
 	LDFLAGS = -L$(BREW_PREFIX)/lib -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lgtest -lgtest_main -pthread
