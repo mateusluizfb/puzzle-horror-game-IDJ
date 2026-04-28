@@ -1,13 +1,7 @@
 #ifndef DEBUGSTATE_H
 #define DEBUGSTATE_H
 
-#include <string>
-#include <memory>
-#include "GameObject.h"
 #include "Music.h"
-#include "TileMap.h"
-#include "Zombie.h"
-#include "State.h"
 #include "CollisionSystem.h"
 
 class DebugState : public State

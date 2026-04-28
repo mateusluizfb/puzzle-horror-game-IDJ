@@ -142,7 +142,7 @@ TEST(XmlParserTest, ParseFileTmx) {
   XmlNode root = XmlParser::ParseFile("game/assets/map/tilemap.tmx");
   EXPECT_EQ(root.tag, "map");
   EXPECT_EQ(root.getAttribute("width"),  "30");
-  EXPECT_EQ(root.getAttribute("height"), "20");
+  EXPECT_EQ(root.getAttribute("height"), "30");
 
   const XmlNode* layer = root.findChild("layer");
   ASSERT_NE(layer, nullptr);

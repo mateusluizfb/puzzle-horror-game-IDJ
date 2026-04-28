@@ -9,11 +9,11 @@
             "scaleInEditor": 1
         },
         "tilemap.tmx": {
-            "scale": 0.3983072916666666,
+            "scale": 0.3093,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 154.4033998038575,
-                "y": 136.82902909447535
+                "x": 1097.6398318784352,
+                "y": 1065.3087617200129
             }
         }
     },
@@ -27,6 +27,7 @@
         "Tileset.tsx"
     ],
     "project": "tiled-test.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "Tileset.tsx",
         "tilemap.tmx"

@@ -1,6 +1,8 @@
 #include <memory>
 #include <algorithm>
+#include <string>
 
+#include "State.h"
 #include "DebugState.h"
 #include "Log.h"
 #include "TileSet.h"
@@ -12,53 +14,12 @@
 #include "Collider.h"
 #include "Collision.h"
 #include "Camera.h"
-#include "WaveSpawner.h"
 #include "EndState.h"
 #include "Game.h"
 #include "GameData.h"
-
-static bool AllEnemiesDead(State &state)
-{
-  auto objectArray = state.GetObjectArray();
-
-  for (const auto &obj : objectArray)
-  {
-    Zombie* zombie = obj->GetComponent<Zombie>();
-    Character *character = obj->GetComponent<Character>();
-
-    if (zombie != nullptr)
-    {
-      return false;
-    }
-
-    if (character != nullptr && character->player == nullptr)
-    {
-      return false;
-    }
-  }
-
-  Log::debug("DEBUG_STATE - All enemies dead!");
-
-  return true;
-}
-
-static bool AllWavesCompleted(State &state)
-{
-  auto objectArray = state.GetObjectArray();
-
-  for (const auto &obj : objectArray)
-  {
-    WaveSpawner *waveSpawner = obj->GetComponent<WaveSpawner>();
-
-    if (waveSpawner != nullptr)
-    {
-      return waveSpawner->AllWavesCompleted();
-    }
-  }
-
-  Log::debug("DEBUG_STATE - No WaveSpawner found in state");
-  return false;
-}
+#include "GameObject.h"
+#include "TileMap.h"
+#include "TileObjectsLoader.h"
 
 DebugState::DebugState(): State(), music("game/audio/BGM.wav")
 {
@@ -78,10 +39,6 @@ DebugState::~DebugState()
 void DebugState::Start()
 {
   Log::info("DEBUG_STATE - Starting state");
-
-  GameObject *waveSpawnerGameObject = new GameObject();
-  waveSpawnerGameObject->AddComponent(new WaveSpawner(*waveSpawnerGameObject));
-  this->AddObject(waveSpawnerGameObject);
 
   for (size_t i = 0; i < objectArray.size(); i++) {
     objectArray[i]->Start();
@@ -123,6 +80,14 @@ void DebugState::LoadAssets()
   spriteRenderer1->SetPosition(1253, 901);
   Log::debug("DEBUG_STATE - Character game object loaded");
 
+  Log::debug("DEBUG_STATE - Starting TileObjects loader");
+  TileObjects loader(
+    "game/assets/map/tilemap.tmx",
+    "game/assets/img/Tileset.png"
+  );
+  loader.Load(*this);
+  Log::debug("DEBUG_STATE - TileObjects loader finished");
+
   Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
 }
 
@@ -137,15 +102,6 @@ void DebugState::Update(float dt)
     music.Stop();
     popRequested = true;
     GameData::playerVictory = false;
-    Game::GetInstance().Push(new EndState());
-  }
-
-  if (AllWavesCompleted(*this) && AllEnemiesDead(*this))
-  {
-    Log::info("DEBUG_STATE - All waves completed and all enemies dead, switching to EndState");
-    music.Stop();
-    popRequested = true;
-    GameData::playerVictory = true;
     Game::GetInstance().Push(new EndState());
   }
 
