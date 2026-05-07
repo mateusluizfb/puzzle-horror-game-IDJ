@@ -3,8 +3,11 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <functional>
 #include "State.h"
 #include "TileObject.h"
+#include "Component.h"
 
 class TileObjects {
 private:
@@ -16,12 +19,15 @@ private:
   int tileWidth;
   int tileHeight;
 
+  std::map<std::string, std::function<Component*(GameObject&)>> componentFactories;
+
   void LoadTmx(const std::string& file);
   void SpawnObject(State& state, const TileObjectData& data);
 
 public:
   TileObjects(const std::string& file, const std::string& tileSetFile);
 
+  void RegisterComponent(const std::string& name, std::function<Component*(GameObject&)> factory);
   const std::vector<TileObjectData>& GetObjects() const;
   void Load(State &state);
 };

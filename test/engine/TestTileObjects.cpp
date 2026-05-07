@@ -4,7 +4,7 @@
 #include "State.h"
 #include "StageState.h"
 #include "TileObject.h"
-#include "TileObjectsLoader.h"
+#include "TileObjects.h"
 #include "Log.h"
 
 static const std::string TMX_PATH      = "game/assets/map/tilemap.tmx";
@@ -109,7 +109,7 @@ TEST(TileObjectTest, UpdateDoesNotThrow)
   delete game;
 }
 
-// ── TileObjectsLoader ─────────────────────────────────────────────────────────
+// ── TileObjects ─────────────────────────────────────────────────────────
 
 TEST(TileObjectsLoaderTest, LoadsObjectsFromTmx)
 {

@@ -2,11 +2,10 @@
 #include <string>
 
 #include "Log.h"
-#include "TileObjectsLoader.h"
+#include "TileObjects.h"
 #include "TileObject.h"
 #include "GameObject.h"
 #include "XmlParser.h"
-#include "Collider.h"
 
 // Returns the directory portion of a file path (including the trailing slash).
 static std::string DirOf(const std::string& path) {
@@ -17,6 +16,10 @@ static std::string DirOf(const std::string& path) {
 TileObjects::TileObjects(const std::string &tmxFile, const std::string &tileSetFile)
     : tmxFile(tmxFile), tileSetFile(tileSetFile), tileWidth(0), tileHeight(0)
 {}
+
+void TileObjects::RegisterComponent(const std::string& name, std::function<Component*(GameObject&)> factory) {
+  componentFactories[name] = factory;
+}
 
 void TileObjects::Load(State &state)
 {
@@ -98,16 +101,11 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
     const std::string& value = prop.second;
     
     if (value != "true") continue;
-
-    if(key == "collider") {
-      Collider *collider = new Collider(*go, Vec2(1, 1), Vec2(1, 1));
-      go->AddComponent(collider);
-      continue;
-    }
-
-    if (key == "pushable") {
-      // TODO: Create and add pushable Component
-      continue;
+    
+    auto it = componentFactories.find(key);
+    if (it != componentFactories.end()) {
+      Component* component = it->second(*go);
+      go->AddComponent(component);
     }
   }
 

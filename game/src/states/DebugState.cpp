@@ -19,7 +19,7 @@
 #include "GameData.h"
 #include "GameObject.h"
 #include "TileMap.h"
-#include "TileObjectsLoader.h"
+#include "TileObjects.h"
 
 DebugState::DebugState(): State(), music("game/audio/BGM.wav")
 {
@@ -85,6 +85,9 @@ void DebugState::LoadAssets()
     "game/assets/map/tilemap.tmx",
     "game/assets/img/Tileset.png"
   );
+  loader.RegisterComponent("collider", [](GameObject& go) -> Component* {
+    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
+  });
   loader.Load(*this);
   Log::debug("DEBUG_STATE - TileObjects loader finished");
 
