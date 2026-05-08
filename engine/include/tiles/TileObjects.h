@@ -19,7 +19,8 @@ private:
   int tileWidth;
   int tileHeight;
 
-  std::map<std::string, std::function<Component*(GameObject&)>> componentFactories;
+   std::map<std::string, std::function<Component*(GameObject&)>> componentFactories;
+   std::vector<std::string> componentRegistrationOrder;
 
   void LoadTmx(const std::string& file);
   void SpawnObject(State& state, const TileObjectData& data);

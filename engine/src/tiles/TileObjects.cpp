@@ -19,6 +19,7 @@ TileObjects::TileObjects(const std::string &tmxFile, const std::string &tileSetF
 
 void TileObjects::RegisterComponent(const std::string& name, std::function<Component*(GameObject&)> factory) {
   componentFactories[name] = factory;
+  componentRegistrationOrder.push_back(name);
 }
 
 void TileObjects::Load(State &state)
@@ -96,11 +97,9 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
   GameObject *go = new GameObject();
   go->AddComponent(new TileObject(*go, data, tileSetFile, tileWidth, tileHeight));
 
-  for (const auto& prop : data.properties) {
-    const std::string& key = prop.first;
-    const std::string& value = prop.second;
-    
-    if (value != "true") continue;
+  for (const std::string& key : componentRegistrationOrder) {
+    auto propIt = data.properties.find(key);
+    if (propIt == data.properties.end() || propIt->second != "true") continue;
     
     auto it = componentFactories.find(key);
     if (it != componentFactories.end()) {
