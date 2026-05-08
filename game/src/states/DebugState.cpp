@@ -20,6 +20,7 @@
 #include "GameObject.h"
 #include "TileMap.h"
 #include "TileObjects.h"
+#include "Pushable.h"
 
 DebugState::DebugState(): State(), music("game/audio/BGM.wav")
 {
@@ -85,6 +86,11 @@ void DebugState::LoadAssets()
     "game/assets/map/tilemap.tmx",
     "game/assets/img/Tileset.png"
   );
+  // TileObjects loader is loading the collider before the pushable, it should be the last
+  // TODO: Fix 
+  loader.RegisterComponent("pushable", [](GameObject& go) -> Component* {
+    return new Pushable(go, 100.0f);
+  });
   loader.RegisterComponent("collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });

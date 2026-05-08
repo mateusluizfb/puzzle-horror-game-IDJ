@@ -1,5 +1,6 @@
 #include "TileObject.h"
 #include "Camera.h"
+#include "SpriteRenderer.h"
 
 TileObject::TileObject(GameObject& associated,
                        const TileObjectData& data,
