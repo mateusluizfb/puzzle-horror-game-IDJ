@@ -15,10 +15,6 @@ void PlayerController::Update(float dt) {
   InputManager &inputManager = InputManager::GetInstance();
   Character* character = associated.GetComponent<Character>();
 
-  // Keep player inside the map bounds
-  associated.box.x = std::max(X_LOWER_BOUND, std::min(X_UPPER_BOUND, associated.box.x));
-  associated.box.y = std::max(Y_LOWER_BOUND, std::min(Y_UPPER_BOUND, associated.box.y));
-
   if (inputManager.IsKeyDown(LEFT_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, -1, 0));  
   }
