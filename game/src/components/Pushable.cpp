@@ -2,6 +2,8 @@
 #include "Log.h"
 #include "GameObject.h"
 
+#include <cmath>
+
 Pushable::Pushable(GameObject& associated, float pushSpeed, std::string pushableTag)
   : Component(associated),
     pushDirection(Vec2(0, 0)),
@@ -12,26 +14,29 @@ Pushable::Pushable(GameObject& associated, float pushSpeed, std::string pushable
 
 void Pushable::Update(float dt) {
   if (isPushing) {
-    associated.box.x += pushDirection.x * pushSpeed * dt;
-    associated.box.y += pushDirection.y * pushSpeed * dt;
+    Vec2 direction = Vec2(0, 0);
+
+    // Check if it's further away from the target's x or y, the higher says if the
+    // movement is horizontal or vertical
+    if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
+      direction.x = (pushDirection.x > 0) ? 1.0f : -1.0f;
+    } else {
+      direction.y = (pushDirection.y > 0) ? 1.0f : -1.0f;
+    }
+
+    associated.box.x += direction.x * pushSpeed * dt;
+    associated.box.y += direction.y * pushSpeed * dt;
   }
   isPushing = false;
 }
 
-void Pushable::Render() {
-}
+void Pushable::Render() {}
 
 void Pushable::NotifyCollision(GameObject& other) {
-  if (other.tag != pushableTag) {
-    return;
-  }
+  if (other.tag != "player") return;
+
+  Vec2 collisionNormal = associated.box.GetCenter() - other.box.GetCenter();
   
-  Vec2 otherCenter = other.box.GetCenter();
-  Vec2 selfCenter = associated.box.GetCenter();
-  Vec2 collisionNormal = selfCenter - otherCenter;
-  
-  if (collisionNormal.Magnitude() > 0) {
-    pushDirection = collisionNormal.Normalize();
-    isPushing = true;
-  }
+  pushDirection = collisionNormal.Normalize();
+  isPushing = true;
 }
