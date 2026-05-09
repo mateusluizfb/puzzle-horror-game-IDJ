@@ -10,3 +10,4 @@ dep/**
 /**/test_runner
 /**/dist_*
 /**/bin_*
+.clangd
