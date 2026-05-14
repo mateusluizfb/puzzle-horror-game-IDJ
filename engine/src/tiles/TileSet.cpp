@@ -14,7 +14,8 @@ TileSet::TileSet(int tileWidth, int tileHeight, std::string file)
   tileSet.SetFrameCount(cols, rows);
 };
 
-void TileSet::RenderTile (unsigned index, float x, float y) {
+void TileSet::RenderTile(unsigned index, float x, float y, float scale)
+{
   if (index >= static_cast<unsigned>(tileSet.GetFrameCount()))
   {
     throw std::runtime_error("Tile index out of bounds: " + std::to_string(index) +
@@ -22,6 +23,7 @@ void TileSet::RenderTile (unsigned index, float x, float y) {
   }
 
   tileSet.SetFrame(index);
+  tileSet.SetScale(scale, scale);
   tileSet.Render(x, y, tileWidth, tileHeight);
 }
 

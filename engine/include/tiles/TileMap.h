@@ -22,6 +22,8 @@ private:
   void LoadTmx(const std::string& file);
 
 public:
+  float scale;
+
   TileMap(GameObject &associated, std::string file, TileSet *tileSet);
 
   void Load(std::string file);

@@ -20,6 +20,21 @@ TEST(TileSetTest, Constructor)
   delete game;
 }
 
+TEST(TileSetTest, TileScaling)
+{
+  Game *game = &Game::GetInstance("Test Game", 800, 600);
+
+  Log::debug(" --- TileSetTest Logs ----");
+
+  TileSet *tileSet = new TileSet(16, 16, "game/assets/img/Tileset.png");
+  float scale = 2.0f;
+
+  EXPECT_NO_THROW(tileSet->RenderTile(0, 0, 0, scale));
+
+  delete tileSet;
+  delete game;
+}
+
 TEST(TileSetTest, InvalidIndex)
 {
   Game *game = &Game::GetInstance("Test Game", 800, 600);

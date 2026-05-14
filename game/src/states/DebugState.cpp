@@ -56,8 +56,9 @@ void DebugState::LoadAssets()
 
   Log::debug("DEBUG_STATE - Starting TileMap game object (TMX)");
   GameObject *tileMapGameObject = new GameObject();
-  TileSet *tileSet = new TileSet(64, 64, "game/assets/img/Tileset.png");
-  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/map/tilemap.tmx", tileSet);
+  TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/tileset.png");
+  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/map.tmx", tileSet);
+  tileMap->scale = 2.0f;
   tileMapGameObject->AddComponent(tileMap);
   this->AddObject(tileMapGameObject);
   Log::debug("DEBUG_STATE - TileMap game object loaded");
