@@ -7,7 +7,6 @@
 #include "Collider.h"
 #include "Camera.h"
 #include "Bullet.h"
-#include "Zombie.h"
 
 Character::Command::Command(CommandType type, float x, float y)
   : type(type), pos(x, y) {}
@@ -173,7 +172,6 @@ void Character::NotifyCollision(GameObject &other) {
   if (other.IsDead() || this->associated.IsDead()) return;
 
   Bullet *bullet = other.GetComponent<Bullet>();
-  Zombie *zombie = other.GetComponent<Zombie>();
   Animator *animator = associated.GetComponent<Animator>();
   Timer *hitTimer = &animator->hitTimer;
 
@@ -193,15 +191,6 @@ void Character::NotifyCollision(GameObject &other) {
   }
 
   if (hp <= 0) return;
-
-  if (zombie != nullptr && hitTimer->Get() > 2.0)
-  {
-    hp -= zombie->GetDamage();
-    Log::info("CHARACTER - Character hit! HP: " + std::to_string(hp));
-    hitSound.Play(1);
-    hitTimer->Restart();
-    return;
-  }
 
   hit = true;
 }

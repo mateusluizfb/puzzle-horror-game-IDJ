@@ -4,7 +4,6 @@
 #include "Character.h"
 #include "Animator.h"
 #include "Bullet.h"
-#include "Zombie.h"
 #include "StageState.h"
 
 TEST(CharacterTest, Start)
@@ -136,22 +135,6 @@ TEST(CharacterTest, NotifyCollision) {
   GameObject *other = new GameObject();
   character->NotifyCollision(*other);
   EXPECT_EQ(character->GetHp(), 100);
-
-  // Force hitTimer above threshold and collide again
-  Zombie *zombie = new Zombie(*other);
-  other->AddComponent(zombie);
-  Animator* animator = go->GetComponent<Animator>();
-  animator->hitTimer.Restart();
-  animator->hitTimer.Update(2.1f); // Force timer above threshold
-  character->NotifyCollision(*other);
-
-  // After valid collision, hp should be reduced
-  EXPECT_EQ(character->GetHp(), 90);
-  EXPECT_LT(character->GetSpeed().x, 1e-5); // Still idle
-  EXPECT_EQ(character->GetSpeed().y, 0);
-
-  delete go;
-  delete game;
 }
 
 TEST(CharacterTest, NotifyCollisionWithBullet)
