@@ -1,5 +1,5 @@
 {
-    "activeFile": "tilemap.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,7 +12,7 @@
             "scale": 0.3093,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1097.6398318784352,
+                "x": 1096.0232783705142,
                 "y": 1065.3087617200129
             }
         }
@@ -23,8 +23,6 @@
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "openFiles": [
-        "tilemap.tmx",
-        "Tileset.tsx"
     ],
     "project": "tiled-test.tiled-project",
     "property.type": "bool",

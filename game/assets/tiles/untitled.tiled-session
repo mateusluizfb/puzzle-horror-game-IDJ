@@ -1,0 +1,39 @@
+{
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "map.tmx": {
+            "scale": 0.7463,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 363.12474876055205,
+                "y": 280.71820983518694
+            }
+        },
+        "tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "/Users/mateus/Git/UNB/puzzle-horror-game-IDJ/game/assets/tiles",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "map.tmx",
+        "tileset.tsx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "tileset.tsx",
+        "map.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
