@@ -13,7 +13,7 @@ static std::string DirOf(const std::string& path) {
   return (sep == std::string::npos) ? "" : path.substr(0, sep + 1);
 }
 
-TileObjects::TileObjects(const std::string &tmxFile, const std::string &tileSetFile, float scale)
+TileObjects::TileObjects(const std::string &tmxFile, const std::string &tileSetFile, Vec2 scale)
     : tmxFile(tmxFile), tileSetFile(tileSetFile), tileWidth(0), tileHeight(0), scale(scale)
 {}
 

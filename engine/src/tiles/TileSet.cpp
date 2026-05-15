@@ -14,7 +14,7 @@ TileSet::TileSet(int tileWidth, int tileHeight, std::string file)
   tileSet.SetFrameCount(cols, rows);
 };
 
-void TileSet::RenderTile(unsigned index, float x, float y, float scale)
+void TileSet::RenderTile(unsigned index, float x, float y, Vec2 scale)
 {
   if (index >= static_cast<unsigned>(tileSet.GetFrameCount()))
   {
@@ -23,7 +23,7 @@ void TileSet::RenderTile(unsigned index, float x, float y, float scale)
   }
 
   tileSet.SetFrame(index);
-  tileSet.SetScale(scale, scale);
+   tileSet.SetScale(scale.x, scale.y);
   tileSet.Render(x, y, tileWidth, tileHeight);
 }
 

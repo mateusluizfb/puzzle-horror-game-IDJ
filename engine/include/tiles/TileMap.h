@@ -22,7 +22,7 @@ private:
   void LoadTmx(const std::string& file);
 
 public:
-  float scale;
+  Vec2 scale;
 
   TileMap(GameObject &associated, std::string file, TileSet *tileSet);
 

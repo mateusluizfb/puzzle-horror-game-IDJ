@@ -7,16 +7,16 @@ TileObject::TileObject(GameObject& associated,
                        const std::string& tileSetFile,
                        int tileWidth,
                        int tileHeight,
-                       float scale)
+                       Vec2 scale)
   : Component(associated)
   , data(data)
   , tileSet(tileWidth, tileHeight, tileSetFile)
   , scale(scale)
 {
-  associated.box.x = data.x * scale;
-  associated.box.y = data.y * scale;
-  associated.box.w = data.width * scale;
-  associated.box.h = data.height * scale;
+  associated.box.x = data.x * scale.x;
+  associated.box.y = data.y * scale.y;
+  associated.box.w = data.width * scale.x;
+  associated.box.h = data.height * scale.y;
   associated.tag   = data.name;
 }
 

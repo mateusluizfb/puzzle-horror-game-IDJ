@@ -18,7 +18,7 @@ private:
   std::string tileSetFile;
   int tileWidth;
   int tileHeight;
-  float scale;
+  Vec2 scale;
 
   std::map<std::string, std::function<Component*(GameObject&)>> componentFactories;
   std::vector<std::string> componentRegistrationOrder;
@@ -27,7 +27,7 @@ private:
   void SpawnObject(State& state, const TileObjectData& data);
 
 public:
-  TileObjects(const std::string& file, const std::string& tileSetFile, float scale);
+  TileObjects(const std::string& file, const std::string& tileSetFile, Vec2 scale);
 
   void RegisterComponent(const std::string& name, std::function<Component*(GameObject&)> factory);
   const std::vector<TileObjectData>& GetObjects() const;

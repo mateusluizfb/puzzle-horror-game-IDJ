@@ -14,7 +14,7 @@ private:
 public:
   TileSet(int tileWidth, int tileHeight, std::string file);
 
-  void RenderTile(unsigned index, float x, float y, float scale = 1.0f);
+  void RenderTile(unsigned index, float x, float y, Vec2 scale = Vec2(1.0f, 1.0f));
   int GetTileWidth();
   int GetTileHeight();
 };

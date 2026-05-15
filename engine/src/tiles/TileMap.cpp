@@ -7,7 +7,7 @@
 #include <sstream>
 
 TileMap::TileMap(GameObject &associated, std::string file, TileSet *tileSet)
-: Component(associated), tileSet(tileSet), scale(1.0f)
+: Component(associated), tileSet(tileSet), scale(Vec2(1.0f, 1.0f))
 {
   Load(file);
 }
@@ -230,9 +230,9 @@ void TileMap::RenderLayerTmx() {
         unsigned tileIndex = static_cast<unsigned>(rawId - 1);
 
         tileSet->RenderTile(tileIndex,
-                            associated.box.x + x * tileSet->GetTileWidth() * scale,
-                            associated.box.y + y * tileSet->GetTileHeight() * scale,
-                            scale);
+                               associated.box.x + x * tileSet->GetTileWidth() * scale.x,
+                               associated.box.y + y * tileSet->GetTileHeight() * scale.y,
+                               scale);
       }
     }
 
