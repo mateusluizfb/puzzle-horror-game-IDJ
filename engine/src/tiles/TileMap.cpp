@@ -96,39 +96,33 @@ void TileMap::LoadTmx(const std::string& file) {
 
   mapWidth  = std::stoi(root.getAttribute("width",  "0"));
   mapHeight = std::stoi(root.getAttribute("height", "0"));
-  mapDepth  = 1; // single-layer; extend via multiple <layer> nodes later
+  
+  std::vector<const XmlNode*> layers = root.findChildren("layer");
+  mapDepth = static_cast<int>(layers.size());
 
   tileMatrix.clear();
 
-  const XmlNode* layer = root.findChild("layer");
-  if (!layer) {
-    throw std::runtime_error("TileMap::LoadTmx: No <layer> found in " + file);
-  }
+  for (const auto* layerNode : layers) {
+    const XmlNode* data = layerNode->findChild("data");
+    if (!data) {
+      throw std::runtime_error("TileMap::LoadTmx: No <data> element found in layer in " + file);
+    }
 
-  const XmlNode* data = layer->findChild("data");
-  if (!data) {
-    throw std::runtime_error("TileMap::LoadTmx: No <data> element found in layer in " + file);
-  }
+    std::string encoding = data->getAttribute("encoding");
+    if (encoding != "csv") {
+      throw std::runtime_error("TileMap::LoadTmx: Only CSV encoding is supported, got: " + encoding);
+    }
 
-  std::string encoding = data->getAttribute("encoding");
-  if (encoding != "csv") {
-    throw std::runtime_error("TileMap::LoadTmx: Only CSV encoding is supported, got: " + encoding);
-  }
-
-  std::stringstream ss(data->text);
-  std::string token;
-  while (std::getline(ss, token, ',')) {
-    size_t start = token.find_first_not_of(" \t\r\n");
-
-    if (start == std::string::npos) continue; // empty / whitespace-only token
-
-    size_t end = token.find_last_not_of(" \t\r\n");
-
-    token = token.substr(start, end - start + 1);
-
-    if (token.empty()) continue;
-    
-    tileMatrix.push_back(std::stoi(token));
+    std::stringstream ss(data->text);
+    std::string token;
+    while (std::getline(ss, token, ',')) {
+      size_t start = token.find_first_not_of(" \t\r\n");
+      if (start == std::string::npos) continue; 
+      size_t end = token.find_last_not_of(" \t\r\n");
+      token = token.substr(start, end - start + 1);
+      if (token.empty()) continue;
+      tileMatrix.push_back(std::stoi(token));
+    }
   }
 
   int expected = mapWidth * mapHeight * mapDepth;
@@ -215,7 +209,7 @@ void TileMap::RenderLayerTmx() {
   for (int z = 0; z < mapDepth; ++z) {
     parallaxFactor += parallaxIncrement;
 
-    Camera::GetInstance().SetSpeedMultiplier(parallaxFactor);
+    // Camera::GetInstance().SetSpeedMultiplier(parallaxFactor);
 
     for (int y = 0; y < mapHeight; ++y)
     {
