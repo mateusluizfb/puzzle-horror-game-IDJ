@@ -21,6 +21,7 @@ class TileObject : public Component {
 private:
   TileObjectData data;
   TileSet tileSet;
+  float scale;
 
 public:
   // tileSetFile  : path to the tileset image (e.g. "game/assets/img/Tileset.png")
@@ -29,7 +30,8 @@ public:
              const TileObjectData& data,
              const std::string& tileSetFile,
              int tileWidth,
-             int tileHeight);
+             int tileHeight,
+             float scale);
 
   void Render() override;
   void Update(float dt) override;

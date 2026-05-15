@@ -5,15 +5,15 @@
     ],
     "fileStates": {
         "map.tmx": {
-            "scale": 0.7463,
-            "selectedLayer": 0,
+            "scale": 1.6498,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 363.12474876055205,
-                "y": 280.71820983518694
+                "x": 377.0153958055522,
+                "y": 402.1699599951509
             }
         },
         "tileset.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.4613,
             "scaleInEditor": 1
         }
     },
@@ -27,6 +27,7 @@
         "tileset.tsx"
     ],
     "project": "untitled.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "tileset.tsx",
         "map.tmx"

@@ -13,8 +13,8 @@ static std::string DirOf(const std::string& path) {
   return (sep == std::string::npos) ? "" : path.substr(0, sep + 1);
 }
 
-TileObjects::TileObjects(const std::string &tmxFile, const std::string &tileSetFile)
-    : tmxFile(tmxFile), tileSetFile(tileSetFile), tileWidth(0), tileHeight(0)
+TileObjects::TileObjects(const std::string &tmxFile, const std::string &tileSetFile, float scale)
+    : tmxFile(tmxFile), tileSetFile(tileSetFile), tileWidth(0), tileHeight(0), scale(scale)
 {}
 
 void TileObjects::RegisterComponent(const std::string& name, std::function<Component*(GameObject&)> factory) {
@@ -95,7 +95,7 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
   Log::debug("TILE_OBJECTS - Spawning object id=" + std::to_string(data.id));
 
   GameObject *go = new GameObject();
-  go->AddComponent(new TileObject(*go, data, tileSetFile, tileWidth, tileHeight));
+  go->AddComponent(new TileObject(*go, data, tileSetFile, tileWidth, tileHeight, scale));
 
   for (const std::string& key : componentRegistrationOrder) {
     auto propIt = data.properties.find(key);

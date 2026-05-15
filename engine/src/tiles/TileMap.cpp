@@ -230,8 +230,8 @@ void TileMap::RenderLayerTmx() {
         unsigned tileIndex = static_cast<unsigned>(rawId - 1);
 
         tileSet->RenderTile(tileIndex,
-                            associated.box.x + x * tileSet->GetTileWidth(),
-                            associated.box.y + y * tileSet->GetTileHeight(),
+                            associated.box.x + x * tileSet->GetTileWidth() * scale,
+                            associated.box.y + y * tileSet->GetTileHeight() * scale,
                             scale);
       }
     }

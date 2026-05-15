@@ -46,6 +46,8 @@ void StageState::Start()
 
 void StageState::LoadAssets()
 {
+  float tileScale = 2.0f;
+
   Log::debug("STAGE_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
   bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Background.png"));
@@ -58,7 +60,7 @@ void StageState::LoadAssets()
   GameObject *tileMapGameObject = new GameObject();
   TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/tileset.png");
   TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/map.tmx", tileSet);
-  tileMap->scale = 2.0f;
+  tileMap->scale = tileScale;
   tileMapGameObject->AddComponent(tileMap);
   this->AddObject(tileMapGameObject);
   Log::debug("STAGE_STATE - TileMap game object loaded");
@@ -75,21 +77,22 @@ void StageState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(1253, 901);
+  spriteRenderer1->SetPosition(584, 712);
   Log::debug("STAGE_STATE - Character game object loaded");
 
   Log::debug("STAGE_STATE - Starting TileObjects loader");
-  TileObjects loader(
-    "game/assets/map/tilemap.tmx",
-    "game/assets/img/Tileset.png"
+  TileObjects tileObjects(
+      "game/assets/tiles/map.tmx",
+      "game/assets/tiles/tileset.png",
+      tileScale
   );
-  loader.RegisterComponent("pushable", [](GameObject& go) -> Component* {
+  tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
     return new Pushable(go, 100.0f);
   });
-  loader.RegisterComponent("collider", [](GameObject& go) -> Component* {
+  tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });
-  loader.Load(*this);
+  tileObjects.Load(*this);
   Log::debug("STAGE_STATE - TileObjects loader finished");
 
   Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
