@@ -8,8 +8,9 @@
 #include "State.h"
 #include "TileObject.h"
 #include "Component.h"
-#include "../physics/RectUtils.h"
-#include "../physics/Collider.h"
+#include "CompositeTileRenderer.h"
+#include "RectUtils.h"
+#include "Collider.h"
 
 class TileObjects {
 private:

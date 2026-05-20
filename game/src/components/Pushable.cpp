@@ -16,8 +16,6 @@ void Pushable::Update(float dt) {
   if (isPushing) {
     Vec2 direction = Vec2(0, 0);
 
-    // Check if it's further away from the target's x or y, the higher says if the
-    // movement is horizontal or vertical
     if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
       direction.x = (pushDirection.x > 0) ? 1.0f : -1.0f;
     } else {

@@ -6,10 +6,10 @@
     "fileStates": {
         "map.tmx": {
             "scale": 1.6498,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 377.0153958055522,
-                "y": 402.1699599951509
+                "x": 342.7688204630864,
+                "y": 402.169959995151
             }
         },
         "tileset.tsx": {

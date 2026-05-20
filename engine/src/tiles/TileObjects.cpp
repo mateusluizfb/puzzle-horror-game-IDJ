@@ -1,9 +1,11 @@
 #include <stdexcept>
 #include <string>
+#include <set>
 
 #include "Log.h"
 #include "TileObjects.h"
 #include "TileObject.h"
+#include "CompositeTileRenderer.h"
 #include "GameObject.h"
 #include "XmlParser.h"
 
@@ -95,7 +97,6 @@ void TileObjects::LoadTmx(const std::string& file) {
 void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
   Log::debug("TILE_OBJECTS - Spawning object id=" + std::to_string(data.id));
 
-  // Check for mutual exclusivity between 'collider' and 'composite_collider'
   bool hasCollider = data.properties.count("collider") && data.properties.at("collider") == "true";
   bool hasComposite = data.properties.count("composite_collider") && data.properties.at("composite_collider") == "true";
   if (hasCollider && hasComposite) {
@@ -109,7 +110,6 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
     auto propIt = data.properties.find(key);
     if (propIt == data.properties.end() || propIt->second != "true") continue;
     
-    // Respect mutual exclusivity for the actual component spawning
     if (key == "collider" && hasComposite) continue;
 
     auto it = componentFactories.find(key);
@@ -185,13 +185,50 @@ void TileObjects::MergeCompositeColliders(State& state) {
       col->SetComposite(true);
     }
 
+    CompositeTileRenderer* renderer = new CompositeTileRenderer(*primary, tileSetFile, tileWidth, tileHeight, scale);
+    
+    TileObject* primaryTile = primary->GetComponent<TileObject>();
+    if (primaryTile) {
+      const TileObjectData& data = primaryTile->GetData();
+      renderer->AddTile(data.gid, Vec2(0, 0));
+    }
+    primary->AddComponent(renderer);
+
+    std::set<std::string> componentsOnPrimary;
+    for (const std::string& key : componentRegistrationOrder) {
+      auto propIt = primaryTile->GetData().properties.find(key);
+      if (propIt != primaryTile->GetData().properties.end() && propIt->second == "true") {
+        componentsOnPrimary.insert(key);
+      }
+    }
+
     for (size_t i = 1; i < members.size(); ++i) {
       GameObject* go = compositeColliderObjects[members[i]];
-      Collider* col = go->GetComponent<Collider>();
-      if (col) {
-        go->RemoveComponent(col);
-        delete col;
+      TileObject* tile = go->GetComponent<TileObject>();
+      if (tile) {
+        const TileObjectData& data = tile->GetData();
+        Vec2 offset(
+          go->box.x - primary->box.x,
+          go->box.y - primary->box.y
+        );
+        renderer->AddTile(data.gid, offset);
+        
+        for (const std::string& key : componentRegistrationOrder) {
+          auto propIt = data.properties.find(key);
+          if (propIt == data.properties.end() || propIt->second != "true") continue;
+          
+          if (componentsOnPrimary.find(key) == componentsOnPrimary.end()) {
+            auto it = componentFactories.find(key);
+            if (it != componentFactories.end()) {
+              Component* component = it->second(*primary);
+              primary->AddComponent(component);
+              componentsOnPrimary.insert(key);
+            }
+          }
+        }
       }
+
+      go->RequestDelete();
       mergedCount++;
     }
   }
