@@ -28,7 +28,7 @@ TEST(TileObjectTest, SetsBoxAndTagFromData)
   data.height = 64.f;
 
   GameObject* go = new GameObject();
-  TileObject* obj = new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H);
+  TileObject* obj = new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H, Vec2(1.0f, 1.0f));
   go->AddComponent(obj);
 
   EXPECT_NEAR(go->box.x, 100.f, 0.01f);
@@ -57,7 +57,7 @@ TEST(TileObjectTest, GetDataReturnsCorrectData)
   data.properties["pushable"] = "true";
 
   GameObject* go = new GameObject();
-  TileObject* obj = new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H);
+  TileObject* obj = new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H, Vec2(1.0f, 1.0f));
   go->AddComponent(obj);
 
   const TileObjectData& got = obj->GetData();
@@ -83,7 +83,7 @@ TEST(TileObjectTest, RenderDoesNotThrow)
   data.height = 64.f;
 
   GameObject* go = new GameObject();
-  TileObject* obj = new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H);
+  TileObject* obj = new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H, Vec2(1.0f, 1.0f));
   go->AddComponent(obj);
 
   EXPECT_NO_THROW(obj->Render());
@@ -101,7 +101,7 @@ TEST(TileObjectTest, UpdateDoesNotThrow)
   data.x = 0; data.y = 0; data.width = 64; data.height = 64;
 
   GameObject* go = new GameObject();
-  go->AddComponent(new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H));
+   go->AddComponent(new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H, Vec2(1.0f, 1.0f)));
 
   EXPECT_NO_THROW(go->Update(0.016f));
 
@@ -120,7 +120,7 @@ TEST(TileObjectsLoaderTest, LoadsObjectsFromTmx)
   State* state = new StageState();
   game->StateStackPush(new StageState());
 
-  TileObjects loader(TMX_PATH, TILESET_IMG);
+  TileObjects loader(TMX_PATH, TILESET_IMG, Vec2(1.0f, 1.0f));
   loader.Load(*state);
 
   delete state;
@@ -134,7 +134,7 @@ TEST(TileObjectsLoaderTest, ObjectPositionAndSize)
   State* state = new StageState();
   game->StateStackPush(new StageState());
 
-  TileObjects loader(TMX_PATH, TILESET_IMG);
+  TileObjects loader(TMX_PATH, TILESET_IMG, Vec2(1.0f, 1.0f));
   loader.Load(*state);
 
   const auto& objects = loader.GetObjects();
@@ -157,7 +157,7 @@ TEST(TileObjectsLoaderTest, ObjectGidIsParsed)
   State* state = new StageState();
   game->StateStackPush(new StageState());
 
-  TileObjects loader(TMX_PATH, TILESET_IMG);
+  TileObjects loader(TMX_PATH, TILESET_IMG, Vec2(1.0f, 1.0f));
   loader.Load(*state);
 
   const auto& objects = loader.GetObjects();
@@ -175,7 +175,7 @@ TEST(TileObjectsLoaderTest, ObjectPropertiesAreParsed)
   State* state = new StageState();
   game->StateStackPush(new StageState());
 
-  TileObjects loader(TMX_PATH, TILESET_IMG);
+  TileObjects loader(TMX_PATH, TILESET_IMG, Vec2(1.0f, 1.0f));
   loader.Load(*state);
 
   const auto& objects = loader.GetObjects();
@@ -200,7 +200,7 @@ TEST(TileObjectsLoaderTest, SpawnObjectAddsToState)
 
   size_t before = state->GetObjectArray().size();
 
-  TileObjects loader(TMX_PATH, TILESET_IMG);
+  TileObjects loader(TMX_PATH, TILESET_IMG, Vec2(1.0f, 1.0f));
   loader.Load(*state);
 
   size_t after = state->GetObjectArray().size();
@@ -218,7 +218,7 @@ TEST(TileObjectsLoaderTest, SpawnedObjectHasTileObjectComponent)
   State* state = new StageState();
   game->StateStackPush(new StageState());
 
-  TileObjects loader(TMX_PATH, TILESET_IMG);
+  TileObjects loader(TMX_PATH, TILESET_IMG, Vec2(1.0f, 1.0f));
   loader.Load(*state);
 
   std::weak_ptr<GameObject> found = state->GetObjectByTag("box");
@@ -239,7 +239,7 @@ TEST(TileObjectsLoaderTest, InvalidFileThrows)
   game->StateStackPush(new StageState());
 
   EXPECT_THROW(
-    TileObjects("nonexistent_file.tmx", TILESET_IMG).Load(*state),
+    TileObjects("nonexistent_file.tmx", TILESET_IMG, Vec2(1.0f, 1.0f)).Load(*state),
     std::runtime_error
   );
 

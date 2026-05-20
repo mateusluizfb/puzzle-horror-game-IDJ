@@ -31,6 +31,7 @@ void TileObjects::Load(State &state)
   for (const auto& data : objects) {
     SpawnObject(state, data);
   }
+  MergeCompositeColliders(state);
 }
 
 void TileObjects::LoadTmx(const std::string& file) {
@@ -94,6 +95,13 @@ void TileObjects::LoadTmx(const std::string& file) {
 void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
   Log::debug("TILE_OBJECTS - Spawning object id=" + std::to_string(data.id));
 
+  // Check for mutual exclusivity between 'collider' and 'composite_collider'
+  bool hasCollider = data.properties.count("collider") && data.properties.at("collider") == "true";
+  bool hasComposite = data.properties.count("composite_collider") && data.properties.at("composite_collider") == "true";
+  if (hasCollider && hasComposite) {
+    Log::warning("TILE_OBJECTS - Object id=" + std::to_string(data.id) + " has both 'collider' and 'composite_collider'. 'composite_collider' will take precedence.");
+  }
+
   GameObject *go = new GameObject();
   go->AddComponent(new TileObject(*go, data, tileSetFile, tileWidth, tileHeight, scale));
 
@@ -101,6 +109,9 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
     auto propIt = data.properties.find(key);
     if (propIt == data.properties.end() || propIt->second != "true") continue;
     
+    // Respect mutual exclusivity for the actual component spawning
+    if (key == "collider" && hasComposite) continue;
+
     auto it = componentFactories.find(key);
     if (it != componentFactories.end()) {
       Component* component = it->second(*go);
@@ -108,9 +119,82 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
     }
   }
 
+  if (hasComposite) {
+    compositeColliderObjects.push_back(go);
+  }
+
   state.AddObject(go);
 }
 
 const std::vector<TileObjectData>& TileObjects::GetObjects() const {
   return objects;
+}
+
+void TileObjects::MergeCompositeColliders(State& state) {
+  if (compositeColliderObjects.empty()) return;
+
+  size_t n = compositeColliderObjects.size();
+  std::vector<int> parent(n);
+  for (size_t i = 0; i < n; ++i) parent[i] = (int)i;
+
+  auto find = [&](int i) {
+    int root = i;
+    while (parent[root] != root) root = parent[root];
+    while (parent[i] != root) {
+      int next = parent[i];
+      parent[i] = root;
+      i = next;
+    }
+    return root;
+  };
+
+  auto unite = [&](int i, int j) {
+    int rootI = find(i);
+    int rootJ = find(j);
+    if (rootI != rootJ) parent[rootI] = rootJ;
+  };
+
+  for (size_t i = 0; i < n; ++i) {
+    for (size_t j = i + 1; j < n; ++j) {
+      if (RectsOverlap(compositeColliderObjects[i]->box, compositeColliderObjects[j]->box)) {
+        unite((int)i, (int)j);
+      }
+    }
+  }
+
+  std::map<int, std::vector<size_t>> groups;
+  for (size_t i = 0; i < n; ++i) {
+    groups[find((int)i)].push_back(i);
+  }
+
+  int mergedCount = 0;
+  for (auto it = groups.begin(); it != groups.end(); ++it) {
+    const std::vector<size_t>& members = it->second;
+    if (members.size() <= 1) continue;
+
+    Rect mergedBox = compositeColliderObjects[members[0]]->box;
+    for (size_t i = 1; i < members.size(); ++i) {
+      mergedBox = MergeRects(mergedBox, compositeColliderObjects[members[i]]->box);
+    }
+
+    GameObject* primary = compositeColliderObjects[members[0]];
+    primary->box = mergedBox;
+    Collider* col = primary->GetComponent<Collider>();
+    if (col) {
+      col->GetBox() = mergedBox;
+      col->SetComposite(true);
+    }
+
+    for (size_t i = 1; i < members.size(); ++i) {
+      GameObject* go = compositeColliderObjects[members[i]];
+      Collider* col = go->GetComponent<Collider>();
+      if (col) {
+        go->RemoveComponent(col);
+        delete col;
+      }
+      mergedCount++;
+    }
+  }
+
+  Log::info("TILE_OBJECTS - Merged " + std::to_string(mergedCount) + " composite colliders into " + std::to_string(groups.size()) + " groups");
 }

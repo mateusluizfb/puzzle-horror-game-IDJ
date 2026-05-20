@@ -92,7 +92,11 @@ void StageState::LoadAssets()
   tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });
+  tileObjects.RegisterComponent("composite_collider", [](GameObject& go) -> Component* {
+    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
+  });
   tileObjects.Load(*this);
+
   Log::debug("STAGE_STATE - TileObjects loader finished");
 
   Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());

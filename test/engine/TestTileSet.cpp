@@ -29,7 +29,7 @@ TEST(TileSetTest, TileScaling)
   TileSet *tileSet = new TileSet(16, 16, "game/assets/img/Tileset.png");
   float scale = 2.0f;
 
-  EXPECT_NO_THROW(tileSet->RenderTile(0, 0, 0, scale));
+  EXPECT_NO_THROW(tileSet->RenderTile(0, 0, 0, Vec2(scale, scale)));
 
   delete tileSet;
   delete game;
