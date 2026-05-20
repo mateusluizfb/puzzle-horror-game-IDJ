@@ -26,6 +26,7 @@ private:
   Rect box;
   Vec2 scale;
   Vec2 offset;
+  bool isComposite = false;
 
 public:
   Collider(GameObject &associated, Vec2 scale = Vec2(1, 1), Vec2 offset = Vec2(0, 0));
@@ -35,6 +36,8 @@ public:
   void SetScale(Vec2 scale);
   void SetOffset(Vec2 offset);
   Rect& GetBox();
+  void SetComposite(bool composite) { isComposite = composite; }
+  bool GetIsComposite() const { return isComposite; }
 };
 
 #endif

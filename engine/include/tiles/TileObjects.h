@@ -8,6 +8,9 @@
 #include "State.h"
 #include "TileObject.h"
 #include "Component.h"
+#include "CompositeTileRenderer.h"
+#include "RectUtils.h"
+#include "Collider.h"
 
 class TileObjects {
 private:
@@ -22,9 +25,11 @@ private:
 
   std::map<std::string, std::function<Component*(GameObject&)>> componentFactories;
   std::vector<std::string> componentRegistrationOrder;
+  std::vector<GameObject*> compositeColliderObjects;
 
   void LoadTmx(const std::string& file);
   void SpawnObject(State& state, const TileObjectData& data);
+  void MergeCompositeColliders(State& state);
 
 public:
   TileObjects(const std::string& file, const std::string& tileSetFile, Vec2 scale);
