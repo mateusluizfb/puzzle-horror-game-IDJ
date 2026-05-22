@@ -57,6 +57,7 @@ private:
   Vec2 speed;
   float linearSpeed;
   int hp;
+  Vec2 collisionNormal;
   Timer deathTimer;
 };
 

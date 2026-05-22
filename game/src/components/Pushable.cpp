@@ -4,12 +4,11 @@
 
 #include <cmath>
 
-Pushable::Pushable(GameObject& associated, float pushSpeed, std::string pushableTag)
+Pushable::Pushable(GameObject& associated, float pushSpeed)
   : Component(associated),
     pushDirection(Vec2(0, 0)),
     pushSpeed(pushSpeed),
-    isPushing(false),
-    pushableTag(pushableTag)
+    isPushing(false)
 {}
 
 void Pushable::Update(float dt) {

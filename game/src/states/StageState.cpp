@@ -17,6 +17,7 @@
 #include "TileMap.h"
 #include "TileObjects.h"
 #include "Pushable.h"
+#include "Wall.h"
 
 StageState::StageState(): State(), music("game/audio/BGM.wav")
 {
@@ -88,6 +89,9 @@ void StageState::LoadAssets()
   );
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
     return new Pushable(go, 100.0f);
+  });
+  tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
+    return new Wall(go);
   });
   tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
