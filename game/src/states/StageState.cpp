@@ -16,7 +16,10 @@
 #include "GameObject.h"
 #include "TileMap.h"
 #include "TileObjects.h"
+#include "TileObject.h"
 #include "Pushable.h"
+#include "Wall.h"
+#include "StagePush.h"
 
 StageState::StageState(): State(), music("game/audio/BGM.wav")
 {
@@ -89,12 +92,25 @@ void StageState::LoadAssets()
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
     return new Pushable(go, 100.0f);
   });
+  tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
+    return new Wall(go);
+  });
   tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });
   tileObjects.RegisterComponent("composite_collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });
+  tileObjects.RegisterComponent("stage_push", [](GameObject& go) -> Component* {
+    const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
+    std::string stageName = "TitleState";
+    auto it = data.properties.find("stage_change_name");
+    if (it != data.properties.end()) {
+      stageName = it->second;
+    }
+    return new StagePush(go, stageName);
+  });
+  
   tileObjects.Load(*this);
 
   Log::debug("STAGE_STATE - TileObjects loader finished");

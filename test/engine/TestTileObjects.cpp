@@ -101,7 +101,7 @@ TEST(TileObjectTest, UpdateDoesNotThrow)
   data.x = 0; data.y = 0; data.width = 64; data.height = 64;
 
   GameObject* go = new GameObject();
-   go->AddComponent(new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H, Vec2(1.0f, 1.0f)));
+  go->AddComponent(new TileObject(*go, data, TILESET_IMG, TILE_W, TILE_H, Vec2(1.0f, 1.0f)));
 
   EXPECT_NO_THROW(go->Update(0.016f));
 

@@ -21,6 +21,7 @@ Character::Character(GameObject &associated, std::string sprite)
     speed(Vec2(0, 0)),
     linearSpeed(100),
     hp(100),
+    collisionNormal(Vec2(0, 0)),
     deathTimer(Timer())
 {
   SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, sprite, 3, 4);
@@ -59,6 +60,9 @@ void Character::Update(float dt) {
   Animator* animator = associated.GetComponent<Animator>();
 
   if (associated.IsDead()) return;
+
+  Vec2 blockDir = collisionNormal;
+  collisionNormal = Vec2(0, 0);
 
   if (hit) {
     Timer* hitTimer = &animator->hitTimer;
@@ -112,7 +116,6 @@ void Character::Update(float dt) {
         {          
           animator->SetAnimation("walking");
 
-          // TODO test without normalize
           speed = item.pos.Normalize() * linearSpeed;
 
           SpriteRenderer* spriteRenderer = associated.GetComponent<SpriteRenderer>();
@@ -123,9 +126,14 @@ void Character::Update(float dt) {
             spriteRenderer->SetFlip(SDL_FLIP_NONE);
           }
 
-          associated.box.x += speed.x * dt;
-          associated.box.y += speed.y * dt;
+          Vec2 moveDelta = speed * dt;
+          if (blockDir.x > 0 && moveDelta.x > 0) moveDelta.x = 0;
+          if (blockDir.x < 0 && moveDelta.x < 0) moveDelta.x = 0;
+          if (blockDir.y > 0 && moveDelta.y > 0) moveDelta.y = 0;
+          if (blockDir.y < 0 && moveDelta.y < 0) moveDelta.y = 0;
 
+          associated.box.x += moveDelta.x;
+          associated.box.y += moveDelta.y;
           break;
         }
 
@@ -174,6 +182,42 @@ void Character::NotifyCollision(GameObject &other) {
   Bullet *bullet = other.GetComponent<Bullet>();
   Animator *animator = associated.GetComponent<Animator>();
   Timer *hitTimer = &animator->hitTimer;
+
+  if (other.tag == "wall") {
+    Collider* charCol = associated.GetComponent<Collider>();
+    Collider* wallCol = other.GetComponent<Collider>();
+    if (!charCol || !wallCol) return;
+
+    Rect& a = charCol->GetBox();
+    Rect& b = wallCol->GetBox();
+
+    float overlapLeft = (a.x + a.w) - b.x;
+    float overlapRight = (b.x + b.w) - a.x;
+    float overlapTop = (a.y + a.h) - b.y;
+    float overlapBottom = (b.y + b.h) - a.y;
+
+    float overlapX = (overlapLeft < overlapRight) ? overlapLeft : overlapRight;
+    float overlapY = (overlapTop < overlapBottom) ? overlapTop : overlapBottom;
+
+    if (overlapX < overlapY) {
+      if (overlapLeft < overlapRight) {
+        associated.box.x -= overlapLeft;
+        collisionNormal = Vec2(1, 0);
+      } else {
+        associated.box.x += overlapRight;
+        collisionNormal = Vec2(-1, 0);
+      }
+    } else {
+      if (overlapTop < overlapBottom) {
+        associated.box.y -= overlapTop;
+        collisionNormal = Vec2(0, 1);
+      } else {
+        associated.box.y += overlapBottom;
+        collisionNormal = Vec2(0, -1);
+      }
+    }
+    return;
+  }
 
   if (player && IMMORTAL) {
     Log::warning("CHARACTER - IMMORTAL mode active, no damage taken.");
