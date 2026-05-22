@@ -1,0 +1,38 @@
+#include "StagePush.h"
+#include "Log.h"
+#include "Game.h"
+#include "TitleState.h"
+#include "EndState.h"
+#include "StageState.h"
+
+StagePush::StagePush(GameObject& associated, const std::string& stageName)
+  : Component(associated)
+  , targetStage(stageName)
+  , triggered(false)
+{
+  Log::debug("StagePush - Registered for object: " + associated.tag + 
+             " -> target stage: " + targetStage);
+}
+
+void StagePush::Update(float /*dt*/) {
+  triggered = false;
+}
+
+void StagePush::Render() {}
+
+void StagePush::NotifyCollision(GameObject& other) {
+  if (other.tag != "player" || triggered) return;
+  
+  Log::info("StagePush - Transition to stage: " + targetStage);
+  triggered = true;
+  
+  if (targetStage == "TitleState") {
+    Game::GetInstance().Push(new TitleState());
+  } else if (targetStage == "EndState") {
+    Game::GetInstance().Push(new EndState());
+  } else if (targetStage == "StageState") {
+    Game::GetInstance().Push(new StageState());
+  } else {
+    Log::warning("StagePush - Unknown stage name: " + targetStage);
+  }
+}
