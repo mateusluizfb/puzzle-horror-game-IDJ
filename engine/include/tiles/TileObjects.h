@@ -9,7 +9,7 @@
 #include "TileObject.h"
 #include "Component.h"
 #include "CompositeTileRenderer.h"
-#include "RectUtils.h"
+#include "Rect.h"
 #include "Collider.h"
 
 class TileObjects {

@@ -156,7 +156,7 @@ void TileObjects::MergeCompositeColliders(State& state) {
 
   for (size_t i = 0; i < n; ++i) {
     for (size_t j = i + 1; j < n; ++j) {
-      if (RectsOverlap(compositeColliderObjects[i]->box, compositeColliderObjects[j]->box)) {
+      if (Rect::Overlaps(compositeColliderObjects[i]->box, compositeColliderObjects[j]->box)) {
         unite((int)i, (int)j);
       }
     }
@@ -174,7 +174,7 @@ void TileObjects::MergeCompositeColliders(State& state) {
 
     Rect mergedBox = compositeColliderObjects[members[0]]->box;
     for (size_t i = 1; i < members.size(); ++i) {
-      mergedBox = MergeRects(mergedBox, compositeColliderObjects[members[i]]->box);
+      mergedBox = Rect::Merge(mergedBox, compositeColliderObjects[members[i]]->box);
     }
 
     GameObject* primary = compositeColliderObjects[members[0]];
