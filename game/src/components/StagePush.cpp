@@ -4,6 +4,7 @@
 #include "TitleState.h"
 #include "EndState.h"
 #include "StageState.h"
+#include "WarningState.h"
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -32,6 +33,8 @@ void StagePush::NotifyCollision(GameObject& other) {
     Game::GetInstance().Push(new EndState());
   } else if (targetStage == "StageState") {
     Game::GetInstance().Push(new StageState());
+  } else if (targetStage == "WarningState") {
+    Game::GetInstance().Push(new WarningState());
   } else {
     Log::warning("StagePush - Unknown stage name: " + targetStage);
   }

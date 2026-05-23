@@ -20,6 +20,7 @@
 #include "Pushable.h"
 #include "Wall.h"
 #include "StagePush.h"
+#include "WarningState.h"
 
 StageState::StageState(): State(), music("game/audio/BGM.wav")
 {

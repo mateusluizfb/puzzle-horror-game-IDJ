@@ -1,4 +1,8 @@
 {
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
     "activeFile": "",
     "expandedProjectPaths": [
         "."
@@ -9,8 +13,8 @@
             "scale": 1.6498,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 410.35277003273126,
-                "y": 448.84228391320164
+                "x": 288.82288762274214,
+                "y": 409.74663595587344
             }
         },
         "tileset.tsx": {
@@ -30,8 +34,8 @@
     "project": "untitled.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "tileset.tsx",
-        "map.tmx"
+        "map.tmx",
+        "tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

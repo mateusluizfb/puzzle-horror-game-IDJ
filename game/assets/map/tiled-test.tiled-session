@@ -1,7 +1,6 @@
 {
     "activeFile": "",
     "expandedProjectPaths": [
-        "."
     ],
     "fileStates": {
         "Tileset.tsx": {
@@ -12,8 +11,8 @@
             "scale": 0.3093,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1096.0232783705142,
-                "y": 1065.3087617200129
+                "x": 431.61978661493697,
+                "y": 1196.2495958616232
             }
         }
     },
@@ -27,8 +26,8 @@
     "project": "tiled-test.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Tileset.tsx",
-        "tilemap.tmx"
+        "tilemap.tmx",
+        "Tileset.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
