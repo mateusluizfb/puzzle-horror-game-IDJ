@@ -29,6 +29,8 @@ public:
   void RemoveComponent(Component* cpt);
   float GetAngleRad();
   void NotifyCollision(GameObject& other);
+  
+  const std::vector<Component*>& GetComponents() const { return components; }
 
   template <typename T>
   T *GetComponent()

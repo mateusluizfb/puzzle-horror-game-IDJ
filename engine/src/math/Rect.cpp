@@ -1,5 +1,7 @@
 #include "Rect.h"
 
+#include <algorithm>
+
 Rect::Rect() : x(0.0), y(0.0), w(0.0), h(0.0) {}
 
 Rect::Rect(float x, float y, float w, float h) : x(x), y(y), w(w), h(h) {}
@@ -39,4 +41,21 @@ void Rect::SetCenter(Vec2 newCenter)
 {
   this->x = newCenter.x - (this->w / 2.0f);
   this->y = newCenter.y - (this->h / 2.0f);
+}
+
+bool Rect::Overlaps(const Rect &a, const Rect &b)
+{
+  return (a.x <= b.x + b.w &&
+          a.x + a.w >= b.x &&
+          a.y <= b.y + b.h &&
+          a.y + a.h >= b.y);
+}
+
+Rect Rect::Merge(const Rect &a, const Rect &b)
+{
+  float x = std::min(a.x, b.x);
+  float y = std::min(a.y, b.y);
+  float max_x = std::max(a.x + a.w, b.x + b.w);
+  float max_y = std::max(a.y + a.h, b.y + b.h);
+  return Rect(x, y, max_x - x, max_y - y);
 }
