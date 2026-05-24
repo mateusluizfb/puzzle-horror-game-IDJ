@@ -20,6 +20,8 @@
 #include "Pushable.h"
 #include "Wall.h"
 #include "StagePush.h"
+#include "DialogueBox.h"
+#include "CreateDialogueBox.h"
 
 StageState::StageState(): State(), music("game/audio/BGM.wav")
 {
@@ -144,6 +146,43 @@ void StageState::Update(float dt)
     Log::info("STAGE_STATE - Escape key pressed, popping state");
     music.Stop();
     this->RequestPop();
+  }
+
+  // Dialogue toggle with E key
+  if (inputManager.KeyPress(SDLK_e))
+  {
+    if (!GameData::dialogueActive) {
+      SDL_Color white = {255, 255, 255, 255};
+      Rect box = Rect(
+        0,
+        Game::GetInstance().GetWindowHeight() / 1.5,
+        Game::GetInstance().GetWindowWidth(),
+        Game::GetInstance().GetWindowHeight() / 4
+      );
+      auto go = CreateDialogueBox(
+        box,
+        "game/assets/font/neodgm.ttf", 24, white,
+        "You enter a dark room. The air is cold and stale. "
+        "You hear faint whispers coming from the darkness ahead. "
+        "What do you do?",
+        {"Explore left", "Explore right", "Leave immediately"}
+      );
+      AddObject(go);
+      dialogueObject = GetObjectPtr(go);
+      GameData::dialogueActive = true;
+    }
+  }
+
+  if (!dialogueObject.expired())
+  {
+    auto go = dialogueObject.lock();
+    DialogueBox *db = go->GetComponent<DialogueBox>();
+    if (db && db->IsFinished())
+    {
+      Log::info("STAGE_STATE - Dialogue finished, removing dialogue box");
+      go->RequestDelete();
+      GameData::dialogueActive = false;
+    }
   }
 
   for (size_t i = 0; i < objectArray.size(); i++)

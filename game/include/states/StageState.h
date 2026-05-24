@@ -3,12 +3,17 @@
 
 #include "Music.h"
 #include "CollisionSystem.h"
+#include <memory>
+
+class GameObject;
 
 class StageState : public State
 {
 private:
   Music music;
   CollisionSystem collisionSystem;
+
+  std::weak_ptr<GameObject> dialogueObject;
 
 public:
   StageState();

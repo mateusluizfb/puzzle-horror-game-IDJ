@@ -3,6 +3,7 @@
 #include "PlayerController.h"
 #include "InputManager.h"
 #include "Vec2.h"
+#include "GameData.h"
 
 PlayerController::PlayerController(GameObject& gameObject)
   : Component(gameObject) {}
@@ -15,8 +16,13 @@ void PlayerController::Update(float dt) {
   InputManager &inputManager = InputManager::GetInstance();
   Character* character = associated.GetComponent<Character>();
 
-  if (inputManager.IsKeyDown(LEFT_ARROW_KEY)) {
-    character->Issue(Character::Command(CommandType::MOVE, -1, 0));  
+  if (GameData::dialogueActive) {
+    return;
+  }
+
+  if (inputManager.IsKeyDown(LEFT_ARROW_KEY))
+  {
+    character->Issue(Character::Command(CommandType::MOVE, -1, 0));
   }
 
   if (inputManager.IsKeyDown(RIGHT_ARROW_KEY)) {
