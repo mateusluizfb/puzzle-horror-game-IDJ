@@ -72,14 +72,14 @@ void DialogueBox::Update(float dt)
 
     case State::TYPING:
         UpdateTyping(dt);
-        if (inputManager.KeyPress(SDLK_SPACE)) {
+        if (inputManager.KeyPress(SPACE_KEY)) {
             displayedText = fullText;
             currentState = State::TEXT_SHOWN;
         }
         break;
 
     case State::TEXT_SHOWN:
-        if (inputManager.KeyPress(SDLK_SPACE) || inputManager.KeyPress(SDLK_RETURN)) {
+        if (inputManager.KeyPress(SPACE_KEY) || inputManager.KeyPress(SDLK_RETURN)) {
             if (currentPage < static_cast<int>(pages.size()) - 1) {
                 currentPage++;
                 displayedText = fullText;
@@ -94,13 +94,13 @@ void DialogueBox::Update(float dt)
         break;
 
     case State::OPTIONS_SHOWN:
-        if (inputManager.KeyPress(SDLK_UP)) {
+        if (inputManager.KeyPress(UP_ARROW_KEY)) {
             NavigateUp();
         }
-        if (inputManager.KeyPress(SDLK_DOWN)) {
+        if (inputManager.KeyPress(DOWN_ARROW_KEY)) {
             NavigateDown();
         }
-        if (inputManager.KeyPress(SDLK_SPACE) || inputManager.KeyPress(SDLK_RETURN)) {
+        if (inputManager.KeyPress(SPACE_KEY)) {
             finished = true;
         }
         break;
