@@ -11,15 +11,98 @@ Quiz::Quiz(GameObject &associated, const std::vector<QuizData>& quizData)
   {}
 
 void Quiz::Update(float dt) {
+  Game &game = Game::GetInstance();
+  State &currentState = game.GetCurrentState();
+
+  if (quizCompleted && !GameData::dialogueActive)
+  {
+    Log::info("QUIZ - Quiz completed dialogue finished, cleaning up");
+
+    bool allCorrect = true;
+    for (size_t i = 0; i < quizData.size(); i++)
+    {
+      if (i >= playerAnswers.size() || playerAnswers[i] != quizData[i].correctOptionIndex)
+      {
+        allCorrect = false;
+        break;
+      }
+    }
+
+    SDL_Color white = {255, 255, 255, 255};
+    Rect box = Rect(
+        0,
+        Game::GetInstance().GetWindowHeight() / 1.5,
+        Game::GetInstance().GetWindowWidth(),
+        Game::GetInstance().GetWindowHeight() / 4);
+
+    GameObject *go = CreateDialogueBox(
+        box,
+        "game/assets/font/neodgm.ttf", 24, white,
+        allCorrect ? "Congratulations! You answered all questions correctly!" : "Quiz completed! Better luck next time.",
+        {});
+
+    currentState.AddObject(go);
+    dialogueObject = currentState.GetObjectPtr(go);
+    GameData::dialogueActive = true;
+
+    quizCompleted = false;
+    return;
+  }
+
+  if (quizStarted && currentQuestionIndex >= static_cast<int>(quizData.size()))
+  {
+    Log::info("QUIZ - All questions answered, ending quiz");
+
+    quizStarted = false;
+    quizCompleted = true;
+    return;
+  }
+
+  if (quizStarted && !GameData::dialogueActive)
+  {
+    Log::info("QUIZ - Starting quiz dialogue");
+
+    QuizData currentQuestion = quizData[currentQuestionIndex];
+
+    SDL_Color white = {255, 255, 255, 255};
+    Rect box = Rect(
+        0,
+        Game::GetInstance().GetWindowHeight() / 1.5,
+        Game::GetInstance().GetWindowWidth(),
+        Game::GetInstance().GetWindowHeight() / 4);
+
+    GameObject *go = CreateDialogueBox(
+        box,
+        "game/assets/font/neodgm.ttf", 24, white,
+        currentQuestion.question,
+        currentQuestion.options
+    );
+    
+    currentState.AddObject(go);
+    dialogueObject = currentState.GetObjectPtr(go);
+    GameData::dialogueActive = true;
+    return;
+  }
+
   if (!dialogueObject.expired())
   {
     auto go = dialogueObject.lock();
     DialogueBox *db = go->GetComponent<DialogueBox>();
+
     if (db && db->IsFinished())
     {
-      Log::info("STAGE_STATE - Dialogue finished, removing dialogue box");
+      Log::info("STAGE_STATE - Dialogue finished");
+
+      int selectedOption = db->GetSelectedOption();
+      playerAnswers.push_back(selectedOption);
+      Log::info("QUIZ - Player selected option " + std::to_string(selectedOption));
+
+      currentQuestionIndex++;
+
       go->RequestDelete();
       GameData::dialogueActive = false;
+      Log::info("QUIZ - Dialogue box deleted, moving to next question");
+      return;
     }
   }
 }
@@ -36,25 +119,8 @@ void Quiz::NotifyCollision(GameObject &other) {
 
   if (inputManager.KeyPress(SDLK_e)) {
     Log::info("QUIZ - Player collided and pressed E, starting quiz");
-
-    if (!GameData::dialogueActive)
-    {
-      SDL_Color white = {255, 255, 255, 255};
-      Rect box = Rect(
-          0,
-          Game::GetInstance().GetWindowHeight() / 1.5,
-          Game::GetInstance().GetWindowWidth(),
-          Game::GetInstance().GetWindowHeight() / 4);
-      auto go = CreateDialogueBox(
-          box,
-          "game/assets/font/neodgm.ttf", 24, white,
-          "You enter a dark room. The air is cold and stale. "
-          "You hear faint whispers coming from the darkness ahead. "
-          "What do you do?",
-          {"Explore left", "Explore right", "Leave immediately"});
-      currentState.AddObject(go);
-      dialogueObject = currentState.GetObjectPtr(go);
-      GameData::dialogueActive = true;
-    }
+    quizStarted = true;
+    quizCompleted = false;
+    currentQuestionIndex = 0;
   }
 }

@@ -19,6 +19,8 @@ private:
   std::vector<int> playerAnswers;
   int currentQuestionIndex;
   std::weak_ptr<GameObject> dialogueObject;
+  bool quizStarted = false;
+  bool quizCompleted = false;
 
 public:
   Quiz(GameObject &associated, const std::vector<QuizData>& quizData);
