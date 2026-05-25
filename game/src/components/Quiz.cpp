@@ -116,7 +116,7 @@ void Quiz::NotifyCollision(GameObject &other) {
   Game &game = Game::GetInstance();
   State &currentState = game.GetCurrentState();
 
-  if (inputManager.KeyPress(SDLK_e)) {
+  if (inputManager.KeyPress(E_KEY)) {
     Log::info("QUIZ - Player collided and pressed E, starting quiz");
     state = QuizState::InProgress;
     currentQuestionIndex = 0;
