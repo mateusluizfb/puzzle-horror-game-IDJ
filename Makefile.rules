@@ -22,7 +22,7 @@ ENGINE_INC = engine/include/core engine/include/math engine/include/rendering \
              engine/include/lib
 GAME_INC   = game/include/entities game/include/controllers \
              game/include/states game/include/systems \
-             game/include/components
+             game/include/components game/include/factories
 
 INC_PATHS  = $(addprefix -I,$(ENGINE_INC)) $(addprefix -I,$(GAME_INC)) $(SDL_CFLAGS)
 
@@ -98,6 +98,9 @@ $(BIN_PATH)/systems_%.o: game/src/systems/%.cpp | folders
 	$(COMPILER) $(INC_PATHS) $< -c $(FLAGS) -o $@
 
 $(BIN_PATH)/components_%.o: game/src/components/%.cpp | folders
+	$(COMPILER) $(INC_PATHS) $< -c $(FLAGS) -o $@
+
+$(BIN_PATH)/factories_%.o: game/src/factories/%.cpp | folders
 	$(COMPILER) $(INC_PATHS) $< -c $(FLAGS) -o $@
 
 $(BIN_PATH)/Main.o: game/src/Main.cpp | folders
