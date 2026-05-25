@@ -12,6 +12,7 @@ Quiz::Quiz(GameObject &associated, const std::vector<QuizData>& quizData)
 
 void Quiz::HandleQuizNotStarted() {
   currentQuestionIndex = 0;
+  playerAnswers = {};
 }
 
 void Quiz::HandleQuizInProgress() {
