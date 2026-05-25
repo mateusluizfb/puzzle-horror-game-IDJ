@@ -1,4 +1,3 @@
-
 #ifndef GAME_DATA_H
 #define GAME_DATA_H
 
@@ -9,6 +8,7 @@ class GameData {
   public:
     static bool playerVictory;
     static Vec2 tileScale;
+    static bool dialogueActive;
 };
 
 #endif
