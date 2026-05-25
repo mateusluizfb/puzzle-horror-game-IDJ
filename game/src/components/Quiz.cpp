@@ -14,7 +14,7 @@ void Quiz::Update(float dt) {
   Game &game = Game::GetInstance();
   State &currentState = game.GetCurrentState();
 
-  if (quizCompleted && !GameData::dialogueActive)
+  if (state == QuizState::Completed && !GameData::dialogueActive)
   {
     Log::info("QUIZ - Quiz completed dialogue finished, cleaning up");
 
@@ -45,20 +45,19 @@ void Quiz::Update(float dt) {
     dialogueObject = currentState.GetObjectPtr(go);
     GameData::dialogueActive = true;
 
-    quizCompleted = false;
+    state = QuizState::NotStarted;
     return;
   }
 
-  if (quizStarted && currentQuestionIndex >= static_cast<int>(quizData.size()))
+  if (state == QuizState::InProgress && currentQuestionIndex >= static_cast<int>(quizData.size()))
   {
     Log::info("QUIZ - All questions answered, ending quiz");
 
-    quizStarted = false;
-    quizCompleted = true;
+    state = QuizState::Completed;
     return;
   }
 
-  if (quizStarted && !GameData::dialogueActive)
+  if (state == QuizState::InProgress && !GameData::dialogueActive)
   {
     Log::info("QUIZ - Starting quiz dialogue");
 
@@ -119,8 +118,7 @@ void Quiz::NotifyCollision(GameObject &other) {
 
   if (inputManager.KeyPress(SDLK_e)) {
     Log::info("QUIZ - Player collided and pressed E, starting quiz");
-    quizStarted = true;
-    quizCompleted = false;
+    state = QuizState::InProgress;
     currentQuestionIndex = 0;
   }
 }

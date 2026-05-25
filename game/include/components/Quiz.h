@@ -14,13 +14,15 @@ struct QuizData {
 
 class Quiz : public Component
 {
+public:
+  enum class QuizState { NotStarted, InProgress, Completed };
+
 private:
   std::vector<QuizData> quizData;
   std::vector<int> playerAnswers;
   int currentQuestionIndex;
   std::weak_ptr<GameObject> dialogueObject;
-  bool quizStarted = false;
-  bool quizCompleted = false;
+  QuizState state = QuizState::NotStarted;
 
 public:
   Quiz(GameObject &associated, const std::vector<QuizData>& quizData);
