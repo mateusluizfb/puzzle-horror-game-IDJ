@@ -13,8 +13,6 @@ private:
   Music music;
   CollisionSystem collisionSystem;
 
-  std::weak_ptr<GameObject> dialogueObject;
-
 public:
   StageState();
   ~StageState();
