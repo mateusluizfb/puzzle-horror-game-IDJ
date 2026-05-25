@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "Component.h"
-#include "Vec2.h"
 
 struct QuizData {
   std::string question;
@@ -12,32 +11,37 @@ struct QuizData {
   int correctOptionIndex;
 };
 
+enum class QuizState
+{
+  NotStarted,
+  InProgress,
+  Completed
+};
+
 class Quiz : public Component
 {
 public:
-  enum class QuizState
-  {
-    NotStarted,
-    InProgress,
-    Completed
-  };
-
   Quiz(GameObject &associated, const std::vector<QuizData>& quizData);
 
   void Update(float dt) override;
   void Render() override;
   void NotifyCollision(GameObject &other) override;
 
+  void StartQuiz();
+  void SubmitAnswer(int selectedOption);
+  void Reset();
+
+  QuizState GetState() const;
+  const QuizData& GetCurrentQuestion() const;
+  bool IsAllCorrect() const;
+
 private:
   std::vector<QuizData> quizData;
   std::vector<int> playerAnswers;
   int currentQuestionIndex;
-  std::weak_ptr<GameObject> dialogueObject;
   QuizState state = QuizState::NotStarted;
 
   void HandleQuizNotStarted();
-  void HandleQuizInProgress();
-  void HandleQuizCompleted();
 };
 
 #endif
