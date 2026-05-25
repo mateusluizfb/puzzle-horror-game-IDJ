@@ -15,7 +15,18 @@ struct QuizData {
 class Quiz : public Component
 {
 public:
-  enum class QuizState { NotStarted, InProgress, Completed };
+  enum class QuizState
+  {
+    NotStarted,
+    InProgress,
+    Completed
+  };
+
+  Quiz(GameObject &associated, const std::vector<QuizData>& quizData);
+
+  void Update(float dt) override;
+  void Render() override;
+  void NotifyCollision(GameObject &other) override;
 
 private:
   std::vector<QuizData> quizData;
@@ -24,12 +35,9 @@ private:
   std::weak_ptr<GameObject> dialogueObject;
   QuizState state = QuizState::NotStarted;
 
-public:
-  Quiz(GameObject &associated, const std::vector<QuizData>& quizData);
-
-  void Update(float dt) override;
-  void Render() override;
-  void NotifyCollision(GameObject &other) override;
+  void HandleQuizNotStarted();
+  void HandleQuizInProgress();
+  void HandleQuizCompleted();
 };
 
 #endif

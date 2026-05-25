@@ -10,12 +10,52 @@ Quiz::Quiz(GameObject &associated, const std::vector<QuizData>& quizData)
   : Component(associated), quizData(quizData), currentQuestionIndex(0)
   {}
 
-void Quiz::Update(float dt) {
-  Game &game = Game::GetInstance();
-  State &currentState = game.GetCurrentState();
+void Quiz::HandleQuizNotStarted() {
+  currentQuestionIndex = 0;
+}
 
-  if (state == QuizState::Completed && !GameData::dialogueActive)
+void Quiz::HandleQuizInProgress() {
+  if (currentQuestionIndex >= static_cast<int>(quizData.size()))
   {
+    Log::info("QUIZ - All questions answered, ending quiz");
+
+    state = QuizState::Completed;
+    return;
+  }
+
+  if (!GameData::dialogueActive) {
+    Game &game = Game::GetInstance();
+    State &currentState = game.GetCurrentState();
+
+    Log::info("QUIZ - Starting quiz dialogue");
+
+    QuizData currentQuestion = quizData[currentQuestionIndex];
+
+    SDL_Color white = {255, 255, 255, 255};
+    Rect box = Rect(
+        0,
+        Game::GetInstance().GetWindowHeight() / 1.5,
+        Game::GetInstance().GetWindowWidth(),
+        Game::GetInstance().GetWindowHeight() / 4);
+
+    GameObject *go = CreateDialogueBox(
+        box,
+        "game/assets/font/neodgm.ttf", 24, white,
+        currentQuestion.question,
+        currentQuestion.options);
+
+    currentState.AddObject(go);
+    dialogueObject = currentState.GetObjectPtr(go);
+    GameData::dialogueActive = true;
+  }
+}
+
+void Quiz::HandleQuizCompleted() {
+  if (!GameData::dialogueActive)
+  {
+    Game &game = Game::GetInstance();
+    State &currentState = game.GetCurrentState();
+
     Log::info("QUIZ - Quiz completed dialogue finished, cleaning up");
 
     bool allCorrect = true;
@@ -48,41 +88,23 @@ void Quiz::Update(float dt) {
     state = QuizState::NotStarted;
     return;
   }
+}
 
-  if (state == QuizState::InProgress && currentQuestionIndex >= static_cast<int>(quizData.size()))
+void Quiz::Update(float dt) {
+  switch (state)
   {
-    Log::info("QUIZ - All questions answered, ending quiz");
-
-    state = QuizState::Completed;
-    return;
+    case QuizState::NotStarted:
+      HandleQuizNotStarted();
+      break;
+    case QuizState::InProgress:
+      HandleQuizInProgress();
+      break;
+    case QuizState::Completed:
+      HandleQuizCompleted();
+      break;
   }
 
-  if (state == QuizState::InProgress && !GameData::dialogueActive)
-  {
-    Log::info("QUIZ - Starting quiz dialogue");
-
-    QuizData currentQuestion = quizData[currentQuestionIndex];
-
-    SDL_Color white = {255, 255, 255, 255};
-    Rect box = Rect(
-        0,
-        Game::GetInstance().GetWindowHeight() / 1.5,
-        Game::GetInstance().GetWindowWidth(),
-        Game::GetInstance().GetWindowHeight() / 4);
-
-    GameObject *go = CreateDialogueBox(
-        box,
-        "game/assets/font/neodgm.ttf", 24, white,
-        currentQuestion.question,
-        currentQuestion.options
-    );
-    
-    currentState.AddObject(go);
-    dialogueObject = currentState.GetObjectPtr(go);
-    GameData::dialogueActive = true;
-    return;
-  }
-
+  // Check if the dialogue box has finished and process the player's answer
   if (!dialogueObject.expired())
   {
     auto go = dialogueObject.lock();
@@ -113,12 +135,9 @@ void Quiz::NotifyCollision(GameObject &other) {
   if (other.tag != "player") return;
 
   InputManager &inputManager = InputManager::GetInstance();
-  Game &game = Game::GetInstance();
-  State &currentState = game.GetCurrentState();
 
   if (inputManager.KeyPress(E_KEY)) {
     Log::info("QUIZ - Player collided and pressed E, starting quiz");
     state = QuizState::InProgress;
-    currentQuestionIndex = 0;
   }
 }
