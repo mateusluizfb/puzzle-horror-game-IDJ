@@ -8,7 +8,7 @@ ifeq ($(UNAME_S),Linux)
 		-I../engine/include/utils -I../engine/include/lib \
 		-I../game/include -I../game/include/entities -I../game/include/controllers \
 		-I../game/include/states -I../game/include/systems \
-		-I../game/include/components
+		-I../game/include/components -I../game/include/factories
 	LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lgtest -lgtest_main -pthread
 else
 	BREW_PREFIX := $(shell brew --prefix)
@@ -21,7 +21,7 @@ else
 		-I../engine/include/utils -I../engine/include/lib \
 		-I../game/include -I../game/include/entities -I../game/include/controllers \
 		-I../game/include/states -I../game/include/systems \
-		-I../game/include/components
+		-I../game/include/components -I../game/include/factories 
 	LDFLAGS = -L$(BREW_PREFIX)/lib -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lgtest -lgtest_main -pthread
 endif
 
