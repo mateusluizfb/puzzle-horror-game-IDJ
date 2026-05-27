@@ -4,6 +4,8 @@
 #include "TitleState.h"
 #include "EndState.h"
 #include "StageState.h"
+#include "WaterTankPuzzleState.h"
+#include "Camera.h"
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -25,14 +27,26 @@ void StagePush::NotifyCollision(GameObject& other) {
   
   Log::info("StagePush - Transition to stage: " + targetStage);
   triggered = true;
-  
+
   if (targetStage == "TitleState") {
     Game::GetInstance().Push(new TitleState());
-  } else if (targetStage == "EndState") {
-    Game::GetInstance().Push(new EndState());
-  } else if (targetStage == "StageState") {
-    Game::GetInstance().Push(new StageState());
-  } else {
-    Log::warning("StagePush - Unknown stage name: " + targetStage);
+    return;
   }
+
+  if (targetStage == "EndState") {
+    Game::GetInstance().Push(new EndState());
+    return;
+  }
+  
+  if (targetStage == "StageState") {
+    Game::GetInstance().Push(new StageState());
+    return;
+  }
+
+  if (targetStage == "WaterTankPuzzleState") {
+    Game::GetInstance().Push(new WaterTankPuzzleState());
+    return;
+  }
+
+  Log::warning("StagePush - Unknown stage name: " + targetStage);
 }
