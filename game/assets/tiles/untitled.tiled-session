@@ -47,7 +47,7 @@
         "map.tmx"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "pipes_tileset.tsx",
         "map.tmx",

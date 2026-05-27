@@ -16,10 +16,6 @@ void PlayerController::Update(float dt) {
   InputManager &inputManager = InputManager::GetInstance();
   Character* character = associated.GetComponent<Character>();
 
-  if (GameData::dialogueActive) {
-    return;
-  }
-
   if (inputManager.IsKeyDown(LEFT_ARROW_KEY))
   {
     character->Issue(Character::Command(CommandType::MOVE, -1, 0));

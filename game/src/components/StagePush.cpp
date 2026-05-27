@@ -5,6 +5,7 @@
 #include "EndState.h"
 #include "StageState.h"
 #include "WaterTankPuzzleState.h"
+#include "QuizState.h"
 #include "Camera.h"
 #include "InputManager.h"
 
@@ -48,6 +49,11 @@ void StagePush::NotifyCollision(GameObject& other) {
 
   if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
     Game::GetInstance().Push(new WaterTankPuzzleState());
+    return;
+  }
+
+  if (targetStage == "Quiz" && inputManager.KeyPress(E_KEY)) {
+    Game::GetInstance().Push(new QuizState());
     return;
   }
 

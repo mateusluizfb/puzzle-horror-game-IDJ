@@ -37,6 +37,7 @@ protected:
 
   void StartArray();
   void UpdateArray(float dt);
+  void UpdateDead();
   void RenderArray();
 };
 
