@@ -59,7 +59,6 @@ void QuizState::Update(float dt)
 {
   InputManager& inputManager = InputManager::GetInstance();
 
-  // get quiz gameobject and check if it's completed:
   std::shared_ptr<GameObject> quizObject = GetObjectByTag("quiz").lock();
   if (quizObject) {
     Quiz* quiz = quizObject->GetComponent<Quiz>();
