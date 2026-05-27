@@ -199,4 +199,12 @@ void StageState::Pause()
 void StageState::Resume()
 {
   Log::info("STAGE_STATE - Resuming state");
+  GameObject* player = this->GetObjectByTag("player").lock().get();
+  
+  if (!player) {
+    Log::error("STAGE_STATE - Cannot resume: player object not found");
+    return;
+  }
+
+  Camera::GetInstance().Follow(player);
 }
