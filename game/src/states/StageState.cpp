@@ -21,6 +21,7 @@
 #include "Wall.h"
 #include "StagePush.h"
 #include "Quiz.h"
+#include "QuizUI.h"
 
 StageState::StageState(): State(), music("game/audio/BGM.wav")
 {
@@ -114,6 +115,7 @@ void StageState::LoadAssets()
         1
       }
     };
+    go.AddComponent(new QuizUI(go));
     return new Quiz(go, quizData);
   });
   tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *

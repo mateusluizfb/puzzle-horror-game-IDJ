@@ -13,6 +13,7 @@
 #define ESCAPE_KEY SDLK_ESCAPE
 #define LEFT_MOUSE_BUTTON SDL_BUTTON_LEFT
 #define SPACE_KEY SDLK_SPACE
+#define E_KEY SDLK_e
 
 class InputManager {
 private:
