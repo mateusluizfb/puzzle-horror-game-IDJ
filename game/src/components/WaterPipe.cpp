@@ -95,7 +95,6 @@ void WaterPipe::Update(float dt)
   InputManager &inputManager = InputManager::GetInstance();
   int mouseWorldX = InputManager::GetInstance().GetMouseXWorld();
   int mouseWorldY = InputManager::GetInstance().GetMouseYWorld();
-  Animator *animator = associated.GetComponent<Animator>();
 
   if (inputManager.MousePress(LEFT_MOUSE_BUTTON) && associated.box.IsVec2Inside(Vec2(mouseWorldX, mouseWorldY)))
   {

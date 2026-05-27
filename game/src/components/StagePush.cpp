@@ -46,7 +46,7 @@ void StagePush::NotifyCollision(GameObject& other) {
     return;
   }
 
-  if (targetStage == "WaterTankPuzzleState") {
+  if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
     Game::GetInstance().Push(new WaterTankPuzzleState());
     return;
   }
