@@ -6,6 +6,7 @@
 #include "StageState.h"
 #include "WaterTankPuzzleState.h"
 #include "Camera.h"
+#include "InputManager.h"
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -24,6 +25,8 @@ void StagePush::Render() {}
 
 void StagePush::NotifyCollision(GameObject& other) {
   if (other.tag != "player" || triggered) return;
+
+  InputManager& inputManager = InputManager::GetInstance();
   
   Log::info("StagePush - Transition to stage: " + targetStage);
   triggered = true;

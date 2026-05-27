@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="3">
  <tileset firstgid="1" source="pipes_tileset.tsx"/>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="2" name="pipe_asset" x="64" y="192" width="32" height="32">
+   <properties>
+    <property name="water_pipe" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="1" name="Tile Layer 1" width="10" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,

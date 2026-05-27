@@ -9,8 +9,8 @@
             "scale": 2.8699,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 342.1722011219903,
-                "y": 331.5446531238023
+                "x": 319.87177253562845,
+                "y": 320.04599463395937
             }
         },
         "pipes_tileset.tsx": {
@@ -22,11 +22,14 @@
             "scaleInEditor": 1
         },
         "water_tank_puzzle.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
             "scale": 1.5180208333333332,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 185.10944898099228,
-                "y": 240.11528168530845
+                "x": 166.00562684416386,
+                "y": 192.0263500994991
             }
         }
     },

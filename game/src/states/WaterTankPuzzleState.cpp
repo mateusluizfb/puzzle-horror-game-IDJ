@@ -8,6 +8,8 @@
 #include "Camera.h"
 #include "TileMap.h"
 #include "TileSet.h"
+#include "TileObjects.h"
+#include "WaterPipe.h"
 
 WaterTankPuzzleState::WaterTankPuzzleState() : State(), backgroundMusic()
 {
@@ -41,6 +43,17 @@ void WaterTankPuzzleState::LoadAssets()
   tileMapGameObject->AddComponent(tileMap);
   this->AddObject(tileMapGameObject);
   Log::debug("PIPE_PUZZLE_STATE - TileMap game object loaded");
+
+  Log::debug("PIPE_PUZZLE_STATE - Starting TileObjects loader");
+  TileObjects tileObjects(
+      "game/assets/tiles/water_tank_puzzle.tmx",
+      "game/assets/tiles/pipes_tileset.png",
+      Vec2(1.0f, 1.0f));
+  tileObjects.RegisterComponent("water_pipe", [](GameObject &go) -> Component* {
+    return new WaterPipe(go);
+  });
+  tileObjects.Load(*this);
+  Log::debug("PIPE_PUZZLE_STATE - TileObjects loader finished");
 }
 
 void WaterTankPuzzleState::Update(float dt)
@@ -57,6 +70,23 @@ void WaterTankPuzzleState::Update(float dt)
   {
     Log::info("PIPE_PUZZLE_STATE - Space key pressed, restarting game");
     popRequested = true;
+
+    // get water pipe objects and check their level and check if it's level == 4
+    for (auto &obj : objectArray)    {
+      if (obj->tag == "water_pipe")
+      {
+        WaterPipe *waterPipe = obj->GetComponent<WaterPipe>();
+        if (waterPipe != nullptr)
+        {
+          if (waterPipe->GetLevel() != 4)
+          {
+            Log::info("PIPE_PUZZLE_STATE - Not all water pipes are at level 4, not restarting game");
+            popRequested = false;
+            break;
+          }
+        }
+      }
+    }
   }
 
   UpdateArray(dt);
