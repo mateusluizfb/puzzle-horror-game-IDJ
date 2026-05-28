@@ -53,7 +53,9 @@ void StagePush::NotifyCollision(GameObject& other) {
   }
 
   if (targetStage == "Quiz" && inputManager.KeyPress(E_KEY)) {
-    Game::GetInstance().Push(new QuizState());
+    QuizState* quizState = new QuizState();
+    quizState->SetIsOverlay();
+    Game::GetInstance().Push(quizState);
     return;
   }
 

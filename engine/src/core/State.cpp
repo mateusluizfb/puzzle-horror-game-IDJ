@@ -4,6 +4,7 @@
 State::State()
   : popRequested(false),
     quitRequested(false),
+    isOverlay(false),
     started(false) {}
 
 State::~State() {
@@ -116,4 +117,8 @@ void State::RenderArray()
   {
     objectArray[i]->Render();
   }
+}
+
+void State::SetIsOverlay() {
+  isOverlay = true;
 }
