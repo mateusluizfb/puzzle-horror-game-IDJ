@@ -144,9 +144,7 @@ void MazeState::Update(float dt) {
         this->RequestPop();
     }
 
-    // Atualiza movimento e posicoes
-    for (size_t i = 0; i < objectArray.size(); i++)
-        objectArray[i]->Update(dt);
+    UpdateArray(dt);
 
     // Colisoes baseadas nas posicoes atualizadas
     collisionSystem.Update(objectArray);
