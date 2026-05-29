@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "MazeState.h"
 #include "Resources.h"
 #include "State.h"
 #include "Text.h"

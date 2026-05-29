@@ -37,7 +37,7 @@ WarningState::WarningState() {
 	rule2Obj->box.y = 460.0f;
 	AddObject(rule2Obj);
 
-	// REGRA 3: Direção Unica (A pista falsa)
+	// REGRA 3: Direcao Unica (pista falsa)
 	GameObject* rule3Obj = new GameObject();
 	Text* rule3Comp = new Text(*rule3Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "- SIGA APENAS EM FRENTE. O RETORNO NAO E OPCAO.", whiteColor);
 	rule3Obj->AddComponent(rule3Comp);
@@ -71,8 +71,7 @@ void WarningState::Update(float dt) {
 	// Ao pressionar Espaco, remove este aviso da pilha e empurra o labirinto real
 	if (input.KeyPress(SDLK_SPACE)) {
 		popRequested = true;
-		quitRequested = true;
-		//Game::GetInstance().Push(new MazeState());
+		Game::GetInstance().Push(new MazeState());
 	}
 }
 
