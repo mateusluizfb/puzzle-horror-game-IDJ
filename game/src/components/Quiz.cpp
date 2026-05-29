@@ -2,10 +2,13 @@
 #include "Log.h"
 #include "Quiz.h"
 #include "InputManager.h"
+#include "GameData.h"
 
 Quiz::Quiz(GameObject &associated, const std::vector<QuizData>& quizData)
   : Component(associated), quizData(quizData), currentQuestionIndex(0)
-  {}
+  {
+    associated.tag = "quiz";
+  }
 
 void Quiz::HandleQuizNotStarted() {
   currentQuestionIndex = 0;
@@ -16,7 +19,8 @@ void Quiz::StartQuiz() {
   Log::info("QUIZ - Starting quiz");
   currentQuestionIndex = 0;
   playerAnswers.clear();
-  state = QuizState::InProgress;
+  state = QuizProgressState::InProgress;
+  GameData::dialogueActive = false;
 }
 
 void Quiz::SubmitAnswer(int selectedOption) {
@@ -27,11 +31,11 @@ void Quiz::SubmitAnswer(int selectedOption) {
 
   if (currentQuestionIndex >= static_cast<int>(quizData.size())) {
     Log::info("QUIZ - All questions answered, ending quiz");
-    state = QuizState::Completed;
+    state = QuizProgressState::Completed;
   }
 }
 
-QuizState Quiz::GetState() const {
+QuizProgressState Quiz::GetState() const {
   return state;
 }
 
@@ -49,28 +53,15 @@ bool Quiz::IsAllCorrect() const {
 }
 
 void Quiz::Update(float dt) {
-  if (state == QuizState::NotStarted) {
+  if (state == QuizProgressState::NotStarted) {
     HandleQuizNotStarted();
   }
 }
 
-void Quiz::Reset() {
+void Quiz::Finish() {
   Log::info("QUIZ - Resetting quiz");
-  state = QuizState::NotStarted;
-  currentQuestionIndex = 0;
-  playerAnswers.clear();
+  state = QuizProgressState::Finished;
 }
 
 void Quiz::Render() {
-}
-
-void Quiz::NotifyCollision(GameObject &other) {
-  if (other.tag != "player") return;
-
-  InputManager &inputManager = InputManager::GetInstance();
-
-  if (inputManager.KeyPress(E_KEY)) {
-    Log::info("QUIZ - Player collided and pressed E, starting quiz");
-    StartQuiz();
-  }
 }

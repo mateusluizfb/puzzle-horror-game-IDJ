@@ -7,6 +7,8 @@
 
 class State {
 public:
+  bool isOverlay;
+
   State();
   virtual ~State();
 
@@ -29,6 +31,8 @@ public:
   void RequestPop();
   void RequestQuit();
 
+  void SetIsOverlay();
+
 protected:
   bool popRequested;
   bool quitRequested;
@@ -37,6 +41,7 @@ protected:
 
   void StartArray();
   void UpdateArray(float dt);
+  void UpdateDead();
   void RenderArray();
 };
 

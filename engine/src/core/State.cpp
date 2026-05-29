@@ -4,6 +4,7 @@
 State::State()
   : popRequested(false),
     quitRequested(false),
+    isOverlay(false),
     started(false) {}
 
 State::~State() {
@@ -100,10 +101,24 @@ void State::UpdateArray(float dt)
   }
 }
 
+void State::UpdateDead()
+{
+  for (size_t i = 0; i < objectArray.size(); i++)
+  {
+    if (objectArray[i]->IsDead()) {
+      objectArray.erase(objectArray.begin() + i);
+    }
+  }
+}
+
 void State::RenderArray()
 {
   for (size_t i = 0; i < objectArray.size(); i++)
   {
     objectArray[i]->Render();
   }
+}
+
+void State::SetIsOverlay() {
+  isOverlay = true;
 }
