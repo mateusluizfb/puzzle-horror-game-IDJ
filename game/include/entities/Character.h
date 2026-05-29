@@ -52,7 +52,6 @@ public:
   Vec2 GetCenterPosition();
 
 private:
-  std::weak_ptr<GameObject> gun;
   std::queue<Command> taskQueue;
   Vec2 speed;
   float linearSpeed;
