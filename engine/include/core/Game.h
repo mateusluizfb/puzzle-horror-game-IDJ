@@ -23,6 +23,7 @@ private:
   float dt;
 
   State* storedState;
+  State* previousState;
   std::stack<std::unique_ptr<State>> stateStack;
 
   Game(const std::string &title, int width, int height);
