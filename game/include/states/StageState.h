@@ -3,6 +3,9 @@
 
 #include "Music.h"
 #include "CollisionSystem.h"
+#include <memory>
+
+class GameObject;
 
 class StageState : public State
 {

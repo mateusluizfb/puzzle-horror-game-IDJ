@@ -1,8 +1,4 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
         "."
@@ -10,11 +6,11 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "map.tmx": {
-            "scale": 1.6498,
-            "selectedLayer": 2,
+            "scale": 2.8699,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 406.41289853315556,
-                "y": 311.5529155049097
+                "x": 342.1722011219904,
+                "y": 331.5446531238023
             }
         },
         "tileset.tsx": {

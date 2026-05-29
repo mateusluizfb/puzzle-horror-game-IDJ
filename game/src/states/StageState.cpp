@@ -21,6 +21,8 @@
 #include "Wall.h"
 #include "StagePush.h"
 #include "WarningState.h"
+#include "Quiz.h"
+#include "QuizUI.h"
 
 StageState::StageState(): State(), music("game/audio/BGM.wav")
 {
@@ -96,10 +98,29 @@ void StageState::LoadAssets()
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
   });
-  tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
-    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
+  tileObjects.RegisterComponent("quiz", [](GameObject& go) -> Component* {
+    std::vector<QuizData> quizData = {
+      {
+        "What is the capital of France?",
+        {"Paris", "London", "Berlin"},
+        0
+      },
+      {
+        "What is 2 + 2?",
+        {"3", "4", "5"},
+        1
+      },
+      {
+        "Which planet is known as the Red Planet?",
+        {"Earth", "Mars", "Jupiter"},
+        1
+      }
+    };
+    go.AddComponent(new QuizUI(go));
+    return new Quiz(go, quizData);
   });
-  tileObjects.RegisterComponent("stage_push", [](GameObject& go) -> Component* {
+  tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *
+                                {
     const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
     std::string stageName = "TitleState";
     auto it = data.properties.find("stage_change_name");
@@ -108,7 +129,15 @@ void StageState::LoadAssets()
     }
     return new StagePush(go, stageName);
   });
+  tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
+    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
+  });
+  tileObjects.RegisterComponent("composite_collider", [](GameObject& go) -> Component* {
+    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
+  });
+  
   tileObjects.Load(*this);
+
   Log::debug("STAGE_STATE - TileObjects loader finished");
 
   Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());

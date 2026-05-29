@@ -17,6 +17,9 @@ public:
   float Distance(const Rect &other) const;
   bool IsVec2Inside(const Vec2 &vec) const;
   void SetCenter(Vec2 newCenter);
+
+  static bool Overlaps(const Rect &a, const Rect &b);
+  static Rect Merge(const Rect &a, const Rect &b);
 };
 
 #endif
