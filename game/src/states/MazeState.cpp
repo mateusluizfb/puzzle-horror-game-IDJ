@@ -45,11 +45,7 @@ MazeState::~MazeState()
 
 void MazeState::Start()
 {
-    Log::info("MAZE_STATE - Starting state");
-
-    for (size_t i = 0; i < objectArray.size(); i++) 
-		objectArray[i]->Start();
-    started = true;
+    StartArray()
 }
 
 void MazeState::LoadAssets()
