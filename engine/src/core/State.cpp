@@ -2,9 +2,9 @@
 #include "State.h"
 
 State::State()
-  : popRequested(false),
+  : isOverlay(false),
+    popRequested(false),
     quitRequested(false),
-    isOverlay(false),
     started(false) {}
 
 State::~State() {
