@@ -1,5 +1,5 @@
 {
-    "activeFile": "water_tank_puzzle.tmx",
+    "activeFile": "map.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -47,12 +47,12 @@
         "map.tmx"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "pipes_tileset.tsx",
-        "map.tmx",
+        "water_tank_puzzle.tmx",
         "tileset.tsx",
-        "water_tank_puzzle.tmx"
+        "map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
