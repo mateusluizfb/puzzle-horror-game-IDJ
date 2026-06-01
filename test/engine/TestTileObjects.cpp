@@ -7,7 +7,7 @@
 #include "TileObjects.h"
 #include "Log.h"
 
-static const std::string TMX_PATH      = "game/assets/map/tilemap.tmx";
+static const std::string TMX_PATH      = "game/assets/map/tiletest_map.tmx";
 static const std::string TILESET_IMG   = "game/assets/img/Tileset.png";
 static constexpr int     TILE_W        = 64;
 static constexpr int     TILE_H        = 64;

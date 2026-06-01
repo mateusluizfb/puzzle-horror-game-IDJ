@@ -60,8 +60,8 @@ void BedroomState::LoadAssets()
 
   Log::debug("BEDROOM_STATE - Starting TileMap game object (TMX)");
   GameObject *tileMapGameObject = new GameObject();
-  TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/tileset.png");
-  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/map.tmx", tileSet);
+  TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
+  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/test_map.tmx", tileSet);
   tileMap->scale = tileScale;
   tileMapGameObject->AddComponent(tileMap);
   this->AddObject(tileMapGameObject);
@@ -84,8 +84,8 @@ void BedroomState::LoadAssets()
 
   Log::debug("BEDROOM_STATE - Starting TileObjects loader");
   TileObjects tileObjects(
-      "game/assets/tiles/map.tmx",
-      "game/assets/tiles/tileset.png",
+      "game/assets/tiles/test_map.tmx",
+      "game/assets/tiles/test_tileset.png",
       tileScale
   );
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
