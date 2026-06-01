@@ -1,16 +1,28 @@
 {
-    "activeFile": "map.tmx",
+    "activeFile": "mapa_prototipo.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "cozinha.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "map.tmx": {
             "scale": 2.8699,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 319.87177253562845,
-                "y": 320.04599463395937
+                "x": 309.7668908324332,
+                "y": 354.8904143001498
+            }
+        },
+        "mapa_prototipo.tmx": {
+            "scale": 1.0955,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 691.0086718393429,
+                "y": 1011.410314924692
             }
         },
         "pipes_tileset.tsx": {
@@ -29,34 +41,34 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 166.00562684416386,
-                "y": 192.0263500994991
+                "y": 191.6969738557607
             }
         }
     },
     "last.imagePath": "/home/mateus/Git/puzzle-horror-game-IDJ/game/assets/tiles",
-    "map.height": 30,
+    "map.height": 50,
     "map.lastUsedFormat": "tmx",
     "map.renderOrder": "2",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 30,
+    "map.width": 50,
     "openFiles": [
-        "pipes_tileset.tsx",
-        "water_tank_puzzle.tmx",
-        "tileset.tsx",
-        "map.tmx"
+        "cozinha.tsx",
+        "mapa_prototipo.tmx"
     ],
     "project": "untitled.tiled-project",
-    "property.type": "string",
+    "property.type": "object",
     "recentFiles": [
-        "pipes_tileset.tsx",
+        "cozinha.tsx",
+        "mapa_prototipo.tmx",
         "water_tank_puzzle.tmx",
+        "pipes_tileset.tsx",
         "tileset.tsx",
         "map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 32,
-        "width": 32
+        "height": 16,
+        "width": 16
     }
 }

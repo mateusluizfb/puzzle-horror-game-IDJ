@@ -4,8 +4,7 @@
 #include "Log.h"
 #include "InputManager.h"
 #include "Game.h"
-#include "StageState.h"
-#include "StageState.h"
+#include "BedroomState.h"
 #include "Camera.h"
 #include "Text.h"
 
@@ -46,7 +45,7 @@ void TitleState::Update(float dt) {
   if (inputManager.KeyPress(SPACE_KEY))
   {
     Log::info("TITLE_STATE - Enter key pressed, popping TitleState");
-    Game::GetInstance().Push(new StageState());
+    Game::GetInstance().Push(new BedroomState());
   }
 
   UpdateArray(dt);

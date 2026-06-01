@@ -112,7 +112,8 @@
   <object id="5" gid="61" x="304" y="400" width="16" height="16">
    <properties>
     <property name="composite_collider" type="bool" value="true"/>
-    <property name="wall" type="bool" value="true"/>
+    <property name="pushable" type="bool" value="true"/>
+    <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
   <object id="6" gid="62" x="320" y="400" width="16" height="16">
