@@ -61,7 +61,7 @@ void LivingRoomCorridorState::LoadAssets()
   Log::debug("LIVINGROOMCORRIDOR_STATE - Starting TileMap game object (TMX)");
   GameObject *tileMapGameObject = new GameObject();
   TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
-  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/test_map.tmx", tileSet);
+  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/living_room_corridor.tmx", tileSet);
   tileMap->scale = tileScale;
   tileMapGameObject->AddComponent(tileMap);
   this->AddObject(tileMapGameObject);
@@ -84,7 +84,7 @@ void LivingRoomCorridorState::LoadAssets()
 
   Log::debug("LIVINGROOMCORRIDOR_STATE - Starting TileObjects loader");
   TileObjects tileObjects(
-      "game/assets/tiles/test_map.tmx",
+      "game/assets/tiles/living_room_corridor.tmx",
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
