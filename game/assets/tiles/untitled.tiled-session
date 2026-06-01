@@ -5,6 +5,14 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "debug.tmx": {
+            "scale": 1.2983333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 240.30808729139923,
+                "y": 239.92297817715013
+            }
+        },
         "map.tmx": {
             "scale": 2.8699,
             "selectedLayer": 2,
@@ -49,6 +57,9 @@
     "project": "untitled.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "debug.tmx",
+        "map.tmx",
+        "tileset.tsx"
         "pipes_tileset.tsx",
         "water_tank_puzzle.tmx",
         "tileset.tsx",
