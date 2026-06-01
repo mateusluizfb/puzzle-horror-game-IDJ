@@ -4,14 +4,21 @@
 #include "TitleState.h"
 #include "EndState.h"
 #include "StageState.h"
+<<<<<<< HEAD
 #include "WarningState.h"
+=======
+#include "WaterTankPuzzleState.h"
+#include "QuizState.h"
+#include "Camera.h"
+#include "InputManager.h"
+>>>>>>> origin/main
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
   , targetStage(stageName)
   , triggered(false)
 {
-  Log::debug("StagePush - Registered for object: " + associated.tag + 
+  Log::debug("StagePush - Registered for object: " + associated.tag +
              " -> target stage: " + targetStage);
 }
 
@@ -23,19 +30,43 @@ void StagePush::Render() {}
 
 void StagePush::NotifyCollision(GameObject& other) {
   if (other.tag != "player" || triggered) return;
-  
+
+  InputManager& inputManager = InputManager::GetInstance();
+
   Log::info("StagePush - Transition to stage: " + targetStage);
   triggered = true;
-  
+
   if (targetStage == "TitleState") {
     Game::GetInstance().Push(new TitleState());
-  } else if (targetStage == "EndState") {
-    Game::GetInstance().Push(new EndState());
-  } else if (targetStage == "StageState") {
-    Game::GetInstance().Push(new StageState());
-  } else if (targetStage == "WarningState") {
-    Game::GetInstance().Push(new WarningState());
-  } else {
-    Log::warning("StagePush - Unknown stage name: " + targetStage);
+    return;
   }
+
+  if (targetStage == "EndState") {
+    Game::GetInstance().Push(new EndState());
+    return;
+  }
+
+  if (targetStage == "StageState") {
+    Game::GetInstance().Push(new StageState());
+    return;
+  }
+
+  if (targetStage == "WarningState") {
+    Game::GetInstance().Push(new WarningState());
+	return.;
+  }
+
+  if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
+    Game::GetInstance().Push(new WaterTankPuzzleState());
+    return;
+  }
+
+  if (targetStage == "Quiz" && inputManager.KeyPress(E_KEY)) {
+    QuizState* quizState = new QuizState();
+    quizState->SetIsOverlay();
+    Game::GetInstance().Push(quizState);
+    return;
+  }
+
+  Log::warning("StagePush - Unknown stage name: " + targetStage);
 }

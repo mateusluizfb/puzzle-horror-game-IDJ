@@ -1,12 +1,10 @@
 #include "Log.h"
 #include "Game.h"
-#include "Gun.h"
 #include "Character.h"
 #include "SpriteRenderer.h"
 #include "Animator.h"
 #include "Collider.h"
 #include "Camera.h"
-#include "Bullet.h"
 
 Character::Command::Command(CommandType type, float x, float y)
   : type(type), pos(x, y) {}
@@ -45,15 +43,6 @@ Character::~Character() {
 
 void Character::Start() {
   Log::info("CHARACTER - Starting character component");
-
-  Game& game = Game::GetInstance();
-  State& currentState= game.GetCurrentState();
-  
-  GameObject *gunGO = new GameObject();
-  gun = currentState.AddObject(gunGO);
-
-  Gun* gunComponent = new Gun(*gunGO, currentState.GetObjectPtr(&this->associated));
-  gunGO->AddComponent(gunComponent);
 }
 
 void Character::Update(float dt) {
@@ -93,7 +82,6 @@ void Character::Update(float dt) {
     Log::info("CHARACTER - Character is dead.");
     animator->SetAnimation("dead");
     deathSound.Play(1);
-    gun.lock()->RequestDelete();
 
     if (player) Camera::GetInstance().Unfollow();
 
@@ -139,14 +127,6 @@ void Character::Update(float dt) {
 
         case CommandType::SHOOT:
         {
-          if (gun.expired())
-          {
-            Log::warning("CHARACTER - Character's gun is expired");
-            return;
-          }
-
-          Log::debug("CHARACTER - Character shooting");
-          gun.lock()->GetComponent<Gun>()->Shoot(item.pos);
           break;
         }
       }
@@ -178,10 +158,6 @@ int Character::GetHp() {
 
 void Character::NotifyCollision(GameObject &other) {
   if (other.IsDead() || this->associated.IsDead()) return;
-
-  Bullet *bullet = other.GetComponent<Bullet>();
-  Animator *animator = associated.GetComponent<Animator>();
-  Timer *hitTimer = &animator->hitTimer;
 
   if (other.tag == "wall") {
     Collider* charCol = associated.GetComponent<Collider>();
@@ -223,16 +199,6 @@ void Character::NotifyCollision(GameObject &other) {
     Log::warning("CHARACTER - IMMORTAL mode active, no damage taken.");
     return;
   };
-
-  if (bullet && bullet->targetsPlayer)
-  {
-    hp -= bullet->GetDamage();
-    Log::info("CHARACTER - Character hit by bullet! HP: " + std::to_string(hp));
-    hitSound.Play(1);
-    hitTimer->Restart();
-    bullet->RequestDelete();
-    return;
-  }
 
   if (hp <= 0) return;
 

@@ -11,11 +11,12 @@ struct QuizData {
   int correctOptionIndex;
 };
 
-enum class QuizState
+enum class QuizProgressState
 {
   NotStarted,
   InProgress,
-  Completed
+  Completed,
+  Finished
 };
 
 class Quiz : public Component
@@ -25,13 +26,12 @@ public:
 
   void Update(float dt) override;
   void Render() override;
-  void NotifyCollision(GameObject &other) override;
 
   void StartQuiz();
   void SubmitAnswer(int selectedOption);
-  void Reset();
+  void Finish();
 
-  QuizState GetState() const;
+  QuizProgressState GetState() const;
   const QuizData& GetCurrentQuestion() const;
   bool IsAllCorrect() const;
 
@@ -39,7 +39,7 @@ private:
   std::vector<QuizData> quizData;
   std::vector<int> playerAnswers;
   int currentQuestionIndex;
-  QuizState state = QuizState::NotStarted;
+  QuizProgressState state = QuizProgressState::NotStarted;
 
   void HandleQuizNotStarted();
 };

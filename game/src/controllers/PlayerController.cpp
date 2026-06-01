@@ -9,7 +9,6 @@ PlayerController::PlayerController(GameObject& gameObject)
   : Component(gameObject) {}
 
 void PlayerController::Start() {
-  // TODO
 }
 
 void PlayerController::Update(float dt) {

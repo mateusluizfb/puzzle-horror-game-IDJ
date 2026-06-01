@@ -43,11 +43,7 @@ void StageState::Start()
 {
   Log::info("STAGE_STATE - Starting state");
 
-  for (size_t i = 0; i < objectArray.size(); i++) {
-    objectArray[i]->Start();
-  }
-
-  started = true;
+  StartArray();
 }
 
 void StageState::LoadAssets()
@@ -97,27 +93,6 @@ void StageState::LoadAssets()
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
-  });
-  tileObjects.RegisterComponent("quiz", [](GameObject& go) -> Component* {
-    std::vector<QuizData> quizData = {
-      {
-        "What is the capital of France?",
-        {"Paris", "London", "Berlin"},
-        0
-      },
-      {
-        "What is 2 + 2?",
-        {"3", "4", "5"},
-        1
-      },
-      {
-        "Which planet is known as the Red Planet?",
-        {"Earth", "Mars", "Jupiter"},
-        1
-      }
-    };
-    go.AddComponent(new QuizUI(go));
-    return new Quiz(go, quizData);
   });
   tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *
                                 {
@@ -171,20 +146,11 @@ void StageState::Update(float dt)
     this->RequestPop();
   }
 
-  for (size_t i = 0; i < objectArray.size(); i++)
-  {
-    objectArray[i]->Update(dt);
-  }
+  UpdateArray(dt);
 
   collisionSystem.Update(objectArray);
 
-  for (size_t i = 0; i < objectArray.size(); i++)
-  {
-    if (objectArray[i]->IsDead()) {
-      Log::info("STAGE_STATE - Removing dead game object");
-      objectArray.erase(objectArray.begin() + i);
-    }
-  }
+  UpdateDead();
 
   Camera::GetInstance().Update(dt);
 }
@@ -202,4 +168,12 @@ void StageState::Pause()
 void StageState::Resume()
 {
   Log::info("STAGE_STATE - Resuming state");
+  GameObject* player = this->GetObjectByTag("player").lock().get();
+  
+  if (!player) {
+    Log::error("STAGE_STATE - Cannot resume: player object not found");
+    return;
+  }
+
+  Camera::GetInstance().Follow(player);
 }

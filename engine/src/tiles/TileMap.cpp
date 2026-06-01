@@ -13,6 +13,7 @@ TileMap::TileMap(GameObject &associated, std::string file, TileSet *tileSet)
 }
 
 void TileMap::Load(std::string file) {
+  Log::info("TileMap - Loading tile map from file: " + file);
   std::string ext = file.size() >= 4 ? file.substr(file.size() - 4) : "";
   isTmx = (ext == ".tmx");
 

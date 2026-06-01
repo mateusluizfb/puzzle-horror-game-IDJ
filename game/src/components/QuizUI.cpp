@@ -66,14 +66,16 @@ void QuizUI::Update(float dt) {
   if (!quiz) return;
 
   if (!GameData::dialogueActive && dialogueObject.expired()) {
-    QuizState state = quiz->GetState();
+    QuizProgressState state = quiz->GetState();
 
-    if (state == QuizState::InProgress) {
+    Log::debug("QUIZ_UI - Quiz state: " + std::to_string(static_cast<int>(state)));
+
+    if (state == QuizProgressState::InProgress) {
       ShowQuestion(quiz);
       return;
     }
 
-    if (state == QuizState::Completed && !resultShown) {
+    if (state == QuizProgressState::Completed && !resultShown) {
       ShowResult(quiz);
       return;
     }
@@ -88,7 +90,7 @@ void QuizUI::Update(float dt) {
 
       if (resultShown) {
         Log::info("QUIZ_UI - Result dialogue finished");
-        quiz->Reset();
+        quiz->Finish();
         resultShown = false;
       } else {
         Log::info("QUIZ_UI - Question dialogue finished, submitting answer");
