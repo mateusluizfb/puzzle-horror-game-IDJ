@@ -4,11 +4,10 @@
 #include "Log.h"
 #include "InputManager.h"
 #include "Game.h"
-#include "StageState.h"
-#include "StageState.h"
+#include "BedroomState.h"
 #include "Camera.h"
 #include "Text.h"
-#include "DebugState.h"
+#include "StageState.h"
 
 TitleState::TitleState() : State() {
   Log::info("TITLE_STATE - Initializing TitleState");
@@ -47,13 +46,13 @@ void TitleState::Update(float dt) {
   if (inputManager.KeyPress(SPACE_KEY))
   {
     Log::info("TITLE_STATE - Enter key pressed, popping TitleState");
-    Game::GetInstance().Push(new StageState());
+    Game::GetInstance().Push(new BedroomState());
   }
 
   if (inputManager.KeyPress(M_KEY))
   {
     Log::info("TITLE_STATE - M key pressed, popping TitleState");
-    Game::GetInstance().Push(new DebugState());
+    Game::GetInstance().Push(new StageState());
   }
 
   UpdateArray(dt);

@@ -12,3 +12,5 @@ dep/**
 /**/bin_*
 .clangd
 *.zip
+
+/**/*.tiled-session

@@ -1,5 +1,5 @@
 #include "State.h"
-#include "StageState.h"
+#include "LivingRoomState.h"
 #include "Log.h"
 #include "TileSet.h"
 #include "TileMap.h"
@@ -20,54 +20,54 @@
 #include "Pushable.h"
 #include "Wall.h"
 #include "StagePush.h"
-#include "WarningState.h"
 #include "Quiz.h"
 #include "QuizUI.h"
+#include "KitchenCorridorState.h"
 
-StageState::StageState(): State(), music("game/audio/BGM.wav")
+LivingRoomState::LivingRoomState(): State(), music("game/audio/BGM.wav")
 {
-  Log::info("STAGE_STATE - Initializing state");
+  Log::info("LIVINGROOM_STATE - Initializing state");
 
   Camera::GetInstance().SetPosition(600, 450);
   Camera::GetInstance().SetSpeed(200, 200);
 }
 
-StageState::~StageState()
+LivingRoomState::~LivingRoomState()
 {
-  Log::info("STAGE_STATE - Destroying state");
+  Log::info("LIVINGROOM_STATE - Destroying state");
 
   objectArray.clear();
 }
 
-void StageState::Start()
+void LivingRoomState::Start()
 {
-  Log::info("STAGE_STATE - Starting state");
+  Log::info("LIVINGROOM_STATE - Starting state");
 
   StartArray();
 }
 
-void StageState::LoadAssets()
+void LivingRoomState::LoadAssets()
 {
   Vec2 tileScale = GameData::tileScale;
 
-  Log::debug("STAGE_STATE - Starting background game object");
+  Log::debug("LIVINGROOM_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
   bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Background.png"));
   SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
   bgSprite->SetCameraFollower(true);
   this->AddObject(bgGameObject);
-  Log::debug("STAGE_STATE - Background game object loaded");
+  Log::debug("LIVINGROOM_STATE - Background game object loaded");
 
-  Log::debug("STAGE_STATE - Starting TileMap game object (TMX)");
+  Log::debug("LIVINGROOM_STATE - Starting TileMap game object (TMX)");
   GameObject *tileMapGameObject = new GameObject();
   TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
-  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/test_map.tmx", tileSet);
+  TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/living_room.tmx", tileSet);
   tileMap->scale = tileScale;
   tileMapGameObject->AddComponent(tileMap);
   this->AddObject(tileMapGameObject);
-  Log::debug("STAGE_STATE - TileMap game object loaded");
+  Log::debug("LIVINGROOM_STATE - TileMap game object loaded");
 
-  Log::debug("STAGE_STATE - Starting Character game object");
+  Log::debug("LIVINGROOM_STATE - Starting Character game object");
   GameObject *characterGameObject = new GameObject();
   Character *character = new Character(*characterGameObject, "game/assets/img/Player.png");
   character->player = character;
@@ -80,11 +80,11 @@ void StageState::LoadAssets()
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
   spriteRenderer1->SetPosition(584, 712);
-  Log::debug("STAGE_STATE - Character game object loaded");
+  Log::debug("LIVINGROOM_STATE - Character game object loaded");
 
-  Log::debug("STAGE_STATE - Starting TileObjects loader");
+  Log::debug("LIVINGROOM_STATE - Starting TileObjects loader");
   TileObjects tileObjects(
-      "game/assets/tiles/test_map.tmx",
+      "game/assets/tiles/living_room.tmx",
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
@@ -95,7 +95,7 @@ void StageState::LoadAssets()
     return new Wall(go);
   });
   tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *
-                                {
+                                 {
     const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
     std::string stageName = "TitleState";
     auto it = data.properties.find("stage_change_name");
@@ -113,19 +113,19 @@ void StageState::LoadAssets()
   
   tileObjects.Load(*this);
 
-  Log::debug("STAGE_STATE - TileObjects loader finished");
+  Log::debug("LIVINGROOM_STATE - TileObjects loader finished");
 
   Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
 }
 
-void StageState::Update(float dt)
+void LivingRoomState::Update(float dt)
 {
   InputManager& inputManager = InputManager::GetInstance();
 
   std::weak_ptr<GameObject> playerPtr = this->GetObjectByTag("player");
   if (playerPtr.expired())
   {
-    Log::info("STAGE_STATE - Player is dead, switching to EndState");
+    Log::info("LIVINGROOM_STATE - Player is dead, switching to EndState");
     music.Stop();
     popRequested = true;
     GameData::playerVictory = false;
@@ -134,16 +134,30 @@ void StageState::Update(float dt)
 
   if (inputManager.QuitRequested())
   {
-    Log::warning("STAGE_STATE - Quit requested via SDL event");
+    Log::warning("LIVINGROOM_STATE - Quit requested via SDL event");
     music.Stop();
     this->RequestQuit();
   }
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("STAGE_STATE - Escape key pressed, popping state");
+    Log::info("LIVINGROOM_STATE - Escape key pressed, popping state");
     music.Stop();
     this->RequestPop();
+  }
+
+  if (inputManager.KeyPress(Z_KEY))
+  {
+    Log::info("LIVINGROOM_STATE - Z key pressed, popping state");
+    music.Stop();
+    this->RequestPop();
+  }
+
+  if (inputManager.KeyPress(X_KEY))
+  {
+    Log::info("LIVINGROOM_STATE - X key pressed, pushing KitchenCorridorState");
+    music.Stop();
+    Game::GetInstance().Push(new KitchenCorridorState());
   }
 
   UpdateArray(dt);
@@ -155,23 +169,23 @@ void StageState::Update(float dt)
   Camera::GetInstance().Update(dt);
 }
 
-void StageState::Render()
+void LivingRoomState::Render()
 {
   RenderArray();
 }
 
-void StageState::Pause()
+void LivingRoomState::Pause()
 {
-  Log::info("STAGE_STATE - Pausing state");
+  Log::info("LIVINGROOM_STATE - Pausing state");
 }
 
-void StageState::Resume()
+void LivingRoomState::Resume()
 {
-  Log::info("STAGE_STATE - Resuming state");
+  Log::info("LIVINGROOM_STATE - Resuming state");
   GameObject* player = this->GetObjectByTag("player").lock().get();
   
   if (!player) {
-    Log::error("STAGE_STATE - Cannot resume: player object not found");
+    Log::error("LIVINGROOM_STATE - Cannot resume: player object not found");
     return;
   }
 
