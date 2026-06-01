@@ -4,6 +4,7 @@
 #include "TitleState.h"
 #include "EndState.h"
 #include "StageState.h"
+#include "WarningState.h"
 #include "WaterTankPuzzleState.h"
 #include "QuizState.h"
 #include "Camera.h"
@@ -14,7 +15,7 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
   , targetStage(stageName)
   , triggered(false)
 {
-  Log::debug("StagePush - Registered for object: " + associated.tag + 
+  Log::debug("StagePush - Registered for object: " + associated.tag +
              " -> target stage: " + targetStage);
 }
 
@@ -28,7 +29,7 @@ void StagePush::NotifyCollision(GameObject& other) {
   if (other.tag != "player" || triggered) return;
 
   InputManager& inputManager = InputManager::GetInstance();
-  
+
   Log::info("StagePush - Transition to stage: " + targetStage);
   triggered = true;
 
@@ -41,10 +42,15 @@ void StagePush::NotifyCollision(GameObject& other) {
     Game::GetInstance().Push(new EndState());
     return;
   }
-  
+
   if (targetStage == "StageState") {
     Game::GetInstance().Push(new StageState());
     return;
+  }
+
+  if (targetStage == "WarningState") {
+    Game::GetInstance().Push(new WarningState());
+	return;
   }
 
   if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
