@@ -4,14 +4,11 @@
 #include "TitleState.h"
 #include "EndState.h"
 #include "StageState.h"
-<<<<<<< HEAD
 #include "WarningState.h"
-=======
 #include "WaterTankPuzzleState.h"
 #include "QuizState.h"
 #include "Camera.h"
 #include "InputManager.h"
->>>>>>> origin/main
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -53,7 +50,7 @@ void StagePush::NotifyCollision(GameObject& other) {
 
   if (targetStage == "WarningState") {
     Game::GetInstance().Push(new WarningState());
-	return.;
+	return;
   }
 
   if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {

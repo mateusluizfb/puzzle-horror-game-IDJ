@@ -45,7 +45,7 @@ MazeState::~MazeState()
 
 void MazeState::Start()
 {
-    StartArray()
+    StartArray();
 }
 
 void MazeState::LoadAssets()
@@ -144,20 +144,14 @@ void MazeState::Update(float dt) {
         this->RequestPop();
     }
 
+	// Atualiza movimento e posicoes
     UpdateArray(dt);
 
     // Colisoes baseadas nas posicoes atualizadas
     collisionSystem.Update(objectArray);
 
     // Remove os objetos destruidos
-    for (size_t i = 0; i < objectArray.size(); i++)
-    {
-        if (objectArray[i]->IsDead()) {
-            Log::info("MAZE_STATE - Removing dead game object");
-            objectArray.erase(objectArray.begin() + i);
-            i--;
-        }
-    }
+    UpdateDead();
 
     Camera::GetInstance().Update(dt);
 }
