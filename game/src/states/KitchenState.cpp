@@ -79,7 +79,7 @@ void KitchenState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(584, 712);
+  spriteRenderer1->SetPosition(718, 363);
   Log::debug("KITCHEN_STATE - Character game object loaded");
 
   Log::debug("KITCHEN_STATE - Starting TileObjects loader");

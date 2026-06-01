@@ -79,7 +79,7 @@ void LivingRoomState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(584, 712);
+  spriteRenderer1->SetPosition(564, 207);
   Log::debug("LIVINGROOM_STATE - Character game object loaded");
 
   Log::debug("LIVINGROOM_STATE - Starting TileObjects loader");
