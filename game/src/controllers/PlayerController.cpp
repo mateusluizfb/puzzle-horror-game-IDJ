@@ -14,25 +14,24 @@ void PlayerController::Start() {
 void PlayerController::Update(float dt) {
   InputManager &inputManager = InputManager::GetInstance();
   Character* character = associated.GetComponent<Character>();
-
+  
   if (GameData::dialogueActive) {
     return;
   }
-
-  if (inputManager.IsKeyDown(LEFT_ARROW_KEY))
-  {
+  
+  if (inputManager.IsKeyDown(SDLK_a) || inputManager.IsKeyDown(LEFT_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, -1, 0));
   }
 
-  if (inputManager.IsKeyDown(RIGHT_ARROW_KEY)) {
+  if (inputManager.IsKeyDown(SDLK_d) || inputManager.IsKeyDown(RIGHT_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, 1, 0));
   }
 
-  if (inputManager.IsKeyDown(UP_ARROW_KEY)) {
+  if (inputManager.IsKeyDown(SDLK_w) || inputManager.IsKeyDown(UP_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, 0, -1));
   }
 
-  if (inputManager.IsKeyDown(DOWN_ARROW_KEY)) {
+  if (inputManager.IsKeyDown(SDLK_s) || inputManager.IsKeyDown(DOWN_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, 0, 1));
   }
 

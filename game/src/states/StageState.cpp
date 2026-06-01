@@ -20,6 +20,7 @@
 #include "Pushable.h"
 #include "Wall.h"
 #include "StagePush.h"
+#include "WarningState.h"
 #include "Quiz.h"
 #include "QuizUI.h"
 
