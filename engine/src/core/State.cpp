@@ -107,6 +107,7 @@ void State::UpdateDead()
   {
     if (objectArray[i]->IsDead()) {
       objectArray.erase(objectArray.begin() + i);
+	  i--;
     }
   }
 }
