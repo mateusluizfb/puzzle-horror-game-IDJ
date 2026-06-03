@@ -62,7 +62,7 @@ void MazeState::LoadAssets()
     this->AddObject(tileMapGameObject);
 
     GameObject* characterGameObject = new GameObject();
-    Character* character = new Character(*characterGameObject, "game/assets/img/Player.png");
+    Character* character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
     character->player = character;
 
     Collider* collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
