@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="9">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="30">
   <data encoding="csv">
@@ -35,4 +35,56 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" x="294.642" y="80.019" width="17.7185" height="21.7195">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="stage_change_name" value="Pop"/>
+    <property name="stage_push" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="2" x="447.821" y="133.746" width="17.7185" height="21.7195">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="stage_change_name" value="KitchenCorridorState"/>
+    <property name="stage_push" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="3" name="wall" x="-1.14304" y="80.0028" width="17.1468" height="318.966">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="4" name="wall" x="448" y="160" width="17.1468" height="240.661">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="5" name="wall" x="17.7147" y="82.2139" width="269.792" height="13.75">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="6" name="wall" x="133.739" y="380.074" width="429.83" height="14.8932">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" name="wall" x="318.355" y="82.2891" width="144.048" height="12.6069">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="8" name="wall" x="446.957" y="97.1498" width="17.7322" height="31.4685">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

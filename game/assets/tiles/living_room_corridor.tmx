@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="12">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="30">
   <data encoding="csv">
@@ -11,21 +11,21 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-11,11,11,11,11,11,11,11,11,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-2,1,1,1,11,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-2,1,1,1,11,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-11,1,1,1,11,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-11,1,1,1,11,11,11,11,11,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-11,1,1,1,11,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-11,1,1,1,11,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,11,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+11,11,11,11,11,11,11,11,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,11,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,11,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,11,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,11,11,11,11,11,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,11,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,11,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1,1,1,1,11,1,1,1,1,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 2,1,1,1,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,
-11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,
-11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,
-11,1,1,1,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,1,1,11,11,11,11,11,11,
-11,11,11,11,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,11,
+11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,11,
+11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,1,1,11,11,11,11,11,11,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -35,4 +35,69 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" x="0.857349" y="243.487" width="17.7185" height="21.7195">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="spawn_pont" type="bool" value="true"/>
+    <property name="stage_change_name" value="Pop"/>
+    <property name="stage_push" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="3" x="359.228" y="300.643" width="17.7185" height="21.7195">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="stage_change_name" value="LivingRoomState"/>
+    <property name="stage_push" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="4" name="wall" x="64.5869" y="252.901" width="408.669" height="19.4657">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="5" name="wall" x="-0.571469" y="305.485" width="350.941" height="15.4647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="6" name="wall" x="383.52" y="304.342" width="94.308" height="15.4647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="7" name="wall" x="461.824" y="274.621" width="18.2899" height="27.4676">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="8" name="wall" x="64.5869" y="127.443" width="18.2899" height="124.634">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" name="wall" x="-0.57148" y="277.193" width="18.2899" height="27.4676">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" name="wall" x="-2.28617" y="129.157" width="18.8615" height="112.059">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" name="wall" x="16.0039" y="127.443" width="47.4397" height="15.4647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

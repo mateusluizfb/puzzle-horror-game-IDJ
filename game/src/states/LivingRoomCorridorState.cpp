@@ -69,7 +69,7 @@ void LivingRoomCorridorState::LoadAssets()
 
   Log::debug("LIVINGROOMCORRIDOR_STATE - Starting Character game object");
   GameObject *characterGameObject = new GameObject();
-  Character *character = new Character(*characterGameObject, "game/assets/img/Player.png");
+  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
   character->player = character;
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
@@ -79,7 +79,7 @@ void LivingRoomCorridorState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(584, 712);
+  spriteRenderer1->SetPosition(56, 484);
   Log::debug("LIVINGROOMCORRIDOR_STATE - Character game object loaded");
 
   Log::debug("LIVINGROOMCORRIDOR_STATE - Starting TileObjects loader");
@@ -89,7 +89,7 @@ void LivingRoomCorridorState::LoadAssets()
       tileScale
   );
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
-    return new Pushable(go, 100.0f);
+    return new Pushable(go, 200.0f);
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);

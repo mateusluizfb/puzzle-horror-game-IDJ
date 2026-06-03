@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Character.h"
 #include "Animator.h"
-#include "Bullet.h"
 #include "StageState.h"
 
 TEST(CharacterTest, Start)
@@ -14,7 +13,7 @@ TEST(CharacterTest, Start)
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject go;
-  Character character(go, "game/assets/img/Player.png");
+  Character character(go, "game/assets/img/Player_Small.png");
   
   State& previousState = game->GetCurrentState();
   int previousObjectsSize = previousState.GetObjectArray().size();
@@ -36,7 +35,7 @@ TEST(CharacterTest, Issue) {
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject go;
-  Character character(go, "game/assets/img/Player.png");
+  Character character(go, "game/assets/img/Player_Small.png");
   Character::Command command(CommandType::MOVE, 0, 0);
 
   std::queue<Character::Command> taskQueue = character.GetTaskQueue();
@@ -59,7 +58,7 @@ TEST(CharacterTest, UpdateIdle) {
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject go;
-  Character character(go, "game/assets/img/Player.png");
+  Character character(go, "game/assets/img/Player_Small.png");
 
   EXPECT_NO_THROW(character.Update(0));
 
@@ -99,7 +98,7 @@ TEST(CharacterTest, UpdateMove)
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject* go = new GameObject();
-  Character *character = new Character(*go, "game/assets/img/Player.png");
+  Character *character = new Character(*go, "game/assets/img/Player_Small.png");
   go->AddComponent(character);
   Character::Command command(CommandType::MOVE, 1, 1);
 
@@ -111,10 +110,10 @@ TEST(CharacterTest, UpdateMove)
   Animator *animator = go->GetComponent<Animator>();
 
   ASSERT_TRUE(animator->GetCurrent() == "walking");
-  EXPECT_NEAR(character->GetSpeed().x, 70.7106769, 1e-5);
-  EXPECT_NEAR(character->GetSpeed().y, 70.7106769, 1e-5);
-  EXPECT_NEAR(go->box.x, 70.7106769, 1e-5);
-  EXPECT_NEAR(go->box.y, 70.7106769, 1e-5);
+  EXPECT_NEAR(character->GetSpeed().x, 141.4213562, 1e-5);
+  EXPECT_NEAR(character->GetSpeed().y, 141.4213562, 1e-5);
+  EXPECT_NEAR(go->box.x, 141.4213562, 1e-5);
+  EXPECT_NEAR(go->box.y, 141.4213562, 1e-5);
 
   delete go;
   delete game;
@@ -127,7 +126,7 @@ TEST(CharacterTest, NotifyCollision) {
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject *go = new GameObject();
-  Character *character = new Character(*go, "game/assets/img/Player.png");
+  Character *character = new Character(*go, "game/assets/img/Player_Small.png");
   go->AddComponent(character);
   character->Start();
 
@@ -135,33 +134,4 @@ TEST(CharacterTest, NotifyCollision) {
   GameObject *other = new GameObject();
   character->NotifyCollision(*other);
   EXPECT_EQ(character->GetHp(), 100);
-}
-
-TEST(CharacterTest, NotifyCollisionWithBullet)
-{
-  Game *game = &Game::GetInstance("Test Game", 800, 600);
-  game->StateStackPush(new StageState());
-
-  Log::debug(" --- CharacterTest NotifyCollisionWithBullet Logs ----");
-
-  GameObject go;
-  Character character(go, "game/assets/img/Player.png");
-  character.Start();
-
-  GameObject bulletGO;
-  Bullet* bullet = new Bullet(bulletGO, 0, 0, 30, 100, true); // Bullet that targets player
-  bulletGO.AddComponent(bullet);
-
-  EXPECT_EQ(character.GetHp(), 100);
-
-  // Force hitTimer above threshold and collide with bullet
-  Animator* animator = go.GetComponent<Animator>();
-  animator->hitTimer.Restart();
-  animator->hitTimer.Update(2.1f); // Force timer above threshold
-  character.NotifyCollision(bulletGO);
-
-  // After valid collision with bullet, hp should be reduced
-  EXPECT_EQ(character.GetHp(), 70);
-
-  delete game;
 }

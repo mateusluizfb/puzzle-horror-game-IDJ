@@ -6,6 +6,7 @@
 
 class StagePush : public Component {
 private:
+  std::string previousStage;
   std::string targetStage;
   bool triggered;
 

@@ -1,14 +1,19 @@
 #include "StagePush.h"
 #include "Log.h"
 #include "Game.h"
+#include "Camera.h"
+#include "InputManager.h"
+
 #include "TitleState.h"
 #include "EndState.h"
 #include "StageState.h"
 #include "WarningState.h"
 #include "WaterTankPuzzleState.h"
+#include "LivingRoomCorridorState.h"
+#include "LivingRoomState.h"
+#include "KitchenCorridorState.h"
+#include "KitchenState.h"
 #include "QuizState.h"
-#include "Camera.h"
-#include "InputManager.h"
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -51,6 +56,37 @@ void StagePush::NotifyCollision(GameObject& other) {
   if (targetStage == "WarningState") {
     Game::GetInstance().Push(new WarningState());
 	return;
+  }
+
+  if (targetStage == "Pop" && inputManager.KeyPress(E_KEY))
+  {
+    Log::info("STAGE_PUSH - Requesting current state pop");
+    Game::GetInstance().GetCurrentState().RequestPop();
+    return;
+  }
+
+  if (targetStage == "LivingRoomCorridorState" && inputManager.KeyPress(E_KEY))
+  {
+    Game::GetInstance().Push(new LivingRoomCorridorState());
+    return;
+  }
+  
+  if (targetStage == "LivingRoomState" && inputManager.KeyPress(E_KEY))
+  {
+    Game::GetInstance().Push(new LivingRoomState());
+    return;
+  }
+
+  if (targetStage == "KitchenCorridorState" && inputManager.KeyPress(E_KEY))
+  {
+    Game::GetInstance().Push(new KitchenCorridorState());
+    return;
+  }
+
+  if (targetStage == "KitchenState" && inputManager.KeyPress(E_KEY))
+  {
+    Game::GetInstance().Push(new KitchenState());
+    return;
   }
 
   if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
