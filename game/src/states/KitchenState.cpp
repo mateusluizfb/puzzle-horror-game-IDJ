@@ -89,7 +89,7 @@ void KitchenState::LoadAssets()
       tileScale
   );
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
-    return new Pushable(go, 100.0f);
+    return new Pushable(go, 200.0f);
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
