@@ -7,7 +7,7 @@
 #include "TileObjects.h"
 #include "Log.h"
 
-static const std::string TMX_PATH      = "game/assets/map/tiletest_map.tmx";
+static const std::string TMX_PATH      = "game/assets/tiles/test_map.tmx";
 static const std::string TILESET_IMG   = "game/assets/img/Tileset.png";
 static constexpr int     TILE_W        = 64;
 static constexpr int     TILE_H        = 64;
@@ -141,10 +141,10 @@ TEST(TileObjectsLoaderTest, ObjectPositionAndSize)
   ASSERT_GE(objects.size(), 1u);
 
   const TileObjectData& obj = objects[0];
-  EXPECT_NEAR(obj.x,      705.148f, 0.01f);
-  EXPECT_NEAR(obj.y,      833.811f, 0.01f);
-  EXPECT_NEAR(obj.width,   64.0f,   0.01f);
-  EXPECT_NEAR(obj.height,  64.0f,   0.01f);
+  EXPECT_NEAR(obj.x,      384.0f, 0.01f);
+  EXPECT_NEAR(obj.y,      352.0f, 0.01f);
+  EXPECT_NEAR(obj.width,   16.0f,   0.01f);
+  EXPECT_NEAR(obj.height,  16.0f,   0.01f);
 
   delete state;
   delete game;
@@ -162,7 +162,7 @@ TEST(TileObjectsLoaderTest, ObjectGidIsParsed)
 
   const auto& objects = loader.GetObjects();
   ASSERT_GE(objects.size(), 1u);
-  EXPECT_EQ(objects[0].gid, 6);
+  EXPECT_EQ(objects[0].gid, 76);
 
   delete state;
   delete game;

@@ -11,8 +11,8 @@ TEST(TileMapTest, Constructor)
 
   Log::debug(" --- TileMapTest Logs ----");
   GameObject *obj = new GameObject();
-  TileSet *tileSet = new TileSet(64, 64, "game/assets/img/Tileset.png");
-  TileMap *tileMap = new TileMap(*obj, "game/assets/map/map.txt", tileSet);
+  TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
+  TileMap *tileMap = new TileMap(*obj, "game/assets/tiles/test_map.tmx", tileSet);
 
   std::vector<int> matrix = tileMap->GetTileMatrix(); 
 
@@ -32,11 +32,11 @@ TEST(TileMapTest, At)
 
   Log::debug(" --- TileMapTest At Method Logs ----");
   GameObject *obj = new GameObject();
-  TileSet *tileSet = new TileSet(64, 64, "game/assets/img/Tileset.png");
-  TileMap *tileMap = new TileMap(*obj, "game/assets/map/map.txt", tileSet);
+  TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
+  TileMap *tileMap = new TileMap(*obj, "game/assets/tiles/test_map.tmx", tileSet);
 
-  EXPECT_EQ(tileMap->At(0, 0, 0), 5);
-  EXPECT_EQ(tileMap->At(1, 1, 0), 12);
+  EXPECT_EQ(tileMap->At(0, 0, 0), 0);
+  EXPECT_EQ(tileMap->At(1, 1, 0), 0);
   EXPECT_EQ(tileMap->At(0, 0, 1), 0);
   EXPECT_EQ(tileMap->At(1, 1, 1), 0);
 
@@ -58,8 +58,8 @@ TEST(TileMapTest, RenderLayer)
 
   Log::debug(" --- TileMapTest RenderLayer Method Logs ----");
   GameObject *obj = new GameObject();
-  TileSet *tileSet = new TileSet(64, 64, "game/assets/img/Tileset.png");
-  TileMap *tileMap = new TileMap(*obj, "game/assets/map/map.txt", tileSet);
+  TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
+  TileMap *tileMap = new TileMap(*obj, "game/assets/tiles/test_map.tmx", tileSet);
 
   EXPECT_NO_THROW(tileMap->RenderLayer());
 

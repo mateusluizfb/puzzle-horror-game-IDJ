@@ -139,10 +139,10 @@ TEST(XmlParserTest, ParseFileThrowsOnMissingFile) {
 }
 
 TEST(XmlParserTest, ParseFileTmx) {
-  XmlNode root = XmlParser::ParseFile("game/assets/map/tiletest_map.tmx");
+  XmlNode root = XmlParser::ParseFile("game/assets/tiles/test_map.tmx");
   EXPECT_EQ(root.tag, "map");
-  EXPECT_EQ(root.getAttribute("width"),  "30");
-  EXPECT_EQ(root.getAttribute("height"), "30");
+  EXPECT_EQ(root.getAttribute("width"),  "40");
+  EXPECT_EQ(root.getAttribute("height"), "40");
 
   const XmlNode* layer = root.findChild("layer");
   ASSERT_NE(layer, nullptr);

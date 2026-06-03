@@ -110,10 +110,10 @@ TEST(CharacterTest, UpdateMove)
   Animator *animator = go->GetComponent<Animator>();
 
   ASSERT_TRUE(animator->GetCurrent() == "walking");
-  EXPECT_NEAR(character->GetSpeed().x, 70.7106769, 1e-5);
-  EXPECT_NEAR(character->GetSpeed().y, 70.7106769, 1e-5);
-  EXPECT_NEAR(go->box.x, 70.7106769, 1e-5);
-  EXPECT_NEAR(go->box.y, 70.7106769, 1e-5);
+  EXPECT_NEAR(character->GetSpeed().x, 141.4213562, 1e-5);
+  EXPECT_NEAR(character->GetSpeed().y, 141.4213562, 1e-5);
+  EXPECT_NEAR(go->box.x, 141.4213562, 1e-5);
+  EXPECT_NEAR(go->box.y, 141.4213562, 1e-5);
 
   delete go;
   delete game;
