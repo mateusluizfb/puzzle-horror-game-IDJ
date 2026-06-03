@@ -54,7 +54,7 @@ void MazeState::LoadAssets()
 
     Log::debug("MAZE_STATE - Starting TileMap game object (TMX)");
     GameObject* tileMapGameObject = new GameObject();
-    TileSet* tileSet = new TileSet(16, 16, "game/assets/tiles/tileset.png");
+    TileSet* tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
     // Lendo o labirinto infinito desenhado no Tiled
     TileMap* tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/maze.tmx", tileSet);
     tileMap->scale = tileScale;
@@ -85,7 +85,7 @@ void MazeState::LoadAssets()
     Log::debug("MAZE_STATE - Starting TileObjects loader");
     TileObjects tileObjects(
         "game/assets/tiles/maze.tmx",
-        "game/assets/tiles/tileset.png",
+        "game/assets/tiles/test_tileset.png",
         tileScale
     );
 
