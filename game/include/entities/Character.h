@@ -57,6 +57,12 @@ private:
   float linearSpeed;
   int hp;
   Vec2 collisionNormal;
+
+public:
+  void SetCollisionNormal(Vec2 normal) { collisionNormal = normal; }
+  Vec2 GetCollisionNormal() { return collisionNormal; }
+
+private:
   Timer deathTimer;
 };
 

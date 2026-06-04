@@ -160,40 +160,9 @@ void Character::NotifyCollision(GameObject &other) {
   if (other.IsDead() || this->associated.IsDead()) return;
 
   if (other.tag == "wall") {
-    Collider* charCol = associated.GetComponent<Collider>();
-    Collider* wallCol = other.GetComponent<Collider>();
-    if (!charCol || !wallCol) return;
-
-    Rect& a = charCol->GetBox();
-    Rect& b = wallCol->GetBox();
-
-    float overlapLeft = (a.x + a.w) - b.x;
-    float overlapRight = (b.x + b.w) - a.x;
-    float overlapTop = (a.y + a.h) - b.y;
-    float overlapBottom = (b.y + b.h) - a.y;
-
-    float overlapX = (overlapLeft < overlapRight) ? overlapLeft : overlapRight;
-    float overlapY = (overlapTop < overlapBottom) ? overlapTop : overlapBottom;
-
-    if (overlapX < overlapY) {
-      if (overlapLeft < overlapRight) {
-        associated.box.x -= overlapLeft;
-        collisionNormal = Vec2(1, 0);
-      } else {
-        associated.box.x += overlapRight;
-        collisionNormal = Vec2(-1, 0);
-      }
-    } else {
-      if (overlapTop < overlapBottom) {
-        associated.box.y -= overlapTop;
-        collisionNormal = Vec2(0, 1);
-      } else {
-        associated.box.y += overlapBottom;
-        collisionNormal = Vec2(0, -1);
-      }
-    }
     return;
   }
+
 
   if (player && IMMORTAL) {
     Log::warning("CHARACTER - IMMORTAL mode active, no damage taken.");
