@@ -55,6 +55,8 @@ void Sprite::Open(const std::string &file)
   if (result != 0) {
     throw std::runtime_error("Failed to query texture: " + std::string(SDL_GetError()));
   }
+
+  SetClip(0, 0, width, height);
 }
 
 void Sprite::SetClip(int x, int y, int w, int h)
@@ -75,8 +77,8 @@ void Sprite::Render(int x, int y, int w, int h, float angle)
   SDL_Rect dsRect = {
       x - (int) camera.GetPositionX(),
       y - (int) camera.GetPositionY(),
-      clipRect.w * (int) scale.x,
-      clipRect.h * (int) scale.y
+	  (int)(clipRect.w * scale.x),
+	  (int)(clipRect.h * scale.y)
   };
 
   if (cameraFollower)
@@ -170,4 +172,8 @@ void Sprite::SetFlip(SDL_RendererFlip flip) {
 
 SDL_RendererFlip Sprite::GetFlip() {
   return this->flip;
+}
+
+SDL_Texture* Sprite::GetTexture() {
+	return this->texture;
 }
