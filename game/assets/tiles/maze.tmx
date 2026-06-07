@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="11">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="23">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <layer id="1" name="Maze" width="100" height="100" offsetx="-1" offsety="1">
   <data encoding="csv">
@@ -159,6 +159,106 @@
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
+  </object>
+  <object id="11" name="light" x="581.333" y="280">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="14" name="light" x="568" y="682.667">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="light" x="697.333" y="768">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="16" name="light" x="816" y="680">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="17" name="light" x="942.667" y="676">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="18" name="light" x="1069.33" y="774.667">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="19" name="light" x="1061.33" y="677.333">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="20" name="light" x="753.333" y="384">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="21" name="light" x="917.333" y="382.667">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="22" name="light" x="1076" y="285.333">
+   <properties>
+    <property name="b" type="int" value="0"/>
+    <property name="g" type="int" value="0"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>

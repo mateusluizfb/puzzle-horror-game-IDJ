@@ -16,7 +16,7 @@ class MazeState : public State {
 	private:
 		Music music;
 		CollisionSystem collisionSystem;
-		//SDL_Texture* lightMap;
+		SDL_Texture* lightMap;
 		int loopCount;
 
 	public:
