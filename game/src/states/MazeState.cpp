@@ -106,14 +106,12 @@ void MazeState::LoadAssets()
     });
 
 	tileObjects.RegisterComponent("light", [](GameObject& go) -> Component* {
-		Log::info("[TILED] LUZ ENCONTRADA NA POSICAO X: " + std::to_string(go.box.x) + " Y: " + std::to_string(go.box.y));
 		const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
 
 		// Valores padrao (Luz branca forte)
 		float scale = 3.0f;
 		Uint8 r = 255, g = 255, b = 255, a = 255;
 
-		// Le as propriedades customizadas que do Tiled
 		if (data.properties.find("scale") != data.properties.end()) scale = std::stof(data.properties.at("scale"));
 		if (data.properties.find("r") != data.properties.end()) r = (Uint8)std::stoi(data.properties.at("r"));
 		if (data.properties.find("g") != data.properties.end()) g = (Uint8)std::stoi(data.properties.at("g"));
@@ -122,6 +120,10 @@ void MazeState::LoadAssets()
 
 		return new Light(go, "game/assets/img/light.png", scale, r, g, b, a);
 	});
+
+	tileObjects.RegisterComponent("darkZone", [](GameObject& go) -> Component* {
+        return new DarkZone(go);
+    });
 
     tileObjects.Load(*this);
     Log::debug("MAZE_STATE - TileObjects loader finished");
