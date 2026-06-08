@@ -15,6 +15,8 @@ Character::Character(GameObject &associated, std::string sprite)
     hitSound("game/audio/Hit1.wav"),
     deathSound("game/audio/Dead.wav"),
     hit(false),
+	isInvulnerable(false),
+    invulnerabilityTimer(Timer()),
     taskQueue(),
     speed(Vec2(0, 0)),
     linearSpeed(200),
@@ -64,6 +66,28 @@ void Character::Update(float dt) {
     }
   }
 
+  if (isInvulnerable) {
+    invulnerabilityTimer.Update(dt);
+    SpriteRenderer* spriteRenderer = associated.GetComponent<SpriteRenderer>();
+
+    if (spriteRenderer != nullptr) {
+      // Matematica do piscar (5 = velocidade do piscar)
+      if ((int)(invulnerabilityTimer.Get() * 5) % 2 == 0) {
+        spriteRenderer->SetColorMod(255, 50, 50);
+      } else {
+        spriteRenderer->SetColorMod(255, 255, 255);
+      }
+   }
+
+    // Fim do tempo de imunidade (1.5 segundos)
+    if (invulnerabilityTimer.Get() > 1.5f) {
+      isInvulnerable = false;
+      if (spriteRenderer != nullptr) {
+        spriteRenderer->SetColorMod(255, 255, 255);
+      }
+    }
+  }
+
   if (animator->GetCurrent() == "dead" && deathTimer.Get() < 1)
   {
     deathTimer.Update(dt);
@@ -97,11 +121,11 @@ void Character::Update(float dt) {
 
   while (!taskQueue.empty()) {
       Command item = taskQueue.front();
-      
+
       switch (item.type)
       {
         case CommandType::MOVE:
-        {          
+        {
           animator->SetAnimation("walking");
 
           speed = item.pos.Normalize() * linearSpeed;
@@ -207,4 +231,21 @@ void Character::NotifyCollision(GameObject &other) {
 
 Vec2 Character::GetCenterPosition() {
   return associated.box.GetCenter();
+}
+
+void Character::TakeDamage() {
+    if (isInvulnerable) return;
+
+    GameData::playerLives--;
+    Log::warning("DANO SOFRIDO! Vidas: " + std::to_string(GameData::playerLives));
+
+    // Ativa o estado exclusivo de imunidade e zera o cronômetro
+    isInvulnerable = true;
+    invulnerabilityTimer.Restart();
+
+    // Logica de morte
+    if (GameData::playerLives <= 0) {
+        associated.RequestDelete();
+        GameData::playerLives = 3;
+    }
 }

@@ -9,6 +9,7 @@ class GameData {
     static bool playerVictory;
     static Vec2 tileScale;
     static bool dialogueActive;
+	static int playerLives;
 };
 
 #endif
