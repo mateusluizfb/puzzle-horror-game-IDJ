@@ -63,3 +63,8 @@ void SpriteRenderer::SetFlip(SDL_RendererFlip flip) {
 SDL_RendererFlip SpriteRenderer::GetFlip() {
   return sprite->GetFlip();
 }
+
+void SpriteRenderer::SetColorMod(Uint8 r, Uint8 g, Uint8 b) {
+  if (sprite != nullptr && sprite->GetTexture() != nullptr)
+    SDL_SetTextureColorMod(sprite->GetTexture(), r, g, b);
+}
