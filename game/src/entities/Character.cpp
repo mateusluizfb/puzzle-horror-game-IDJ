@@ -73,9 +73,9 @@ void Character::Update(float dt) {
     if (spriteRenderer != nullptr) {
       // Matematica do piscar (5 = velocidade do piscar)
       if ((int)(invulnerabilityTimer.Get() * 5) % 2 == 0) {
-        spriteRenderer->SetColorMod(255, 50, 50);
+        spriteRenderer->SetColorMod(255, 50, 50); // Fica Vermelho
       } else {
-        spriteRenderer->SetColorMod(255, 255, 255);
+        spriteRenderer->SetColorMod(255, 255, 255); //Fica  Normal
       }
    }
 
@@ -83,7 +83,7 @@ void Character::Update(float dt) {
     if (invulnerabilityTimer.Get() > 1.5f) {
       isInvulnerable = false;
       if (spriteRenderer != nullptr) {
-        spriteRenderer->SetColorMod(255, 255, 255);
+        spriteRenderer->SetColorMod(255, 255, 255); // Deixa Normal no final
       }
     }
   }
