@@ -48,7 +48,7 @@ void KitchenState::Start()
 
 void KitchenState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScale;
+  Vec2 tileScale = GameData::tileScaleClose;
   Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("KITCHEN_STATE - Starting background game object");

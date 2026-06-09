@@ -48,7 +48,7 @@ void KitchenCorridorState::Start()
 
 void KitchenCorridorState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScale;
+  Vec2 tileScale = GameData::tileScaleClose;
   Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("KITCHENCORRIDOR_STATE - Starting background game object");

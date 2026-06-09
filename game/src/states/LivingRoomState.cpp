@@ -48,8 +48,7 @@ void LivingRoomState::Start()
 
 void LivingRoomState::LoadAssets()
 {
-  // Vec2 tileScale = GameData::tileScale;
-  Vec2 tileScale = Vec2(2.0f, 2.0f);
+  Vec2 tileScale = GameData::tileScaleFar;
   Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("LIVINGROOM_STATE - Starting background game object");

@@ -48,7 +48,7 @@ void StageState::Start()
 
 void StageState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScale;
+  Vec2 tileScale = GameData::tileScaleClose;
 
   Log::debug("STAGE_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();

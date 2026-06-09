@@ -50,7 +50,7 @@ void MazeState::Start()
 
 void MazeState::LoadAssets()
 {
-    Vec2 tileScale = GameData::tileScale;
+    Vec2 tileScale = GameData::tileScaleClose;
 
     Log::debug("MAZE_STATE - Starting TileMap game object (TMX)");
     GameObject* tileMapGameObject = new GameObject();
