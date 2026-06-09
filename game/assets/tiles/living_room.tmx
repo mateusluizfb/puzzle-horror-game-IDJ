@@ -1,122 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="47">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="37" height="28" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="47">
  <tileset firstgid="1" source="test_tileset.tsx"/>
- <layer id="1" name="Tile Layer 1" width="30" height="30">
+ <layer id="1" name="Tile Layer 1" width="37" height="28">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,1,1,11,11,11,11,11,11,11,11,11,0,
-11,23,23,1,1,23,23,23,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,
-11,23,23,1,1,23,23,23,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,
-11,23,23,1,1,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-11,1,1,24,24,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-11,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,
-11,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,23,23,23,1,1,1,1,1,1,1,1,1,11,0,
-11,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,23,23,23,1,1,1,14,14,1,1,1,1,11,0,
-11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,14,14,1,1,1,1,11,0,
-11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,
-11,24,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,
-11,75,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,
-11,24,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,
-11,24,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,
-11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,
-11,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,1,1,1,1,11,0,
-11,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,1,1,1,1,11,0,
-11,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,
-11,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,
-11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,1,1,11,11,11,11,11,11,11,11,11,0,0,0,0,
+0,0,0,0,11,23,23,1,1,23,23,23,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,23,23,1,1,23,23,23,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,23,23,1,1,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+0,0,0,0,11,1,1,24,24,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+0,0,0,0,11,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,23,23,23,1,1,1,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,23,23,23,1,1,1,14,14,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,14,14,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,0,0,0,
+0,0,0,0,11,24,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,0,0,0,
+0,0,0,0,11,75,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,0,0,0,
+0,0,0,0,11,24,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,0,0,0,
+0,0,0,0,11,24,24,1,1,1,1,1,14,14,14,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,0,0,0,
+0,0,0,0,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,23,23,1,11,0,0,0,0,
+0,0,0,0,11,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,1,1,24,24,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,23,23,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,0,0,0,0,
+0,0,0,0,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" x="294.642" y="80.019" width="17.7185" height="21.7195">
+  <object id="1" x="359.785" y="64.0162" width="17.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="Pop"/>
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="2" x="447.821" y="133.746" width="17.7185" height="21.7195">
+  <object id="2" x="512.964" y="117.743" width="17.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="KitchenCorridorState"/>
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="3" name="wall" x="-1.14304" y="80.0028" width="17.1468" height="318.966">
+  <object id="3" name="wall" x="64" y="64" width="17.1468" height="318.966">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="4" name="wall" x="448" y="160" width="17.1468" height="240.661">
+  <object id="4" name="wall" x="513.143" y="143.997" width="17.1468" height="240.661">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="5" name="wall" x="17.7147" y="82.2139" width="269.792" height="13.75">
+  <object id="5" name="wall" x="82.8577" y="66.2111" width="269.792" height="13.75">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="6" name="wall" x="16" y="384" width="429.83" height="14.8932">
+  <object id="6" name="wall" x="81.143" y="367.997" width="429.83" height="14.8932">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" name="wall" x="318.355" y="82.2891" width="144.048" height="12.6069">
+  <object id="7" name="wall" x="383.498" y="66.2863" width="144.048" height="12.6069">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="8" name="wall" x="446.957" y="97.1498" width="17.7322" height="31.4685">
+  <object id="8" name="wall" x="512.1" y="81.147" width="17.7322" height="31.4685">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="9" x="16" y="352" width="32" height="32">
+  <object id="9" x="81.143" y="335.997" width="32" height="32">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="10" x="16" y="96" width="32" height="48">
+  <object id="10" x="81.143" y="79.9972" width="32" height="48">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="11" x="80" y="96" width="80" height="32">
+  <object id="11" x="145.143" y="79.9972" width="80" height="32">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="12" x="384" y="224" width="48" height="96">
+  <object id="12" x="449.143" y="207.997" width="48" height="96">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="13" x="208" y="176" width="96" height="32">
+  <object id="13" x="273.143" y="159.997" width="96" height="32">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="17" name="box" gid="79" x="320" y="320" width="16" height="16">
+  <object id="17" name="box" gid="79" x="385.143" y="303.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -124,7 +122,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="21" gid="79" x="320" y="336" width="16" height="16">
+  <object id="21" gid="79" x="385.143" y="319.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -132,7 +130,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="22" gid="79" x="336" y="320" width="16" height="16">
+  <object id="22" gid="79" x="401.143" y="303.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -140,7 +138,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="23" gid="79" x="336" y="336" width="16" height="16">
+  <object id="23" gid="79" x="401.143" y="319.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -148,19 +146,19 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="29" x="128" y="240" width="48" height="64">
+  <object id="29" x="193.143" y="223.997" width="48" height="64">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="30" x="16" y="240" width="32" height="64">
+  <object id="30" x="81.143" y="223.997" width="32" height="64">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="31" name="box" gid="79" x="48" y="320" width="16" height="16">
+  <object id="31" name="box" gid="79" x="113.143" y="303.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -168,7 +166,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="32" gid="79" x="48" y="336" width="16" height="16">
+  <object id="32" gid="79" x="113.143" y="319.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -176,7 +174,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="33" gid="79" x="64" y="320" width="16" height="16">
+  <object id="33" gid="79" x="129.143" y="303.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -184,7 +182,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="34" gid="79" x="64" y="336" width="16" height="16">
+  <object id="34" gid="79" x="129.143" y="319.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -192,7 +190,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="35" name="bpx" gid="79" x="48" y="144" width="16" height="16">
+  <object id="35" name="bpx" gid="79" x="113.143" y="127.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -200,7 +198,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="36" gid="79" x="48" y="160" width="16" height="16">
+  <object id="36" gid="79" x="113.143" y="143.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -208,7 +206,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="37" gid="79" x="64" y="144" width="16" height="16">
+  <object id="37" gid="79" x="129.143" y="127.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -216,7 +214,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="38" gid="79" x="64" y="160" width="16" height="16">
+  <object id="38" gid="79" x="129.143" y="143.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -224,7 +222,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="39" name="box" gid="79" x="112" y="128" width="16" height="16">
+  <object id="39" name="box" gid="79" x="177.143" y="111.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -232,7 +230,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="40" gid="79" x="112" y="144" width="16" height="16">
+  <object id="40" gid="79" x="177.143" y="127.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -240,7 +238,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="41" gid="79" x="128" y="128" width="16" height="16">
+  <object id="41" gid="79" x="193.143" y="111.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -248,7 +246,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="42" gid="79" x="128" y="144" width="16" height="16">
+  <object id="42" gid="79" x="193.143" y="127.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -256,7 +254,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="43" name="box" gid="79" x="352" y="192" width="16" height="16">
+  <object id="43" name="box" gid="79" x="417.143" y="175.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -264,7 +262,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="44" gid="79" x="352" y="208" width="16" height="16">
+  <object id="44" gid="79" x="417.143" y="191.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -272,7 +270,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="45" gid="79" x="368" y="192" width="16" height="16">
+  <object id="45" gid="79" x="433.143" y="175.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -280,7 +278,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="46" gid="79" x="368" y="208" width="16" height="16">
+  <object id="46" gid="79" x="433.143" y="191.997" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>

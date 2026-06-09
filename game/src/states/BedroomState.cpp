@@ -49,6 +49,7 @@ void BedroomState::Start()
 void BedroomState::LoadAssets()
 {
   Vec2 tileScale = GameData::tileScale;
+  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("BEDROOM_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -59,7 +60,7 @@ void BedroomState::LoadAssets()
   Log::debug("BEDROOM_STATE - Background game object loaded");
 
   Log::debug("BEDROOM_STATE - Starting TileMap game object (TMX)");
-  GameObject *tileMapGameObject = new GameObject();
+  GameObject *tileMapGameObject = new GameObject(); 
   TileSet *tileSet = new TileSet(16, 16, "game/assets/tiles/test_tileset.png");
   TileMap *tileMap = new TileMap(*tileMapGameObject, "game/assets/tiles/bedroom.tmx", tileSet);
   tileMap->scale = tileScale;
@@ -69,7 +70,7 @@ void BedroomState::LoadAssets()
 
   Log::debug("BEDROOM_STATE - Starting Character game object");
   GameObject *characterGameObject = new GameObject();
-  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
+  Character *character = new Character(*characterGameObject, "game/assets/img/Player.png");
   character->player = character;
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
@@ -113,9 +114,7 @@ void BedroomState::LoadAssets()
   
   tileObjects.Load(*this);
 
-  Log::debug("BEDROOM_STATE - TileObjects loader finished");
-
-  Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
+  Log::debug("BEDROOM_STATE - TileObjects loader finished"); 
 }
 
 void BedroomState::Update(float dt)

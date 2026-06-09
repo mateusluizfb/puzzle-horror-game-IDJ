@@ -49,6 +49,7 @@ void KitchenState::Start()
 void KitchenState::LoadAssets()
 {
   Vec2 tileScale = GameData::tileScale;
+  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("KITCHEN_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -69,7 +70,7 @@ void KitchenState::LoadAssets()
 
   Log::debug("KITCHEN_STATE - Starting Character game object");
   GameObject *characterGameObject = new GameObject();
-  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
+  Character *character = new Character(*characterGameObject, "game/assets/img/Player.png");
   character->player = character;
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
@@ -79,7 +80,7 @@ void KitchenState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(718, 363);
+  spriteRenderer1->SetPosition(1077, 370);
   Log::debug("KITCHEN_STATE - Character game object loaded");
 
   Log::debug("KITCHEN_STATE - Starting TileObjects loader");
@@ -115,7 +116,7 @@ void KitchenState::LoadAssets()
 
   Log::debug("KITCHEN_STATE - TileObjects loader finished");
 
-  Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
+  
 }
 
 void KitchenState::Update(float dt)

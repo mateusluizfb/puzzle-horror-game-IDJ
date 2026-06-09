@@ -17,7 +17,7 @@ Character::Character(GameObject &associated, std::string sprite)
     hit(false),
     taskQueue(),
     speed(Vec2(0, 0)),
-    linearSpeed(200),
+    linearSpeed(400),
     hp(100),
     collisionNormal(Vec2(0, 0)),
     deathTimer(Timer())

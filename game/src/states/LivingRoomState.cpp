@@ -48,7 +48,9 @@ void LivingRoomState::Start()
 
 void LivingRoomState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScale;
+  // Vec2 tileScale = GameData::tileScale;
+  Vec2 tileScale = Vec2(2.0f, 2.0f);
+  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("LIVINGROOM_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -79,7 +81,7 @@ void LivingRoomState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(564, 207);
+  spriteRenderer1->SetPosition(741, 161);
   Log::debug("LIVINGROOM_STATE - Character game object loaded");
 
   Log::debug("LIVINGROOM_STATE - Starting TileObjects loader");
@@ -114,8 +116,6 @@ void LivingRoomState::LoadAssets()
   tileObjects.Load(*this);
 
   Log::debug("LIVINGROOM_STATE - TileObjects loader finished");
-
-  Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
 }
 
 void LivingRoomState::Update(float dt)

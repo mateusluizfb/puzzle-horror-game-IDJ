@@ -69,7 +69,7 @@ void StageState::LoadAssets()
 
   Log::debug("STAGE_STATE - Starting Character game object");
   GameObject *characterGameObject = new GameObject();
-  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
+  Character *character = new Character(*characterGameObject, "game/assets/img/Player.png");
   character->player = character;
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
@@ -115,7 +115,7 @@ void StageState::LoadAssets()
 
   Log::debug("STAGE_STATE - TileObjects loader finished");
 
-  Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
+  
 }
 
 void StageState::Update(float dt)
