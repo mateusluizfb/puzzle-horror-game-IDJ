@@ -52,7 +52,7 @@ void StageState::LoadAssets()
 
   Log::debug("STAGE_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
-  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Background.png"));
+  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/black_solid_color.png"));
   SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
   bgSprite->SetCameraFollower(true);
   this->AddObject(bgGameObject);

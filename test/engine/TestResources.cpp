@@ -10,7 +10,7 @@ TEST(ResourcesTest, GetImage_CachesTexture) {
 
   Log::debug(" --- ResourcesTest Logs ----");
 
-  std::string file = "game/assets/img/Background.png";
+  std::string file = "game/assets/img/black_solid_color.png";
 
   SDL_Texture* tex1 = Resources::GetImage(file);
   SDL_Texture* tex2 = Resources::GetImage(file);
@@ -27,7 +27,7 @@ TEST(ResourcesTest, ClearImages_DestroysTextures) {
 
   Log::debug(" --- ResourcesTest Logs ----");
 
-  std::string file = "game/assets/img/Background.png";
+  std::string file = "game/assets/img/black_solid_color.png";
 
   SDL_Texture* tex1 = Resources::GetImage(file);
   EXPECT_NE(tex1, nullptr);
