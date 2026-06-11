@@ -5,10 +5,15 @@
 #include "XmlParser.h"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 TileMap::TileMap(GameObject &associated, std::string file, TileSet *tileSet)
-: Component(associated), tileSet(tileSet), scale(Vec2(1.0f, 1.0f))
+: Component(associated), scale(Vec2(1.0f, 1.0f))
 {
+  if (tileSet) {
+    // Default to firstgid 1 if a single TileSet is provided via constructor
+    tileSets.push_back({1, std::unique_ptr<TileSet>(tileSet)});
+  }
   Load(file);
 }
 
@@ -95,6 +100,46 @@ void TileMap::LoadTmx(const std::string& file) {
     throw std::runtime_error("TileMap::LoadTmx: Root element is not <map> in " + file);
   }
 
+  // --- Parse Tilesets ---
+  tileSets.clear();
+  std::vector<const XmlNode*> tilesetNodes = root.findChildren("tileset");
+  for (const auto* tsNode : tilesetNodes) {
+    int firstgid = std::stoi(tsNode->getAttribute("firstgid", "1"));
+    std::string source = tsNode->getAttribute("source");
+    
+    if (source.empty()) {
+      throw std::runtime_error("TileMap::LoadTmx: Tileset source is empty in " + file);
+    }
+
+    // Resolve source path relative to map file
+    std::string mapDir = file.substr(0, file.find_last_of("/\\") + 1);
+    std::string tsxPath = mapDir + source;
+
+    XmlNode tsx = XmlParser::ParseFile(tsxPath);
+    int tw = std::stoi(tsx.getAttribute("tilewidth", "0"));
+    int th = std::stoi(tsx.getAttribute("tileheight", "0"));
+
+    // Extract the actual image path from the <image> tag inside the .tsx file
+    const XmlNode* imageNode = tsx.findChild("image");
+    std::string imagePath = "";
+    if (imageNode) {
+      imagePath = imageNode->getAttribute("source");
+      
+      // Resolve image path relative to the .tsx file directory
+      std::string tsxDir = tsxPath.substr(0, tsxPath.find_last_of("/\\") + 1);
+      imagePath = tsxDir + imagePath;
+    } else {
+      throw std::runtime_error("TileMap::LoadTmx: <image> tag not found in tileset file: " + tsxPath);
+    }
+
+    tileSets.push_back(std::make_pair(firstgid, std::unique_ptr<TileSet>(new TileSet(tw, th, imagePath))));
+  }
+
+  // Sort tilesets by firstgid to allow efficient lookup
+  std::sort(tileSets.begin(), tileSets.end(), [](const std::pair<int, std::unique_ptr<TileSet>>& a, const std::pair<int, std::unique_ptr<TileSet>>& b) {
+    return a.first < b.first;
+  });
+
   mapWidth  = std::stoi(root.getAttribute("width",  "0"));
   mapHeight = std::stoi(root.getAttribute("height", "0"));
   
@@ -135,7 +180,10 @@ void TileMap::LoadTmx(const std::string& file) {
 }
 
 void TileMap::SetTileSet(TileSet *tileSet) {
-  this->tileSet.reset(tileSet);
+  tileSets.clear();
+  if (tileSet) {
+    tileSets.push_back({1, std::unique_ptr<TileSet>(tileSet)});
+  }
 }
 
 int& TileMap::At(int x, int y, int z)
@@ -168,8 +216,8 @@ void TileMap::RenderLayer() {
 }
 
 void TileMap::RenderLayerTxt() {
-  if (!tileSet) {
-    Log::error("TileMap::RenderLayerTxt: No TileSet associated with TileMap.");
+  if (tileSets.empty()) {
+    Log::error("TileMap::RenderLayerTxt: No TileSets associated with TileMap.");
     return;
   }
 
@@ -187,9 +235,13 @@ void TileMap::RenderLayerTxt() {
       {
         int tileIndex = At(x, y, z);
 
-        tileSet->RenderTile(tileIndex,
-                            associated.box.x + x * tileSet->GetTileWidth(),
-                            associated.box.y + y * tileSet->GetTileHeight());
+        // Since RenderLayerTxt is likely for legacy simple maps, 
+        // we use the first tileset if available.
+        if (!tileSets.empty()) {
+            tileSets[0].second->RenderTile(tileIndex,
+                                        associated.box.x + x * tileSets[0].second->GetTileWidth(),
+                                        associated.box.y + y * tileSets[0].second->GetTileHeight());
+        }
       }
     }
 
@@ -198,8 +250,8 @@ void TileMap::RenderLayerTxt() {
 }
 
 void TileMap::RenderLayerTmx() {
-  if (!tileSet) {
-    Log::error("TileMap::RenderLayerTmx: No TileSet associated with TileMap.");
+  if (tileSets.empty()) {
+    Log::error("TileMap::RenderLayerTmx: No TileSets associated with TileMap.");
     return;
   }
 
@@ -222,12 +274,27 @@ void TileMap::RenderLayerTmx() {
           continue; // empty tile
         }
 
-        unsigned tileIndex = static_cast<unsigned>(rawId - 1);
+        // Find the correct tileset for the rawId
+        TileSet* targetTileSet = nullptr;
+        int localIndex = 0;
 
-        tileSet->RenderTile(tileIndex,
-                               associated.box.x + x * tileSet->GetTileWidth() * scale.x,
-                               associated.box.y + y * tileSet->GetTileHeight() * scale.y,
-                               scale);
+        for (auto it = tileSets.rbegin(); it != tileSets.rend(); ++it) {
+          if (rawId >= it->first) {
+            targetTileSet = it->second.get();
+            localIndex = rawId - it->first;
+            break;
+          }
+        }
+
+        if (!targetTileSet) {
+          Log::warning("TileMap::RenderLayerTmx: Tile ID " + std::to_string(rawId) + " does not belong to any loaded tileset.");
+          continue;
+        }
+
+        targetTileSet->RenderTile(localIndex,
+                                associated.box.x + x * targetTileSet->GetTileWidth() * scale.x,
+                                associated.box.y + y * targetTileSet->GetTileHeight() * scale.y,
+                                scale);
       }
     }
 
