@@ -13,34 +13,28 @@
 #include "TileObject.h"
 #include "Wall.h"
 #include "Teleporter.h"
-//#include "Light.h"
+#include "Light.h"
 #include <iostream>
 
 MazeState::MazeState() : State(), //music("game/assets/audio/BGM.wav"),
-	loopCount(0)//, lightMap(nullptr)
+	loopCount(0), lightMap(nullptr)
 {
 	Log::info("MAZE_STATE - Initializing state");
 
 	Camera::GetInstance().SetPosition(0, 0);
 	Camera::GetInstance().SetSpeed(200, 200);
 
-	/*
 	// Alocacao do Render Target dedicado para a Iluminacao
 	SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
-	lightMap = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1200, 900); // Ajuste para a sua resolução
+	lightMap = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1200, 900);
 	SDL_SetTextureBlendMode(lightMap, SDL_BLENDMODE_MOD);
-	*/
 }
 
 MazeState::~MazeState()
 {
     Log::info("MAZE_STATE - Destroying state");
     objectArray.clear();
-	/*
-    if (lightMap != nullptr) {
-        SDL_DestroyTexture(lightMap);
-    }
-	*/
+    if (lightMap != nullptr) SDL_DestroyTexture(lightMap);
 }
 
 void MazeState::Start()
@@ -67,12 +61,12 @@ void MazeState::LoadAssets()
 
     Collider* collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
     PlayerController* playerController = new PlayerController(*characterGameObject);
-    //Light* heroLight = new Light(*characterGameObject, "game/assets/img/light.png", 3.0f);
+	Light* heroLight = new Light(*characterGameObject, "game/assets/img/light.png", 0.2f, 255, 255, 255, 200);
 
     characterGameObject->AddComponent(character);
     characterGameObject->AddComponent(collider);
     characterGameObject->AddComponent(playerController);
-    //characterGameObject->AddComponent(heroLight); // A lanterna do labirinto
+	characterGameObject->AddComponent(heroLight);
     characterGameObject->tag = "player";
 
     this->AddObject(characterGameObject);
@@ -109,6 +103,26 @@ void MazeState::LoadAssets()
         if (data.properties.find("completeLoop") != data.properties.end()) completes_loop = (data.properties.at("completeLoop") == "true");
 
         return new Teleporter(go, Vec2(dest_x, dest_y), completes_loop);
+    });
+
+	tileObjects.RegisterComponent("light", [](GameObject& go) -> Component* {
+		const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
+
+		// Valores padrao (Luz branca forte)
+		float scale = 3.0f;
+		Uint8 r = 255, g = 255, b = 255, a = 255;
+
+		if (data.properties.find("scale") != data.properties.end()) scale = std::stof(data.properties.at("scale"));
+		if (data.properties.find("r") != data.properties.end()) r = (Uint8)std::stoi(data.properties.at("r"));
+		if (data.properties.find("g") != data.properties.end()) g = (Uint8)std::stoi(data.properties.at("g"));
+		if (data.properties.find("b") != data.properties.end()) b = (Uint8)std::stoi(data.properties.at("b"));
+		if (data.properties.find("a") != data.properties.end()) a = (Uint8)std::stoi(data.properties.at("a"));
+
+		return new Light(go, "game/assets/img/light.png", scale, r, g, b, a);
+	});
+
+	tileObjects.RegisterComponent("darkZone", [](GameObject& go) -> Component* {
+        return new DarkZone(go);
     });
 
     tileObjects.Load(*this);
@@ -160,7 +174,6 @@ void MazeState::Render() {
     SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
 
     // Redireciona a pintura para a pelicula escura
-	/*
     SDL_SetRenderTarget(renderer, lightMap);
     SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
     SDL_RenderClear(renderer);
@@ -169,14 +182,10 @@ void MazeState::Render() {
     Light::RenderAll();
 
     // Devolve para a tela principal
-	*/
     SDL_SetRenderTarget(renderer, nullptr);
-
-    // Renderiza o jogo
     RenderArray();
-
     // Aplica a mascara de luz multiplicativa
-    //SDL_RenderCopy(renderer, lightMap, nullptr, nullptr);
+    SDL_RenderCopy(renderer, lightMap, nullptr, nullptr);
 }
 
 void MazeState::Pause() {

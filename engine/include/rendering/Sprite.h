@@ -41,6 +41,7 @@ public:
   Vec2 GetScale();
   void SetFlip(SDL_RendererFlip flip);
   SDL_RendererFlip GetFlip();
+  SDL_Texture* GetTexture();
 };
 
 #endif

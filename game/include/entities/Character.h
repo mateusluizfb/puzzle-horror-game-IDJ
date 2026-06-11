@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include "Component.h"
+#include "GameData.h"
 #include "GameObject.h"
 #include "Timer.h"
 #include "Vec2.h"
@@ -50,6 +51,7 @@ public:
   int GetHp();
   void NotifyCollision(GameObject &other) override;
   Vec2 GetCenterPosition();
+  void TakeDamage();
 
 private:
   std::queue<Command> taskQueue;
@@ -64,6 +66,8 @@ public:
 
 private:
   Timer deathTimer;
+  bool isInvulnerable;
+  Timer invulnerabilityTimer;
 };
 
 #endif

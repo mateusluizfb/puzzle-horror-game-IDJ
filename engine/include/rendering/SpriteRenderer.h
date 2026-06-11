@@ -23,6 +23,7 @@ public:
   void SetScale(float scaleX, float scaleY);
   void SetFlip(SDL_RendererFlip flip);
   SDL_RendererFlip GetFlip();
+  void SetColorMod(Uint8 r, Uint8 g, Uint8 b);
 
   void Update(float dt) override;
   void Render() override;
