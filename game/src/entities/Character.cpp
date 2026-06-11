@@ -152,6 +152,14 @@ Vec2 Character::GetSpeed()
   return speed;
 }
 
+void Character::SetLinearSpeed(float linearSpeed) {
+  this->linearSpeed = linearSpeed;
+}
+
+float Character::GetLinearSpeed() {
+  return linearSpeed;
+}
+
 int Character::GetHp() {
   return hp;
 }

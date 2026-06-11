@@ -48,7 +48,7 @@ void StageState::Start()
 
 void StageState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScaleClose;
+  Vec2 tileScale = GameData::tileScaleFar;
 
   Log::debug("STAGE_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -115,7 +115,7 @@ void StageState::LoadAssets()
 
   Log::debug("STAGE_STATE - TileObjects loader finished");
 
-  
+  Camera::GetInstance().Follow(characterGameObject);
 }
 
 void StageState::Update(float dt)
