@@ -28,8 +28,9 @@ KitchenCorridorState::KitchenCorridorState(): State(), music("game/audio/BGM.wav
 {
   Log::info("KITCHENCORRIDOR_STATE - Initializing state");
 
-  Camera::GetInstance().SetPosition(600, 450);
-  Camera::GetInstance().SetSpeed(200, 200);
+  // Camera::GetInstance().SetPosition(600, 450);
+  // Camera::GetInstance().SetSpeed(200, 200);
+  Camera::GetInstance().SetPosition(0, 0);
 }
 
 KitchenCorridorState::~KitchenCorridorState()
@@ -49,7 +50,6 @@ void KitchenCorridorState::Start()
 void KitchenCorridorState::LoadAssets()
 {
   Vec2 tileScale = GameData::tileScaleClose;
-  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("KITCHENCORRIDOR_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -181,6 +181,4 @@ void KitchenCorridorState::Resume()
     Log::error("KITCHENCORRIDOR_STATE - Cannot resume: player object not found");
     return;
   }
-
-  Camera::GetInstance().Follow(player);
 }

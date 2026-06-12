@@ -28,8 +28,7 @@ BedroomState::BedroomState(): State(), music("game/audio/BGM.wav")
 {
   Log::info("BEDROOM_STATE - Initializing state");
 
-  Camera::GetInstance().SetPosition(600, 450);
-  Camera::GetInstance().SetSpeed(200, 200);
+  Camera::GetInstance().SetPosition(0, 0);
 }
 
 BedroomState::~BedroomState()
@@ -49,7 +48,6 @@ void BedroomState::Start()
 void BedroomState::LoadAssets()
 {
   Vec2 tileScale = GameData::tileScaleClose;
-  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("BEDROOM_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -181,6 +179,4 @@ void BedroomState::Resume()
     Log::error("BEDROOM_STATE - Cannot resume: player object not found");
     return;
   }
-
-  Camera::GetInstance().Follow(player);
 }

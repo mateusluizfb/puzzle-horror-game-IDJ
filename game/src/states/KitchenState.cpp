@@ -183,6 +183,4 @@ void KitchenState::Resume()
     Log::error("KITCHEN_STATE - Cannot resume: player object not found");
     return;
   }
-
-  Camera::GetInstance().Follow(player);
 }

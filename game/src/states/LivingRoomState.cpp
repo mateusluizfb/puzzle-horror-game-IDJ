@@ -188,6 +188,4 @@ void LivingRoomState::Resume()
     Log::error("LIVINGROOM_STATE - Cannot resume: player object not found");
     return;
   }
-
-  Camera::GetInstance().Follow(player);
 }
