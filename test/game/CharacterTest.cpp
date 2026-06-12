@@ -13,7 +13,7 @@ TEST(CharacterTest, Start)
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject go;
-  Character character(go, "game/assets/img/Player_Small.png");
+  Character character(go, "game/assets/img/Player.png");
   
   State& previousState = game->GetCurrentState();
   int previousObjectsSize = previousState.GetObjectArray().size();
@@ -35,7 +35,7 @@ TEST(CharacterTest, Issue) {
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject go;
-  Character character(go, "game/assets/img/Player_Small.png");
+  Character character(go, "game/assets/img/Player.png");
   Character::Command command(CommandType::MOVE, 0, 0);
 
   std::queue<Character::Command> taskQueue = character.GetTaskQueue();
@@ -58,7 +58,7 @@ TEST(CharacterTest, UpdateIdle) {
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject go;
-  Character character(go, "game/assets/img/Player_Small.png");
+  Character character(go, "game/assets/img/Player.png");
 
   EXPECT_NO_THROW(character.Update(0));
 
@@ -98,7 +98,7 @@ TEST(CharacterTest, UpdateMove)
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject* go = new GameObject();
-  Character *character = new Character(*go, "game/assets/img/Player_Small.png");
+  Character *character = new Character(*go, "game/assets/img/Player.png");
   go->AddComponent(character);
   Character::Command command(CommandType::MOVE, 1, 1);
 
@@ -126,7 +126,7 @@ TEST(CharacterTest, NotifyCollision) {
   Log::debug(" --- CharacterTest Logs ----");
 
   GameObject *go = new GameObject();
-  Character *character = new Character(*go, "game/assets/img/Player_Small.png");
+  Character *character = new Character(*go, "game/assets/img/Player.png");
   go->AddComponent(character);
   character->Start();
 

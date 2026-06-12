@@ -64,16 +64,4 @@ void Camera::Update(float dt) {
     
     return;
   }
-
-  if (InputManager::GetInstance().IsKeyDown(LEFT_ARROW_KEY))
-    pos.x -= speed.x * dt;
-
-  if (InputManager::GetInstance().IsKeyDown(RIGHT_ARROW_KEY))
-    pos.x += speed.x * dt;
-
-  if (InputManager::GetInstance().IsKeyDown(UP_ARROW_KEY))
-    pos.y -= speed.y * dt;
-
-  if (InputManager::GetInstance().IsKeyDown(DOWN_ARROW_KEY))
-    pos.y += speed.y * dt;
 }

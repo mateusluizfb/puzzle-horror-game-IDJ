@@ -33,7 +33,7 @@ TEST(GameObjectTest, AddObjectAndComponent)
   game->StateStackPush(new StageState());
 
   GameObject *obj = new GameObject();
-  SpriteRenderer *spriteRenderer = new SpriteRenderer(*obj, "game/assets/img/Background.png");
+  SpriteRenderer *spriteRenderer = new SpriteRenderer(*obj, "game/assets/img/black_solid_color.png");
 
   obj->AddComponent(spriteRenderer);
   state->AddObject(obj);

@@ -7,6 +7,8 @@ class GameData {
 
   public:
     static bool playerVictory;
+    static Vec2 tileScaleClose;
+    static Vec2 tileScaleFar;
     static Vec2 tileScale;
     static bool dialogueActive;
 	static int playerLives;

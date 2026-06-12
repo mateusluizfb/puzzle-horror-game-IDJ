@@ -48,6 +48,8 @@ public:
   void Issue(Command command);
   std::queue<Command> GetTaskQueue();
   Vec2 GetSpeed();
+  float GetLinearSpeed();
+  void SetLinearSpeed(float linearSpeed);
   int GetHp();
   void NotifyCollision(GameObject &other) override;
   Vec2 GetCenterPosition();

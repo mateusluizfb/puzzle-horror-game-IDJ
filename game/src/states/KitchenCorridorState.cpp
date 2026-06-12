@@ -48,11 +48,12 @@ void KitchenCorridorState::Start()
 
 void KitchenCorridorState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScale;
+  Vec2 tileScale = GameData::tileScaleClose;
+  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("KITCHENCORRIDOR_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
-  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Background.png"));
+  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/black_solid_color.png"));
   SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
   bgSprite->SetCameraFollower(true);
   this->AddObject(bgGameObject);
@@ -69,7 +70,7 @@ void KitchenCorridorState::LoadAssets()
 
   Log::debug("KITCHENCORRIDOR_STATE - Starting Character game object");
   GameObject *characterGameObject = new GameObject();
-  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
+  Character *character = new Character(*characterGameObject, "game/assets/img/Player.png");
   character->player = character;
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
@@ -79,7 +80,7 @@ void KitchenCorridorState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(456, 451);
+  spriteRenderer1->SetPosition(535, 768);
   Log::debug("KITCHENCORRIDOR_STATE - Character game object loaded");
 
   Log::debug("KITCHENCORRIDOR_STATE - Starting TileObjects loader");
@@ -114,8 +115,6 @@ void KitchenCorridorState::LoadAssets()
   tileObjects.Load(*this);
 
   Log::debug("KITCHENCORRIDOR_STATE - TileObjects loader finished");
-
-  Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
 }
 
 void KitchenCorridorState::Update(float dt)

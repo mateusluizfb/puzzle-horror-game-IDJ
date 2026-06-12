@@ -48,11 +48,12 @@ void LivingRoomState::Start()
 
 void LivingRoomState::LoadAssets()
 {
-  Vec2 tileScale = GameData::tileScale;
+  Vec2 tileScale = GameData::tileScaleFar;
+  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("LIVINGROOM_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
-  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Background.png"));
+  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/black_solid_color.png"));
   SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
   bgSprite->SetCameraFollower(true);
   this->AddObject(bgGameObject);
@@ -71,6 +72,7 @@ void LivingRoomState::LoadAssets()
   GameObject *characterGameObject = new GameObject();
   Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
   character->player = character;
+  character->SetLinearSpeed(character->GetLinearSpeed() / 2);
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
   characterGameObject->AddComponent(character);
@@ -79,7 +81,7 @@ void LivingRoomState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(564, 207);
+  spriteRenderer1->SetPosition(741, 161);
   Log::debug("LIVINGROOM_STATE - Character game object loaded");
 
   Log::debug("LIVINGROOM_STATE - Starting TileObjects loader");
@@ -114,8 +116,6 @@ void LivingRoomState::LoadAssets()
   tileObjects.Load(*this);
 
   Log::debug("LIVINGROOM_STATE - TileObjects loader finished");
-
-  Camera::GetInstance().Follow(this->GetObjectPtr(characterGameObject).lock().get());
 }
 
 void LivingRoomState::Update(float dt)
