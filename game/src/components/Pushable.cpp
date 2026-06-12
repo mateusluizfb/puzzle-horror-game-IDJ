@@ -10,7 +10,9 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
     pushDirection(Vec2(0, 0)),
     pushSpeed(pushSpeed),
     isPushing(false)
-{}
+{
+  this->associated.tag = "pushable";
+}
 
 void Pushable::Update(float dt) {
   (void)dt;

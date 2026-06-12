@@ -9,9 +9,9 @@ class Pushable : public Component {
 private:
   Vec2 pushDirection;
   float pushSpeed;
+public:
   bool isPushing;
 
-public:
   Pushable(GameObject& associated, float pushSpeed = 100.0f);
   
   void Update(float dt) override;
