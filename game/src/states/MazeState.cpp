@@ -44,7 +44,7 @@ void MazeState::Start()
 
 void MazeState::LoadAssets()
 {
-    Vec2 tileScale = GameData::tileScaleClose;
+    Vec2 tileScale = GameData::tileScaleFar;
 
     Log::debug("MAZE_STATE - Starting TileMap game object (TMX)");
     GameObject* tileMapGameObject = new GameObject();
@@ -128,7 +128,7 @@ void MazeState::LoadAssets()
     tileObjects.Load(*this);
     Log::debug("MAZE_STATE - TileObjects loader finished");
 
-    
+    Camera::GetInstance().Follow(characterGameObject);    
 }
 
 void MazeState::Update(float dt) {
