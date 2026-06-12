@@ -11,7 +11,7 @@
 class TileMap : public Component {
 private:
   std::vector<int> tileMatrix;
-  std::unique_ptr<TileSet> tileSet;
+  std::vector<std::pair<int, std::unique_ptr<TileSet>>> tileSets;
 
   int mapWidth;
   int mapHeight;
