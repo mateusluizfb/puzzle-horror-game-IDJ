@@ -72,7 +72,7 @@ void LivingRoomState::LoadAssets()
   GameObject *characterGameObject = new GameObject();
   Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
   character->player = character;
-  character->SetLinearSpeed(character->GetLinearSpeed() / 2);
+  character->SetLinearSpeed(character->GetLinearSpeed() / 1.5);
   Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
   PlayerController *playerController = new PlayerController(*characterGameObject);
   characterGameObject->AddComponent(character);
