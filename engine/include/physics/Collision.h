@@ -42,6 +42,16 @@ class Collision {
 			}
 		}
 
+		static void KeepWithinBounds(GameObject& a, GameObject& b) {
+			if (a.box.x < b.box.x) a.box.x = b.box.x;
+			if (a.box.x + a.box.w > b.box.x + b.box.w) 
+				a.box.x = b.box.x + b.box.w - a.box.w;
+			
+			if (a.box.y < b.box.y) a.box.y = b.box.y;
+			if (a.box.y + a.box.h > b.box.y + b.box.h) 
+				a.box.y = b.box.y + b.box.h - a.box.h;
+		}
+
 		// Observação: IsColliding espera ângulos em radianos!
 		// Para usar graus, forneça a sua própria implementação de Rotate,
 		// ou transforme os ângulos no corpo de IsColliding.

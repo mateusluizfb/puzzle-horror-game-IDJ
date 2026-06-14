@@ -68,22 +68,6 @@ void LivingRoomState::LoadAssets()
   this->AddObject(tileMapGameObject);
   Log::debug("LIVINGROOM_STATE - TileMap game object loaded");
 
-  Log::debug("LIVINGROOM_STATE - Starting Character game object");
-  GameObject *characterGameObject = new GameObject();
-  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
-  character->player = character;
-  character->SetLinearSpeed(character->GetLinearSpeed() / 2);
-  Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
-  PlayerController *playerController = new PlayerController(*characterGameObject);
-  characterGameObject->AddComponent(character);
-  characterGameObject->AddComponent(collider);
-  characterGameObject->AddComponent(playerController);
-  characterGameObject->tag = "player";
-  this->AddObject(characterGameObject);
-  SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(741, 161);
-  Log::debug("LIVINGROOM_STATE - Character game object loaded");
-
   Log::debug("LIVINGROOM_STATE - Starting TileObjects loader");
   TileObjects tileObjects(
       "game/assets/tiles/living_room.tmx",
@@ -115,6 +99,22 @@ void LivingRoomState::LoadAssets()
   
   tileObjects.Load(*this);
   Log::debug("LIVINGROOM_STATE - TileObjects loader finished");
+
+  Log::debug("LIVINGROOM_STATE - Starting Character game object");
+  GameObject *characterGameObject = new GameObject();
+  Character *character = new Character(*characterGameObject, "game/assets/img/Player_Small.png");
+  character->player = character;
+  character->SetLinearSpeed(character->GetLinearSpeed() / 2);
+  Collider *collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
+  PlayerController *playerController = new PlayerController(*characterGameObject);
+  characterGameObject->AddComponent(character);
+  characterGameObject->AddComponent(collider);
+  characterGameObject->AddComponent(playerController);
+  characterGameObject->tag = "player";
+  this->AddObject(characterGameObject);
+  SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
+  spriteRenderer1->SetPosition(741, 161);
+  Log::debug("LIVINGROOM_STATE - Character game object loaded");
 }
 
 void LivingRoomState::Update(float dt)

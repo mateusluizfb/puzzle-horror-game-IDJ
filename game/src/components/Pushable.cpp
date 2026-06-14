@@ -20,26 +20,39 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
-  Text *text = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to push", white);
-  text->Hide();
+  pushText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to push", white);
+  pushText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
-  associated.AddComponent(text);
+  associated.AddComponent(pushText);
+
+  GameObject *textClimbGameObject = new GameObject();
+  climbText = new Text(*textClimbGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press R to climb", white);
+  climbText->Hide();
+  textClimbGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
+  textClimbGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 60);
+  associated.AddComponent(climbText);
 }
 
-void Pushable::Update(float dt) {
-  Text *text = associated.GetComponent<Text>();
 
-  if (isTouching && !togglePush) {
-    text->Show();
+void Pushable::Update(float dt) {
+  if (isTouching && !togglePush && !isClimbed) {
+    pushText->Show();
   } else {
-    text->Hide();
+    pushText->Hide();
+  }
+
+  if (isTouching && !isClimbed) {
+    climbText->Show();
+  } else {
+    climbText->Hide();
   }
 
   isTouching = false;
 }
 
 void Pushable::Render() {}
+
 
 void Pushable::NotifyCollision(GameObject& other) {
   InputManager &inputManager = InputManager::GetInstance();
@@ -72,6 +85,18 @@ void Pushable::NotifyCollision(GameObject& other) {
     if (inputManager.KeyPress(E_KEY))
     {
       togglePush = !togglePush;
+    }
+
+    if (inputManager.KeyPress(R_KEY))
+    {
+      isClimbed = !isClimbed;
+      togglePush = false; // Ensure we aren't pushing while climbing
+    }
+
+    if (isClimbed)
+    {
+      Collision::KeepWithinBounds(other, associated);
+      return; // Skip push logic and overlap resolution
     }
 
     if (!togglePush && isTouching)
