@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "GameObject.h"
 #include "Game.h"
+#include "Collider.h"
 
 #include <cmath>
 
@@ -15,30 +16,41 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 }
 
 void Pushable::Update(float dt) {
-  (void)dt;
   isPushing = false;
 }
 
 void Pushable::Render() {}
 
 void Pushable::NotifyCollision(GameObject& other) {
-  if (other.tag != "player") return;
+  if (other.tag == "player") {
+    Log::info("PUSHABLE - Collided with player, calculating push direction");
+    
+    Vec2 blockDir = associated.GetCollisionNormal();
+    associated.SetCollisionNormal(Vec2(0, 0));
 
-  Vec2 collisionNormal = associated.box.GetCenter() - other.box.GetCenter();
-  
-  pushDirection = collisionNormal.Normalize();
-  
-  Vec2 direction = Vec2(0, 0);
+    pushDirection = (associated.box.GetCenter() - other.box.GetCenter()).Normalize();
 
-  if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
-    direction.x = (pushDirection.x > 0) ? 1.0f : -1.0f;
-  } else {
-    direction.y = (pushDirection.y > 0) ? 1.0f : -1.0f;
-  }
+    Vec2 direction = Vec2(0, 0);
 
-  float dt = Game::GetInstance().GetDeltaTime();
-  associated.box.x += direction.x * pushSpeed * dt;
-  associated.box.y += direction.y * pushSpeed * dt;
-  
-  isPushing = true;
+    if (std::abs(pushDirection.x) > std::abs(pushDirection.y))
+    {
+      direction.x = (pushDirection.x > 0) ? 1.0f : -1.0f;
+    }
+    else
+    {
+      direction.y = (pushDirection.y > 0) ? 1.0f : -1.0f;
+    }
+
+    float dt = Game::GetInstance().GetDeltaTime();
+
+    if (blockDir.x > 0 && direction.x > 0) direction.x = 0;
+    if (blockDir.x < 0 && direction.x < 0) direction.x = 0;
+    if (blockDir.y > 0 && direction.y > 0) direction.y = 0;
+    if (blockDir.y < 0 && direction.y < 0) direction.y = 0;
+
+    associated.box.x += direction.x * pushSpeed * dt;
+    associated.box.y += direction.y * pushSpeed * dt;
+
+    isPushing = true;
+  };
 }

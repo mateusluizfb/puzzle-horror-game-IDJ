@@ -9,6 +9,7 @@ class Pushable : public Component {
 private:
   Vec2 pushDirection;
   float pushSpeed;
+
 public:
   bool isPushing;
 

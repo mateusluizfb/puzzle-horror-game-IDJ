@@ -11,6 +11,7 @@ private:
   bool started;
   bool isDead;
   std::vector<Component *> components;
+  Vec2 collisionNormal = Vec2(0, 0);
 
 public:
   Rect box;
@@ -29,7 +30,10 @@ public:
   void RemoveComponent(Component* cpt);
   float GetAngleRad();
   void NotifyCollision(GameObject& other);
-  
+
+  void SetCollisionNormal(Vec2 normal) { collisionNormal = normal; }
+  Vec2 GetCollisionNormal() { return collisionNormal; }
+
   const std::vector<Component*>& GetComponents() const { return components; }
 
   template <typename T>

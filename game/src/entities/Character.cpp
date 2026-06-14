@@ -21,7 +21,6 @@ Character::Character(GameObject &associated, std::string sprite)
     speed(Vec2(0, 0)),
     linearSpeed(400),
     hp(100),
-    collisionNormal(Vec2(0, 0)),
     deathTimer(Timer())
 {
   SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, sprite, 3, 4);
@@ -52,8 +51,8 @@ void Character::Update(float dt) {
 
   if (associated.IsDead()) return;
 
-  Vec2 blockDir = collisionNormal;
-  collisionNormal = Vec2(0, 0);
+  Vec2 blockDir = associated.GetCollisionNormal();
+  associated.SetCollisionNormal(Vec2(0, 0));
 
   if (hit) {
     Timer* hitTimer = &animator->hitTimer;

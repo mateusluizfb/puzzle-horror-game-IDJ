@@ -114,7 +114,6 @@ void LivingRoomState::LoadAssets()
   });
   
   tileObjects.Load(*this);
-
   Log::debug("LIVINGROOM_STATE - TileObjects loader finished");
 }
 
