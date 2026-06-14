@@ -11,7 +11,8 @@ private:
   float pushSpeed;
 
 public:
-  bool isPushing;
+  bool isTouching = false; 
+  bool togglePush = false;
 
   Pushable(GameObject& associated, float pushSpeed = 100.0f);
   

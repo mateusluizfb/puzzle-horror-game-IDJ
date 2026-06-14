@@ -34,7 +34,7 @@ Text::~Text() {
 void Text::Update(float dt) {}
 
 void Text::Render() {
-  if (texture) {
+  if (texture && !hidden) {
     SDL_Rect dstRect;
     dstRect.x = associated.box.x;
     dstRect.y = associated.box.y;
@@ -75,6 +75,14 @@ void Text::SetFontFile(std::string fontFile) {
 void Text::SetFontSize(int fontSize) {
   this->fontSize = fontSize;
   RemakeTexture();
+}
+
+void Text::Show() {
+  this->hidden = false;
+}
+
+void Text::Hide() {
+  this->hidden = true;
 }
 
 void Text::RemakeTexture() {
