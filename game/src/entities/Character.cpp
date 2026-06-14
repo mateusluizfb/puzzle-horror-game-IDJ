@@ -5,6 +5,7 @@
 #include "Animator.h"
 #include "Collider.h"
 #include "Camera.h"
+#include "Pushable.h"
 
 Character::Command::Command(CommandType type, float x, float y)
   : type(type), pos(x, y) {}
@@ -193,7 +194,6 @@ void Character::NotifyCollision(GameObject &other) {
   if (other.tag == "wall") {
     return;
   }
-
 
   if (player && IMMORTAL) {
     Log::warning("CHARACTER - IMMORTAL mode active, no damage taken.");

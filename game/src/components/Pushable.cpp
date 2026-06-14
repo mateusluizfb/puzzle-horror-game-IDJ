@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "Collider.h"
+#include "Character.h"
 
 #include <cmath>
 
@@ -26,6 +27,7 @@ void Pushable::NotifyCollision(GameObject& other) {
     Log::info("PUSHABLE - Collided with player, calculating push direction");
     
     Vec2 blockDir = associated.GetCollisionNormal();
+    other.SetCollisionNormal(blockDir);
     associated.SetCollisionNormal(Vec2(0, 0));
 
     pushDirection = (associated.box.GetCenter() - other.box.GetCenter()).Normalize();
@@ -47,6 +49,7 @@ void Pushable::NotifyCollision(GameObject& other) {
     if (blockDir.x < 0 && direction.x < 0) direction.x = 0;
     if (blockDir.y > 0 && direction.y > 0) direction.y = 0;
     if (blockDir.y < 0 && direction.y < 0) direction.y = 0;
+    
 
     associated.box.x += direction.x * pushSpeed * dt;
     associated.box.y += direction.y * pushSpeed * dt;
