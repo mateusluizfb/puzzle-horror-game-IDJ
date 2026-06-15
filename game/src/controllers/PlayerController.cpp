@@ -34,11 +34,6 @@ void PlayerController::Update(float dt) {
   if (inputManager.IsKeyDown(SDLK_s) || inputManager.IsKeyDown(DOWN_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, 0, 1));
   }
-
-  if (inputManager.MousePress(LEFT_MOUSE_BUTTON))
-  {
-    character->Issue(Character::Command(CommandType::SHOOT, inputManager.GetMouseXWorld(), inputManager.GetMouseYWorld()));
-  }
 }
 
 void PlayerController::Render() {

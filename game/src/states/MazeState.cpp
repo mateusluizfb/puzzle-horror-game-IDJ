@@ -74,7 +74,7 @@ void MazeState::LoadAssets()
     SpriteRenderer* spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
 
     // Ajuste a posicao de spawn para o inicio do Corredor A
-    spriteRenderer1->SetPosition(800, 600);
+    spriteRenderer1->SetPosition(900, 600);
 
     Log::debug("MAZE_STATE - Starting TileObjects loader");
     TileObjects tileObjects(

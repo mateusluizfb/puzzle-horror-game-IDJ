@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="left-down" width="19" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="10">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="10">
  <tileset firstgid="1" source="test_tileset.tsx"/>
+ <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="19" height="15">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,11,11,11,11,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,1,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,1,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,1,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,1,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,1,1,1,11,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,11,11,11,11,11,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,81,82,82,82,83,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,85,85,85,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,88,88,88,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,89,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,89,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,89,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,89,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,90,91,91,91,92,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
@@ -28,7 +29,7 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="2" x="126.03" y="21.7195" width="17.7185" height="21.7195">
+  <object id="2" x="126.602" y="52.0124" width="17.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="KitchenState"/>
@@ -41,7 +42,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="4" name="wall" x="125.789" y="55.4257" width="17.1469" height="118.346">
+  <object id="4" name="wall" x="125.789" y="79.4314" width="17.1469" height="94.3403">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>

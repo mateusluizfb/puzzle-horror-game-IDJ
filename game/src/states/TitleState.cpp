@@ -13,7 +13,9 @@ TitleState::TitleState() : State() {
   Log::info("TITLE_STATE - Initializing TitleState");
 
   GameObject *titleGameObject = new GameObject();
-  titleGameObject->AddComponent(new SpriteRenderer(*titleGameObject, "game/assets/img/Title.png"));
+  SpriteRenderer *titleSpriteRenderer = new SpriteRenderer(*titleGameObject, "game/assets/img/title_screen.png");
+  titleSpriteRenderer->SetScale(0.6, 0.6);
+  titleGameObject->AddComponent(titleSpriteRenderer);
   this->AddObject(titleGameObject);
 }
 
