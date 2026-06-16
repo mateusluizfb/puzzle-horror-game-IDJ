@@ -56,6 +56,8 @@ public:
   void SetStyle(TextStyle style);
   void SetFontFile(std::string fontFile);
   void SetFontSize(int fontSize);
+  void Show();
+  void Hide();
 
 private:
   TTF_Font *font;
@@ -65,6 +67,7 @@ private:
   std::string fontFile;
   int fontSize;
   SDL_Color color;
+  bool hidden = false;
 
   void RemakeTexture();
 };

@@ -7,6 +7,51 @@
 class Collision {
 
 	public:
+		static void ResolveOverlap(GameObject& a, GameObject& b) {
+			Collider* colA = a.GetComponent<Collider>();
+			Collider* colB = b.GetComponent<Collider>();
+			if (!colA || !colB) return;
+
+			Rect& boxA = colA->GetBox();
+			Rect& boxB = colB->GetBox();
+
+			float overlapLeft = (boxA.x + boxA.w) - boxB.x;
+			float overlapRight = (boxB.x + boxB.w) - boxA.x;
+			float overlapTop = (boxA.y + boxA.h) - boxB.y;
+			float overlapBottom = (boxB.y + boxB.h) - boxA.y;
+
+			float overlapX = (overlapLeft < overlapRight) ? overlapLeft : overlapRight;
+			float overlapY = (overlapTop < overlapBottom) ? overlapTop : overlapBottom;
+
+			if (overlapX < overlapY) {
+				if (overlapLeft < overlapRight) {
+					a.box.x -= overlapLeft;
+					a.SetCollisionNormal(Vec2(1, 0));
+				} else {
+					a.box.x += overlapRight;
+					a.SetCollisionNormal(Vec2(-1, 0));
+				}
+			} else {
+				if (overlapTop < overlapBottom) {
+					a.box.y -= overlapTop;
+					a.SetCollisionNormal(Vec2(0, 1));
+				} else {
+					a.box.y += overlapBottom;
+					a.SetCollisionNormal(Vec2(0, -1));
+				}
+			}
+		}
+
+		static void KeepWithinBounds(GameObject& a, GameObject& b) {
+			if (a.box.x < b.box.x) a.box.x = b.box.x;
+			if (a.box.x + a.box.w > b.box.x + b.box.w) 
+				a.box.x = b.box.x + b.box.w - a.box.w;
+			
+			if (a.box.y < b.box.y) a.box.y = b.box.y;
+			if (a.box.y + a.box.h > b.box.y + b.box.h) 
+				a.box.y = b.box.y + b.box.h - a.box.h;
+		}
+
 		// Observação: IsColliding espera ângulos em radianos!
 		// Para usar graus, forneça a sua própria implementação de Rotate,
 		// ou transforme os ângulos no corpo de IsColliding.

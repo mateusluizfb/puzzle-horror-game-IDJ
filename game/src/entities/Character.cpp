@@ -5,6 +5,7 @@
 #include "Animator.h"
 #include "Collider.h"
 #include "Camera.h"
+#include "Pushable.h"
 
 Character::Command::Command(CommandType type, float x, float y)
   : type(type), pos(x, y) {}
@@ -21,7 +22,6 @@ Character::Character(GameObject &associated, std::string sprite)
     speed(Vec2(0, 0)),
     linearSpeed(300),
     hp(100),
-    collisionNormal(Vec2(0, 0)),
     deathTimer(Timer())
 {
   SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, "game/assets/spritesheets/player.png", 8, 8);
@@ -58,8 +58,8 @@ void Character::Update(float dt) {
 
   if (associated.IsDead()) return;
 
-  Vec2 blockDir = collisionNormal;
-  collisionNormal = Vec2(0, 0);
+  Vec2 blockDir = associated.GetCollisionNormal();
+  associated.SetCollisionNormal(Vec2(0, 0));
 
   if (hit) {
     Timer* hitTimer = &animator->hitTimer;
@@ -170,6 +170,8 @@ void Character::Update(float dt) {
 
       taskQueue.pop();
   }
+
+  this->SetLinearSpeed(300.0f);
 }
 
 void Character::Render() {
@@ -208,6 +210,10 @@ void Character::NotifyCollision(GameObject &other) {
     return;
   }
 
+  if (other.tag == "pushable") {
+    Log::debug("COLLIDING PUSHABLE"); 
+    this->SetLinearSpeed(150.0f);
+  }
 
   if (player && IMMORTAL) {
     Log::warning("CHARACTER - IMMORTAL mode active, no damage taken.");
