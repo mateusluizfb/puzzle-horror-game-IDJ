@@ -170,6 +170,8 @@ void Character::Update(float dt) {
 
       taskQueue.pop();
   }
+
+  this->SetLinearSpeed(300.0f);
 }
 
 void Character::Render() {
@@ -206,6 +208,11 @@ void Character::NotifyCollision(GameObject &other) {
 
   if (other.tag == "wall") {
     return;
+  }
+
+  if (other.tag == "pushable") {
+    Log::debug("COLLIDING PUSHABLE"); 
+    this->SetLinearSpeed(150.0f);
   }
 
   if (player && IMMORTAL) {

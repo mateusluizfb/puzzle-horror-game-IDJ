@@ -56,7 +56,6 @@ void Pushable::Render() {}
 
 void Pushable::NotifyCollision(GameObject& other) {
   InputManager &inputManager = InputManager::GetInstance();
-  Wall *wall = associated.GetComponent<Wall>();
 
   if (other.tag == "player") {
     isTouching = true;
