@@ -44,7 +44,7 @@ void MazeState::Start()
 
 void MazeState::LoadAssets()
 {
-    Vec2 tileScale = GameData::tileScaleClose;
+    Vec2 tileScale = GameData::tileScaleFar;
 
     Log::debug("MAZE_STATE - Starting TileMap game object (TMX)");
     GameObject* tileMapGameObject = new GameObject();
@@ -74,7 +74,7 @@ void MazeState::LoadAssets()
     SpriteRenderer* spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
 
     // Ajuste a posicao de spawn para o inicio do Corredor A
-    spriteRenderer1->SetPosition(800, 600);
+    spriteRenderer1->SetPosition(900, 600);
 
     Log::debug("MAZE_STATE - Starting TileObjects loader");
     TileObjects tileObjects(
@@ -128,7 +128,7 @@ void MazeState::LoadAssets()
     tileObjects.Load(*this);
     Log::debug("MAZE_STATE - TileObjects loader finished");
 
-    
+    Camera::GetInstance().Follow(characterGameObject);    
 }
 
 void MazeState::Update(float dt) {

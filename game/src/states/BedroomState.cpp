@@ -28,8 +28,7 @@ BedroomState::BedroomState(): State(), music("game/audio/BGM.wav")
 {
   Log::info("BEDROOM_STATE - Initializing state");
 
-  Camera::GetInstance().SetPosition(600, 450);
-  Camera::GetInstance().SetSpeed(200, 200);
+  Camera::GetInstance().SetPosition(0, 0);
 }
 
 BedroomState::~BedroomState()
@@ -49,7 +48,6 @@ void BedroomState::Start()
 void BedroomState::LoadAssets()
 {
   Vec2 tileScale = GameData::tileScaleClose;
-  Camera::GetInstance().SetPosition(0, 0);
 
   Log::debug("BEDROOM_STATE - Starting background game object");
   GameObject *bgGameObject = new GameObject();
@@ -89,9 +87,6 @@ void BedroomState::LoadAssets()
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
-  tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
-    return new Pushable(go, 200.0f);
-  });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
   });
@@ -106,9 +101,6 @@ void BedroomState::LoadAssets()
     return new StagePush(go, stageName);
   });
   tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
-    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
-  });
-  tileObjects.RegisterComponent("composite_collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });
   
@@ -187,6 +179,4 @@ void BedroomState::Resume()
     Log::error("BEDROOM_STATE - Cannot resume: player object not found");
     return;
   }
-
-  Camera::GetInstance().Follow(player);
 }

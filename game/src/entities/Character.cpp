@@ -20,21 +20,27 @@ Character::Character(GameObject &associated, std::string sprite)
     invulnerabilityTimer(Timer()),
     taskQueue(),
     speed(Vec2(0, 0)),
-    linearSpeed(400),
+    linearSpeed(300),
     hp(100),
     deathTimer(Timer())
 {
-  SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, sprite, 3, 4);
+  SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, "game/assets/spritesheets/player.png", 8, 8);
+  spriteRenderer->SetScale(2, 2);
   Animator *animator = new Animator(associated);
 
   associated.AddComponent(spriteRenderer);
   associated.AddComponent(animator);
 
-  animator->AddAnimation("walking", Animation(0, 5, 0.2));
-  animator->AddAnimation("idle", Animation(6, 9, 0.5));
-  animator->AddAnimation("dead", Animation(10, 11, 0.5));
+  animator->AddAnimation("walk_down", Animation(0, 7, 0.2));
+  animator->AddAnimation("walk_up", Animation(8, 15, 0.2));
+  animator->AddAnimation("walk_right", Animation(16, 23, 0.2));
+  animator->AddAnimation("walk_left", Animation(24, 31, 0.2));
+  animator->AddAnimation("idle_down", Animation(32, 37, 0.2));
+  animator->AddAnimation("idle_up", Animation(40, 45, 0.2));
+  animator->AddAnimation("idle_right", Animation(48, 53, 0.2));
+  animator->AddAnimation("idle_left", Animation(56, 61, 0.2));
 
-  animator->SetAnimation("idle");
+  animator->SetAnimation("idle_down");
 }
 
 Character::~Character() {
@@ -104,7 +110,7 @@ void Character::Update(float dt) {
   if (hp <= 0 && animator->GetCurrent() != "dead")
   {
     Log::info("CHARACTER - Character is dead.");
-    animator->SetAnimation("dead");
+    // animator->SetAnimation("dead");
     deathSound.Play(1);
 
     if (player) Camera::GetInstance().Unfollow();
@@ -114,8 +120,17 @@ void Character::Update(float dt) {
 
   if (taskQueue.empty() && animator->GetCurrent() != "dead")
   {
+    if (speed.x == 0 && speed.y < 0) {
+      animator->SetAnimation("idle_up");
+    } else if (speed.x == 0 && speed.y > 0) {
+      animator->SetAnimation("idle_down");
+    } else if (speed.x > 0) {
+      animator->SetAnimation("idle_left");
+    } else if (speed.x < 0) { 
+      animator->SetAnimation("idle_right");
+    }
+
     speed = Vec2(0, 0);
-    animator->SetAnimation("idle");
     return;
   }
 
@@ -126,16 +141,19 @@ void Character::Update(float dt) {
       {
         case CommandType::MOVE:
         {
-          animator->SetAnimation("walking");
 
           speed = item.pos.Normalize() * linearSpeed;
 
           SpriteRenderer* spriteRenderer = associated.GetComponent<SpriteRenderer>();
 
-          if (speed.x <= 0) {
-            spriteRenderer->SetFlip(SDL_FLIP_HORIZONTAL);
-          } else {
-            spriteRenderer->SetFlip(SDL_FLIP_NONE);
+          if (speed.x == 0 && speed.y < 0) {
+            animator->SetAnimation("walk_up");
+          } else if (speed.x == 0 && speed.y > 0) {
+            animator->SetAnimation("walk_down");
+          } else if (speed.x > 0) {
+            animator->SetAnimation("walk_right");
+          } else if (speed.x < 0) {
+            animator->SetAnimation("walk_left");
           }
 
           Vec2 moveDelta = speed * dt;
@@ -146,11 +164,6 @@ void Character::Update(float dt) {
 
           associated.box.x += moveDelta.x;
           associated.box.y += moveDelta.y;
-          break;
-        }
-
-        case CommandType::SHOOT:
-        {
           break;
         }
       }

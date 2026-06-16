@@ -89,9 +89,6 @@ void KitchenState::LoadAssets()
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
-  tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
-    return new Pushable(go, 200.0f);
-  });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
   });
@@ -106,9 +103,6 @@ void KitchenState::LoadAssets()
     return new StagePush(go, stageName);
   });
   tileObjects.RegisterComponent("collider", [](GameObject& go) -> Component* {
-    return new Collider(go, Vec2(1, 1), Vec2(0, 0));
-  });
-  tileObjects.RegisterComponent("composite_collider", [](GameObject& go) -> Component* {
     return new Collider(go, Vec2(1, 1), Vec2(0, 0));
   });
   
@@ -189,6 +183,4 @@ void KitchenState::Resume()
     Log::error("KITCHEN_STATE - Cannot resume: player object not found");
     return;
   }
-
-  Camera::GetInstance().Follow(player);
 }

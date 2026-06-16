@@ -20,7 +20,6 @@
 enum CommandType
 {
   MOVE,
-  SHOOT
 };
 
 class Character : public Component

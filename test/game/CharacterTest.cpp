@@ -71,25 +71,6 @@ TEST(CharacterTest, UpdateIdle) {
   delete game;
 }
 
-TEST(CharacterTest, UpdateShoot)
-{
-  Game *game = &Game::GetInstance("Test Game", 800, 600);
-  game->StateStackPush(new StageState());
-  State &currentState = game->GetCurrentState();
-  std::weak_ptr<GameObject> player = currentState.GetObjectByTag("player");
-  Character* character = player.lock()->GetComponent<Character>();
-
-  Log::debug(" --- CharacterTest Logs ----");
-
-  Character::Command command(CommandType::SHOOT, 0, 0);
-
-  character->Issue(command);
-
-  EXPECT_NO_THROW(character->Update(0));
-
-  delete game;
-}
-
 TEST(CharacterTest, UpdateMove)
 {
   Game *game = &Game::GetInstance("Test Game", 800, 600);
