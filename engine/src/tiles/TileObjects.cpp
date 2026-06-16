@@ -73,7 +73,8 @@ void TileObjects::LoadTmx(const std::string& file) {
     TileObjectData data;
     data.id     = std::stoi(obj->getAttribute("id",     "0"));
     data.name   = obj->getAttribute("name");
-    data.gid    = std::stoi(obj->getAttribute("gid",    "0"));
+	// evitar overflow com rotacao de sprite
+	data.gid = (int)(std::stoll(obj->getAttribute("gid", "0")) & 0x0FFFFFFF);
     data.x      = std::stof(obj->getAttribute("x",      "0"));
     data.y      = std::stof(obj->getAttribute("y",      "0"));
     data.width  = std::stof(obj->getAttribute("width",  "0"));
