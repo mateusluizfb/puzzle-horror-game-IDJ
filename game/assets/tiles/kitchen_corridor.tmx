@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="10">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="10">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
- <layer id="1" name="Tile Layer 1" width="19" height="15">
+ <layer id="1" name="Tile Layer 1" width="19" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,81,82,82,82,83,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,84,85,85,85,86,0,0,0,0,0,0,
@@ -17,7 +17,6 @@
 0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,89,89,89,89,86,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,89,89,89,89,86,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,84,89,89,89,86,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,90,91,91,91,92,0,0,0,0,0,0
 </data>
  </layer>
