@@ -56,7 +56,8 @@ void MazeState::LoadAssets()
     this->AddObject(tileMapGameObject);
 
     GameObject* characterGameObject = new GameObject();
-    Character* character = new Character(*characterGameObject, "game/assets/img/Player.png");
+    Character* character = new Character(*characterGameObject,
+			"game/assets/img/Player_Small.png");
     character->player = character;
 
     Collider* collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
@@ -91,6 +92,7 @@ void MazeState::LoadAssets()
         return new Collider(go, Vec2(1, 1), Vec2(0, 0));
     });
 
+	// TELETRANSPORTE
     tileObjects.RegisterComponent("teleporter", [](GameObject& go) -> Component* {
         const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
 
@@ -105,6 +107,37 @@ void MazeState::LoadAssets()
         return new Teleporter(go, Vec2(dest_x, dest_y), completes_loop);
     });
 
+	// PORTAS
+	tileObjects.RegisterComponent("door", [](GameObject& go) -> Component* {
+        const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
+
+        float dest_x = 0;
+        float dest_y = 0;
+		float fail_x = 0;
+        float fail_y = 0;
+        std::string side = "none";
+        bool isWin = false;
+        bool isLose = false;
+
+        // Propriedades desenhadas no Tiled
+        try {
+            if (data.properties.find("destX") != data.properties.end()) dest_x = std::stof(data.properties.at("destX"));
+            if (data.properties.find("destY") != data.properties.end()) dest_y = std::stof(data.properties.at("destY"));
+			if (data.properties.find("failX") != data.properties.end()) fail_x = std::stof(data.properties.at("failX"));
+            if (data.properties.find("failY") != data.properties.end()) fail_y = std::stof(data.properties.at("failY"));
+            if (data.properties.find("side") != data.properties.end()) side = data.properties.at("side");
+
+            // As flags de clímax (se não existirem no Tiled, assumem falso)
+            if (data.properties.find("isWin") != data.properties.end()) isWin = (data.properties.at("isWin") == "true");
+            if (data.properties.find("isLose") != data.properties.end()) isLose = (data.properties.at("isLose") == "true");
+        } catch (const std::exception& e) {
+            Log::warning("[TILED] Propriedades ausentes na porta. Usando fallback.");
+        }
+
+		return new Door(go, Vec2(dest_x, dest_y), Vec2(fail_x, fail_y), side, isWin, isLose);
+    });
+
+	// LUZES
 	tileObjects.RegisterComponent("light", [](GameObject& go) -> Component* {
 		const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
 
@@ -121,14 +154,23 @@ void MazeState::LoadAssets()
 		return new Light(go, "game/assets/img/light.png", scale, r, g, b, a);
 	});
 
+	// DARKZONE
 	tileObjects.RegisterComponent("darkZone", [](GameObject& go) -> Component* {
         return new DarkZone(go);
     });
 
+	// SANTOS
+	tileObjects.RegisterComponent("saint", [](GameObject& go) -> Component* {
+		return new Saint(go);
+	});
+
     tileObjects.Load(*this);
     Log::debug("MAZE_STATE - TileObjects loader finished");
 
-    Camera::GetInstance().Follow(characterGameObject);    
+    Camera::GetInstance().Follow(characterGameObject);
+
+	srand(time(NULL));
+    ShuffleDoors();
 }
 
 void MazeState::Update(float dt) {
@@ -204,6 +246,84 @@ void MazeState::Resume() {
 void MazeState::AddLoop() {
     loopCount++;
     Log::info("MAZE_STATE - FATOR SANIDADE. Loop concluído: " + std::to_string(loopCount));
+	ShuffleDoors();
+}
+
+void MazeState::ResetLoop() {
+    loopCount = 0;
+    Log::info("MAZE_STATE - LOOP RESETADO AO ZERO.");
+    ShuffleDoors();
+}
+
+void MazeState::ShuffleDoors() {
+	Log::info("EMBARALHANDO AS PORTAS (MAIORIA VENCE)...");
+
+	std::vector<std::string> possibleSides;
+	std::vector<Door*> roomDoors;
+	std::vector<GameObject*> saintsList;
+
+	// LEITOR DINAMICO: Varre o mapa para ver quais portas existem nesta sala
+	for (size_t i = 0; i < objectArray.size(); i++) {
+		GameObject* go = objectArray[i].get();
+
+		// Guarda as portas do enigma e descobre os lados possiveis
+		Door* door = go->GetComponent<Door>();
+		if (door != nullptr && !door->isWinCondition && !door->isDeathTrap) {
+			roomDoors.push_back(door);
+			possibleSides.push_back(door->side); // Salva se eh up, down, right, left, etc.
+		}
+		// Guarda os Santos
+		if (go->tag == "saint") saintsList.push_back(go);
+	}
+
+	// Se a sala nao tiver portas (ex: no menu principal), sai da funcao para nao dar crash
+	if (possibleSides.empty()) return;
+
+	// Sorteia a direcao correta SOMENTE entre as portas que existem
+	std::string correctSide = possibleSides[rand() % possibleSides.size()];
+
+	// Atualiza as portas
+	for (Door* door : roomDoors)
+		door->isCorrect = (door->side == correctSide);
+
+	// A Matematica da Maioria para os Santos
+	int totalSaints = saintsList.size();
+	if (totalSaints > 0) {
+
+		// Embaralha a ordem dos santos para que a resposta nao fique sempre nos primeiros
+		for (int i = totalSaints - 1; i > 0; --i) {
+			int j = rand() % (i + 1);
+			std::swap(saintsList[i], saintsList[j]);
+		}
+
+		int majority = (totalSaints / 2) + 1;
+
+		for (int i = 0; i < totalSaints; i++) {
+			std::string assignedSide;
+
+			// Os primeiros X santos apontam para a resposta certa
+			if (i < majority) assignedSide = correctSide;
+			// Os demais apontam para mentiras sorteadas das opcoes disponiveis
+			else {
+				do {
+					assignedSide = possibleSides[rand() % possibleSides.size()];
+				} while (assignedSide == correctSide);
+			}
+
+			// GIRA O GAMEOBJECT DIRETAMENTE (Sem depender de SpriteRenderer!)
+			saintsList[i]->angleDeg = 0; // O padrao (olhando para a direita)
+
+			if (assignedSide == "up") saintsList[i]->angleDeg = -90;
+			else if (assignedSide == "down") saintsList[i]->angleDeg = 90;
+			else if (assignedSide == "left") saintsList[i]->angleDeg = 180;
+            // Se for "right", o angulo continua 0.
+
+            // ALARME DE TESTE NO TERMINAL:
+            Log::info("[SANTOS] Santo [" + std::to_string(i) + "] foi forçado a olhar para: " + assignedSide);
+		}
+
+		Log::info("Sorteio feito! Lado correto: " + correctSide + ". " + std::to_string(majority) + " santos apontam para ele.");
+	}
 }
 
 int MazeState::GetLoopCount() const { return loopCount; }
