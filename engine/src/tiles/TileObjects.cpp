@@ -73,8 +73,32 @@ void TileObjects::LoadTmx(const std::string& file) {
     TileObjectData data;
     data.id     = std::stoi(obj->getAttribute("id",     "0"));
     data.name   = obj->getAttribute("name");
-	// evitar overflow com rotacao de sprite
-	data.gid = (int)(std::stoll(obj->getAttribute("gid", "0")) & 0x0FFFFFFF);
+	// evitar overflow e suporta rotacao de sprite
+	unsigned long long raw_gid = std::stoull(obj->getAttribute("gid", "0"));
+    bool flipH = (raw_gid & 0x80000000) != 0; // Bit 32
+    bool flipV = (raw_gid & 0x40000000) != 0; // Bit 31
+    bool flipD = (raw_gid & 0x20000000) != 0; // Bit 30
+
+    data.gid = (int)(raw_gid & 0x1FFFFFFF); // Limpa as 3 flags mantendo a ID pura
+
+    data.angle = 0.0f;
+    data.flipH = false;
+    data.flipV = false;
+
+    // Traduz os bits diagonais malucos para angulos reais da sua Engine
+    if (flipD) {
+        if (flipH && !flipV) { data.angle = 90.0f; } 
+        else if (!flipH && flipV) { data.angle = 270.0f; } // -90 graus
+        else if (flipH && flipV) { data.angle = 90.0f; data.flipV = true; }
+        else if (!flipH && !flipV) { data.angle = 270.0f; data.flipV = true; }
+    } else {
+        if (flipH && flipV) { data.angle = 180.0f; }
+        else { data.flipH = flipH; data.flipV = flipV; }
+    }
+
+    // Soma caso o Level Designer use a ferramenta livre de girar (atributo 'rotation' nativo do XML)
+    data.angle += std::stof(obj->getAttribute("rotation", "0"));
+
     data.x      = std::stof(obj->getAttribute("x",      "0"));
     data.y      = std::stof(obj->getAttribute("y",      "0"));
     data.width  = std::stof(obj->getAttribute("width",  "0"));
@@ -105,6 +129,7 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
   }
 
   GameObject *go = new GameObject();
+  go->angleDeg = data.angle;
   go->AddComponent(new TileObject(*go, data, tileSetFile, tileWidth, tileHeight, scale));
 
   for (const std::string& key : componentRegistrationOrder) {
