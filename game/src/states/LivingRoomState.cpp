@@ -112,7 +112,7 @@ void LivingRoomState::LoadAssets()
   characterGameObject->tag = "player";
   this->AddObject(characterGameObject);
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer1->SetPosition(777, 251);
+  spriteRenderer1->SetPosition(800, 200);
   Log::debug("LIVINGROOM_STATE - Character game object loaded");
 }
 

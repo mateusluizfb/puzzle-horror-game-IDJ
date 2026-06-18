@@ -1,46 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="9">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="13">
  <tileset firstgid="1" source="test_tileset.tsx"/>
- <tileset firstgid="81" source="kitchen_tileset.tsx"/>
- <tileset firstgid="4161" source="parede_chao_tileset.tsx"/>
+ <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
+ <tileset firstgid="93" source="furniture_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="19" height="14">
   <data encoding="csv">
-0,4161,4162,4162,4162,4162,4162,4162,4162,4162,4162,4162,4162,4162,4162,4162,4162,4163,0,
-0,4164,4165,4165,4165,4165,4165,4165,4165,4165,4165,4165,4165,4165,4165,4165,4165,4166,0,
-0,4164,4168,4168,4168,4168,4168,4168,4168,4168,4168,4168,4168,4168,4168,4168,4168,4166,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4164,4169,4169,4169,4169,4169,1,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4164,4169,4169,4169,1,4169,1,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4164,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4169,4166,0,
-0,4170,4171,4171,4171,4171,4171,4171,4171,4171,4171,4171,4171,4171,4171,4171,4171,4172,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,81,82,82,82,82,82,82,82,82,82,82,82,83,0,0,0,
+0,0,0,84,85,85,85,85,85,85,85,85,85,85,85,86,0,0,0,
+0,0,0,84,88,88,88,88,88,88,88,88,88,88,88,86,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,86,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,86,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,89,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,89,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,86,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,86,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,86,0,0,0,
+0,0,0,84,89,89,89,89,89,89,89,89,89,89,89,86,0,0,0,
+0,0,0,90,91,91,91,91,91,91,91,91,91,91,91,92,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <layer id="3" name="Tile Layer 2" width="19" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,172,173,0,0,762,763,764,765,766,0,0,0,0,0,0,0,0,
-0,0,257,258,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,342,343,175,176,932,933,934,935,936,0,0,0,0,0,0,0,0,
-0,0,427,428,260,261,1017,1018,1019,1020,1021,0,0,0,0,0,0,0,0,
+0,0,0,0,0,115,116,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,146,147,0,0,327,328,329,330,331,0,0,0,0,0,
+0,0,0,0,0,177,178,118,119,389,390,391,392,393,0,0,0,0,0,
+0,0,0,0,0,208,209,149,150,420,421,422,423,424,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,167,167,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,168,422,423,424,425,170,0,0,0,0,0,0,0,0,0,0,
-0,0,0,253,507,169,169,510,255,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,592,254,254,595,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,110,110,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,111,203,204,205,206,113,0,0,0,0,0,0,0,0,
+0,0,0,0,0,142,234,235,236,237,144,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,265,266,267,268,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="Tile Layer 3" width="19" height="14">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,112,112,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,143,143,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" x="273.708" y="84.4581" width="17.7185" height="21.7195">
+  <object id="1" x="241.208" y="100.458" width="17.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="spawn_point" type="bool" value="true"/>
@@ -48,48 +66,72 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="2" name="wall" x="0" y="32" width="322.362" height="15.4647">
+  <object id="2" name="wall" x="79" y="40" width="142.362" height="22.9647">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="3" name="wall" x="5.71572" y="193.753" width="318.933" height="15.4647">
+  <object id="3" name="wall" x="50.7157" y="193.753" width="205.933" height="15.4647">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="4" name="wall" x="17.2863" y="50.6474" width="15.4321" height="140.637">
+  <object id="4" name="wall" x="49.7863" y="66.1474" width="14.9321" height="126.637">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="5" name="wall" x="273.923" y="114.519" width="15.4321" height="80.6227">
+  <object id="5" name="wall" x="240" y="128" width="15.4321" height="60.1227">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="6" name="wall" x="273.351" y="50.4337" width="14.8605" height="29.7534">
+  <object id="6" name="wall" x="240" y="64" width="14.8605" height="29.7534">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" gid="75" x="224" y="48" width="16" height="16">
+  <object id="7" gid="75" x="224" y="144" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="QuizState"/>
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="8" gid="75" x="192" y="48" width="16" height="16">
+  <object id="8" gid="75" x="224" y="176" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="WaterTankPuzzleState"/>
     <property name="stage_push" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" name="wall" x="223.819" y="41.0177" width="15.362" height="22.9647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" name="wall" x="64.319" y="40.5177" width="15.362" height="22.9647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" name="wall" x="81.819" y="127.018" width="92.362" height="30.4647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="12" name="wall" x="111.319" y="111.768" width="30.862" height="13.9647">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

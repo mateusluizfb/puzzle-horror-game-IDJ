@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="55">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="61">
  <tileset firstgid="1" source="test_tileset.tsx"/>
- <tileset firstgid="81" source="living_room_tileset.tsx"/>
- <tileset firstgid="587" source="parede_chao_tileset.tsx"/>
+ <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
+ <tileset firstgid="93" source="furniture_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="19" height="14">
   <data encoding="csv">
-587,588,588,588,588,588,588,588,588,588,588,588,595,588,588,588,588,588,589,
-590,591,591,591,591,591,591,591,591,591,591,591,595,591,591,591,591,591,592,
-590,594,594,594,594,594,594,594,594,594,594,594,595,594,594,594,594,594,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-590,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,595,592,
-596,597,597,597,597,597,597,597,597,597,597,597,597,597,597,597,597,597,598
+81,82,82,82,82,82,82,82,82,82,82,82,89,82,82,82,82,82,83,
+84,85,85,85,85,85,85,85,85,85,85,85,89,85,85,85,85,85,86,
+84,88,88,88,88,88,88,88,88,88,88,88,89,88,88,88,88,88,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+84,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,86,
+90,91,91,91,91,91,91,91,91,91,91,91,91,91,91,91,91,91,92
+</data>
+ </layer>
+ <layer id="5" name="Tile Layer 2" width="19" height="14">
+  <data encoding="csv">
+0,0,0,0,102,103,102,103,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,133,134,133,134,258,259,260,0,0,0,136,137,0,108,0,
+0,0,0,0,164,165,164,165,289,290,291,0,0,0,167,168,0,139,0,
+0,0,0,0,195,196,195,196,320,321,322,0,0,0,198,199,0,170,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,201,0,
+0,341,342,343,344,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,372,373,374,375,0,0,0,0,380,381,382,0,0,0,0,0,0,0,
+0,403,404,405,406,0,377,378,0,411,412,413,0,0,0,0,0,108,0,
+0,434,435,436,437,0,408,409,0,442,443,444,0,0,0,0,0,139,0,
+0,465,466,467,468,0,439,440,0,473,474,475,0,0,0,0,0,170,0,
+0,496,497,498,499,0,0,0,0,504,505,506,0,0,0,0,0,201,0,
+0,527,528,529,530,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
@@ -34,7 +52,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="35" name="bpx" gid="79" x="113.143" y="127.997" width="16" height="16">
+  <object id="35" name="bpx" gid="79" x="224" y="128" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -42,7 +60,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="36" gid="79" x="113.143" y="143.997" width="16" height="16">
+  <object id="36" gid="79" x="224" y="144" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -50,7 +68,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="37" gid="79" x="129.143" y="127.997" width="16" height="16">
+  <object id="37" gid="79" x="240" y="128" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -58,7 +76,7 @@
     <property name="wall" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="38" gid="79" x="129.143" y="143.997" width="16" height="16">
+  <object id="38" gid="79" x="240" y="144" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="false"/>
     <property name="composite_collider" type="bool" value="true"/>
@@ -78,7 +96,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="51" name="wall" x="285.608" y="111.23" width="16.0552" height="129.576">
+  <object id="51" name="wall" x="272" y="112" width="16.3885" height="42.576">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -102,6 +120,42 @@
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="KitchenCorridorState"/>
     <property name="stage_push" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="55" name="wall" x="17.2562" y="78.4583" width="43.1543" height="112.565">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="56" name="wall" x="59.4229" y="102.051" width="17.4876" height="68.2317">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="57" name="wall" x="96.2562" y="112.551" width="30.1543" height="46.8984">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="58" name="wall" x="144.59" y="97.5508" width="45.821" height="80.2317">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="59" name="wall" x="288" y="111.333" width="16.0552" height="114.243">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="60" name="wall" x="271.139" y="50.3787" width="16.3885" height="10.9093">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
