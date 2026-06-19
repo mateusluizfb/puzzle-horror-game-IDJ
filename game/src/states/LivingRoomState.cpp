@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "GameData.h"
 #include "GameObject.h"
+#include "MazeState.h"
 #include "TileMap.h"
 #include "TileObjects.h"
 #include "TileObject.h"
@@ -157,7 +158,7 @@ void LivingRoomState::Update(float dt)
   {
     Log::info("LIVINGROOM_STATE - X key pressed, pushing KitchenCorridorState");
     music.Stop();
-    Game::GetInstance().Push(new KitchenCorridorState());
+    Game::GetInstance().Push(new MazeState());
   }
 
   UpdateArray(dt);

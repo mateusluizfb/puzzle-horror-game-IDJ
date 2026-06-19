@@ -1,18 +1,19 @@
-#include "MazeState.h"
-#include "Log.h"
-#include "TileSet.h"
-#include "TileMap.h"
-#include "InputManager.h"
-#include "Character.h"
-#include "PlayerController.h"
-#include "Collider.h"
 #include "Camera.h"
+#include "Character.h"
+#include "Collider.h"
 #include "EndState.h"
 #include "Game.h"
+#include "InputManager.h"
+#include "KitchenState.h"
+#include "Log.h"
+#include "MazeState.h"
+#include "PlayerController.h"
+#include "Teleporter.h"
 #include "TileObjects.h"
 #include "TileObject.h"
+#include "TileMap.h"
+#include "TileSet.h"
 #include "Wall.h"
-#include "Teleporter.h"
 #include "Light.h"
 #include <iostream>
 
@@ -200,6 +201,22 @@ void MazeState::Update(float dt) {
         this->RequestPop();
     }
 
+	if (inputManager.KeyPress(Z_KEY))
+	{
+		Log::info("KITCHEN_STATE - Z key pressed, popping state");
+		music.Stop();
+		this->RequestPop();
+	}
+
+	if (inputManager.KeyPress(X_KEY))
+	{
+		Log::info("KITCHEN_STATE - X key pressed, pushing KitchenState");
+		music.Stop();
+		Game::GetInstance().Push(new KitchenState());
+	}
+
+
+
 	// Atualiza movimento e posicoes
     UpdateArray(dt);
 
@@ -217,7 +234,7 @@ void MazeState::Render() {
 
     // Redireciona a pintura para a pelicula escura
     SDL_SetRenderTarget(renderer, lightMap);
-    SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
+    SDL_SetRenderDrawColor(renderer, 90, 90, 90, 255);
     SDL_RenderClear(renderer);
 
     // Desenha as luzes na pelicula

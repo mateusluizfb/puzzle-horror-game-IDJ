@@ -1,10 +1,11 @@
-#include "Door.h"
 #include "Character.h"
 #include "Collider.h"
+#include "Door.h"
+#include "EndState.h"
+#include "Game.h"
+#include "KitchenState.h"
 #include "Log.h"
 #include "MazeState.h"
-#include "Game.h"
-#include "EndState.h"
 
 Door::Door(GameObject& associated, Vec2 destination, Vec2 penaltyDest, std::string side, bool isWinCondition, bool isDeathTrap)
 : Component(associated), destination(destination), penaltyDest(penaltyDest), side(side), isCorrect(false), isWinCondition(isWinCondition), isDeathTrap(isDeathTrap) {
@@ -30,7 +31,7 @@ void Door::NotifyCollision(GameObject& other) {
 			Log::info("[DOOR] A FÉ FOI RECOMPENSADA. O labirinto foi vencido!");
 			GameData::playerVictory = true;
 			maze->RequestPop();
-			Game::GetInstance().Push(new EndState());
+			Game::GetInstance().Push(new KitchenState());
 			return;
 		}
 
