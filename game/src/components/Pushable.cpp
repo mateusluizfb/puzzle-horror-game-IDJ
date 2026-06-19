@@ -35,7 +35,27 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 }
 
 
-void Pushable::Update(float dt) {
+void Pushable::Update(float dt) {  
+  if (gluedPlayer) {
+    // Check if player has moved too far sideways to maintain the glue
+    float distY = std::abs(gluedPlayer->box.GetCenter().y - associated.box.GetCenter().y);
+    float distX = std::abs(gluedPlayer->box.GetCenter().x - associated.box.GetCenter().x);
+    float combinedHeight = (gluedPlayer->box.h + associated.box.h) * 0.75f;
+    float combinedWidth = (gluedPlayer->box.w + associated.box.w) * 0.75f;
+
+    if ((glueHorizontal && distY > combinedHeight) || (!glueHorizontal && distX > combinedWidth)) {
+      gluedPlayer = nullptr;
+      togglePush = false;
+      pushText->SetText("Press E to push");
+    } else {
+      if (glueHorizontal) {
+        associated.box.x = gluedPlayer->box.x + glueOffset.x;
+      } else {
+        associated.box.y = gluedPlayer->box.y + glueOffset.y;
+      }
+    }
+  }
+
   if (isTouching && !togglePush && !isClimbed) {
     pushText->Show();
   } else {
@@ -68,23 +88,36 @@ void Pushable::NotifyCollision(GameObject& other) {
 
     pushDirection = (associated.box.GetCenter() - other.box.GetCenter()).Normalize();
 
-    Vec2 direction = Vec2(0, 0);
-
-    if (std::abs(pushDirection.x) > std::abs(pushDirection.y))
-    {
-      direction.x = (pushDirection.x > 0) ? 1.0f : -1.0f;
-    }
-    else
-    {
-      direction.y = (pushDirection.y > 0) ? 1.0f : -1.0f;
-    }
-
     float dt = Game::GetInstance().GetDeltaTime();
 
     if (inputManager.KeyPress(E_KEY))
     {
       togglePush = !togglePush;
+      if (togglePush) {
+        gluedPlayer = &other;
+        glueOffset = Vec2(associated.box.x - other.box.x, associated.box.y - other.box.y);
+        
+        // Use pushDirection instead of blockDir to determine the axis.
+        // pushDirection is calculated as (associated.center - other.center).
+        if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
+          glueHorizontal = true;
+        } else {
+          glueHorizontal = false;
+        }
+        
+        pushText->SetText("Press E to release");
+        
+        Character* charComp = other.GetComponent<Character>();
+        if (charComp) charComp->isGlued = true;
+      } else {
+        gluedPlayer = nullptr;
+        pushText->SetText("Press E to push");
+        
+        Character* charComp = other.GetComponent<Character>();
+        if (charComp) charComp->isGlued = false;
+      }
     }
+
 
     if (inputManager.KeyPress(R_KEY))
     {
@@ -98,18 +131,15 @@ void Pushable::NotifyCollision(GameObject& other) {
       return; // Skip push logic and overlap resolution
     }
 
+    if (togglePush)
+    {
+      return;
+    }
+
     if (!togglePush && isTouching)
     {
       Collision::ResolveOverlap(other, associated);
       return;
     }
-
-    if (blockDir.x > 0 && direction.x > 0) direction.x = 0;
-    if (blockDir.x < 0 && direction.x < 0) direction.x = 0;
-    if (blockDir.y > 0 && direction.y > 0) direction.y = 0;
-    if (blockDir.y < 0 && direction.y < 0) direction.y = 0;
-
-    associated.box.x += direction.x * pushSpeed * dt;
-    associated.box.y += direction.y * pushSpeed * dt;
   };
 }
