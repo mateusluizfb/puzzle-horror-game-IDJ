@@ -20,7 +20,7 @@ Character::Character(GameObject &associated, std::string sprite)
     invulnerabilityTimer(Timer()),
     taskQueue(),
     speed(Vec2(0, 0)),
-    linearSpeed(300),
+    linearSpeed(250),
     hp(100),
     deathTimer(Timer())
 {
@@ -177,7 +177,7 @@ void Character::Update(float dt) {
       taskQueue.pop();
   }
 
-  this->SetLinearSpeed(300.0f);
+  this->SetLinearSpeed(250.0f);
 }
 
 void Character::Render() {
