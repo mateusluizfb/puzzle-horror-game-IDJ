@@ -12,12 +12,10 @@ private:
   Vec2 pushDirection;
   float pushSpeed;
   Text *pushText = nullptr;
-  Text *climbText = nullptr;
  
 public:
   bool isTouching = false; 
   bool togglePush = false;
-  bool isClimbed = false;
   GameObject* gluedPlayer = nullptr;
   Vec2 glueOffset = Vec2(0, 0);
   bool glueHorizontal = false;
