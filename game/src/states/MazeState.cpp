@@ -234,7 +234,7 @@ void MazeState::Render() {
 
     // Redireciona a pintura para a pelicula escura
     SDL_SetRenderTarget(renderer, lightMap);
-    SDL_SetRenderDrawColor(renderer, 90, 90, 90, 255);
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
     SDL_RenderClear(renderer);
 
     // Desenha as luzes na pelicula

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="100" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="129">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="100" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="174">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <layer id="1" name="Maze" width="100" height="200" offsetx="-1" offsety="1">
@@ -261,10 +261,10 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="11" name="light" x="581.333" y="280">
+  <object id="11" name="light" x="584" y="278.667">
    <properties>
-    <property name="b" type="int" value="0"/>
-    <property name="g" type="int" value="0"/>
+    <property name="b" type="int" value="15"/>
+    <property name="g" type="int" value="15"/>
     <property name="light" type="bool" value="true"/>
     <property name="r" type="int" value="255"/>
     <property name="scale" type="float" value="0.1"/>
@@ -444,7 +444,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="42" name="door" x="800" y="1212.67" width="31.3333" height="30.6667">
+  <object id="42" name="door" x="800" y="1210.17" width="31.3333" height="30.6667">
    <properties>
     <property name="destX" type="float" value="1500"/>
     <property name="destY" type="float" value="4100"/>
@@ -516,7 +516,7 @@
    </properties>
    <point/>
   </object>
-  <object id="58" name="door" x="1023.33" y="1083.67" width="31.3333" height="30.6667">
+  <object id="58" name="door" x="1023.33" y="1081.67" width="31.3333" height="30.6667">
    <properties>
     <property name="destX" type="float" value="1500"/>
     <property name="destY" type="float" value="4100"/>
@@ -528,7 +528,7 @@
     <property name="side" value="up"/>
    </properties>
   </object>
-  <object id="59" name="door" x="1110.33" y="1301.67" width="31.3333" height="30.6667">
+  <object id="59" name="door" x="1111.83" y="1298.17" width="31.3333" height="30.6667">
    <properties>
     <property name="destX" type="float" value="1500"/>
     <property name="destY" type="float" value="4100"/>
@@ -540,7 +540,7 @@
     <property name="side" value="right"/>
    </properties>
   </object>
-  <object id="60" name="door" x="1023.33" y="1510.67" width="31.3333" height="30.6667">
+  <object id="60" name="door" x="1023.33" y="1513.17" width="31.3333" height="30.6667">
    <properties>
     <property name="destX" type="float" value="1500"/>
     <property name="destY" type="float" value="4100"/>
@@ -675,7 +675,7 @@
    </properties>
    <point/>
   </object>
-  <object id="89" name="light" x="924.667" y="1238.67">
+  <object id="89" name="light" x="924.667" y="1225.34">
    <properties>
     <property name="b" type="int" value="255"/>
     <property name="g" type="int" value="255"/>
@@ -685,7 +685,7 @@
    </properties>
    <point/>
   </object>
-  <object id="90" name="light" x="920.667" y="1420.33">
+  <object id="90" name="light" x="923.334" y="1403.66">
    <properties>
     <property name="b" type="int" value="255"/>
     <property name="g" type="int" value="255"/>
@@ -975,10 +975,30 @@
    </properties>
    <point/>
   </object>
-  <object id="128" name="light" x="953.333" y="1238.67">
+  <object id="128" name="light" x="953.333" y="1228">
    <properties>
     <property name="b" type="int" value="255"/>
     <property name="g" type="int" value="255"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="129" name="light" x="584" y="282.667">
+   <properties>
+    <property name="b" type="int" value="15"/>
+    <property name="g" type="int" value="15"/>
+    <property name="light" type="bool" value="true"/>
+    <property name="r" type="int" value="255"/>
+    <property name="scale" type="float" value="0.1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="130" name="light" x="584.667" y="281.333">
+   <properties>
+    <property name="b" type="int" value="15"/>
+    <property name="g" type="int" value="15"/>
     <property name="light" type="bool" value="true"/>
     <property name="r" type="int" value="255"/>
     <property name="scale" type="float" value="0.1"/>
