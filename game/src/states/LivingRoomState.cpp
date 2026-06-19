@@ -5,6 +5,7 @@
 #include "TileMap.h"
 #include "InputManager.h"
 #include "SpriteRenderer.h"
+#include "FollowingMonster.h"
 #include "Character.h"
 #include "PlayerController.h"
 #include "Collider.h"
@@ -114,6 +115,18 @@ void LivingRoomState::LoadAssets()
   SpriteRenderer *spriteRenderer1 = characterGameObject->GetComponent<SpriteRenderer>();
   spriteRenderer1->SetPosition(800, 200);
   Log::debug("LIVINGROOM_STATE - Character game object loaded");
+
+  Log::debug("LIVINGROOM_STATE - Starting FollowingMonster game object");
+  GameObject *monsterGameObject = new GameObject();
+  FollowingMonster *monster = new FollowingMonster(*monsterGameObject);
+  // Collider *monsterCollider = new Collider(*monsterGameObject, Vec2(1, 1), Vec2(1, 1));
+  monsterGameObject->AddComponent(monster);
+  // monsterGameObject->AddComponent(monsterCollider);
+  monsterGameObject->tag = "monster";
+  this->AddObject(monsterGameObject);
+  SpriteRenderer *spriteRenderer2 = monsterGameObject->GetComponent<SpriteRenderer>();
+  spriteRenderer2->SetPosition(0, 0);
+  Log::debug("LIVINGROOM_STATE - FollowingMonster game object loaded");
 }
 
 void LivingRoomState::Update(float dt)
