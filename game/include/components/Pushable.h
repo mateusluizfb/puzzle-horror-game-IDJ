@@ -18,6 +18,9 @@ public:
   bool isTouching = false; 
   bool togglePush = false;
   bool isClimbed = false;
+  GameObject* gluedPlayer = nullptr;
+  Vec2 glueOffset = Vec2(0, 0);
+  bool glueHorizontal = false;
  
   Pushable(GameObject& associated, float pushSpeed = 100.0f);
   

@@ -129,22 +129,28 @@ void Character::Update(float dt) {
     } else if (speed.x < 0) { 
       animator->SetAnimation("idle_right");
     }
-
+  
     speed = Vec2(0, 0);
     return;
   }
-
+  
   while (!taskQueue.empty()) {
       Command item = taskQueue.front();
-
+  
       switch (item.type)
       {
         case CommandType::MOVE:
         {
+          if (isGlued)
+          {
+            this->SetLinearSpeed(150.0f);
+          }
 
           speed = item.pos.Normalize() * linearSpeed;
-
+  
+ 
           SpriteRenderer* spriteRenderer = associated.GetComponent<SpriteRenderer>();
+
 
           if (speed.x == 0 && speed.y < 0) {
             animator->SetAnimation("walk_up");
@@ -210,10 +216,6 @@ void Character::NotifyCollision(GameObject &other) {
     return;
   }
 
-  if (other.tag == "pushable") {
-    Log::debug("COLLIDING PUSHABLE"); 
-    this->SetLinearSpeed(150.0f);
-  }
 
   if (player && IMMORTAL) {
     Log::warning("CHARACTER - IMMORTAL mode active, no damage taken.");

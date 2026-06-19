@@ -53,6 +53,8 @@ public:
   void NotifyCollision(GameObject &other) override;
   Vec2 GetCenterPosition();
   void TakeDamage();
+  
+  bool isGlued = false;
 
 private:
   std::queue<Command> taskQueue;
