@@ -30,18 +30,18 @@ void QuizState::LoadAssets()
 
   std::vector<QuizData> quizData = {
     {
-      "What is the capital of France?",
-      {"Paris", "London", "Berlin"},
+      "Esse santo foi versado em várias áreas da língua e o primeiro a transcrever o Tupi, ajudou a fundar São Paulo e Rio de Janeiro.",
+      {"José de Anchieta", "São Francisco", "São José"},
       0
     },
     {
-      "What is 2 + 2?",
-      {"3", "4", "5"},
-      1
+      "Esse missionário foi morto por aqueles a quem ensinava a piedade e a compaixão cristã.",
+      {"Judas", "William Carey", "Juan del Castillo"},
+      2
     },
     {
-      "Which planet is known as the Red Planet?",
-      {"Earth", "Mars", "Jupiter"},
+      "Este santo brasileiro, cercado de rumores sobrenaturais, ficou conhecido por suas pílulas milagrosas.",
+      {"Frei Gilson", "Frei Galvão", "Frei Damião"},
       1
     }
   };
