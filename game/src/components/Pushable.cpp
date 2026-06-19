@@ -77,6 +77,12 @@ void Pushable::Render() {}
 void Pushable::NotifyCollision(GameObject& other) {
   InputManager &inputManager = InputManager::GetInstance();
 
+  if (other.tag == "pushable")
+  {
+    Collision::ResolveOverlap(associated, other);
+    return;
+  }
+
   if (other.tag == "player") {
     isTouching = true;
 
