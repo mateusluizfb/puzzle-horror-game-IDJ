@@ -1,5 +1,4 @@
 #include "WarningState.h"
-//#include "MazeState.h"
 
 WarningState::WarningState() {
 	// Garante que o gerenciador de recursos aloque as fontes antes do RemakeTexture
@@ -11,35 +10,35 @@ WarningState::WarningState() {
 	GameObject* titleObj = new GameObject();
 	SDL_Color redColor = {255, 0, 0, 255};
 	Text* titleComp = new Text(*titleObj, "game/assets/font/neodgm.ttf", 46,
-			Text::BLENDED, "DIRETRIZES DO LABIRINTO", redColor);
+			Text::BLENDED, "AVISOS", redColor);
 	titleObj->AddComponent(titleComp);
 
 	titleObj->box.x = 600.0f - (titleObj->box.w / 2.0f);
 	titleObj->box.y = 200.0f;
 	AddObject(titleObj);
 
-	// REGRA 1: Paredes Mortais
+	// MISTERIO 1: Os Santos
 	GameObject* rule1Obj = new GameObject();
 	SDL_Color whiteColor = {255, 255, 255, 255};
-	Text* rule1Comp = new Text(*rule1Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "- NAO ENCOSTE NAS PAREDES DO CORREDOR.", whiteColor);
+	Text* rule1Comp = new Text(*rule1Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Eles observam e conhecem a saida, mas a loucura corrompeu a mente de alguns.", whiteColor);
 	rule1Obj->AddComponent(rule1Comp);
 
 	rule1Obj->box.x = 600.0f - (rule1Obj->box.w / 2.0f);
 	rule1Obj->box.y = 380.0f;
 	AddObject(rule1Obj);
 
-	// REGRA 2: Objetos Mortais
+	// MISTERIO 2: A Luz Branca
 	GameObject* rule2Obj = new GameObject();
-	Text* rule2Comp = new Text(*rule2Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "- NAO TOQUE NOS OBJETOS DEIXADOS NO CHAO.", whiteColor);
+	Text* rule2Comp = new Text(*rule2Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Lembre-se: apenas a luz pura e o seu refugio.", whiteColor);
 	rule2Obj->AddComponent(rule2Comp);
 
 	rule2Obj->box.x = 600.0f - (rule2Obj->box.w / 2.0f);
 	rule2Obj->box.y = 460.0f;
 	AddObject(rule2Obj);
 
-	// REGRA 3: Direcao Unica (pista falsa)
+	// MISTERIO 3: O Vermelho
 	GameObject* rule3Obj = new GameObject();
-	Text* rule3Comp = new Text(*rule3Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "- SIGA APENAS EM FRENTE. O RETORNO NAO E OPCAO.", whiteColor);
+	Text* rule3Comp = new Text(*rule3Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "E jamais caminhe pelo rubro... Ele anseia por voce.", redColor);
 	rule3Obj->AddComponent(rule3Comp);
 
 	rule3Obj->box.x = 600.0f - (rule3Obj->box.w / 2.0f);
@@ -49,7 +48,7 @@ WarningState::WarningState() {
 	// PROMPT DE CONFIRMACAO (Texto Cinza de instrucao)
 	GameObject* promptObj = new GameObject();
 	SDL_Color grayColor = {160, 160, 160, 255};
-	Text* promptComp = new Text(*promptObj, "game/assets/font/neodgm.ttf", 22, Text::BLENDED, "Pressione ESPACO para aceitar os termos...", grayColor);
+	Text* promptComp = new Text(*promptObj, "game/assets/font/neodgm.ttf", 22, Text::BLENDED, "Pressione ESPACO para aceitar seu destino...", grayColor);
 	promptObj->AddComponent(promptComp);
 
 	promptObj->box.x = 600.0f - (promptObj->box.w / 2.0f);
@@ -89,9 +88,7 @@ void WarningState::Start() {
 }
 
 void WarningState::Pause() {}
-void WarningState::Resume() {
-	//Camera::pos = {0, 0};
-}
+void WarningState::Resume() {}
 
 void WarningState::LoadAssets() {
 	Resources::GetFont("game/assets/font/neodgm.ttf", 46);
