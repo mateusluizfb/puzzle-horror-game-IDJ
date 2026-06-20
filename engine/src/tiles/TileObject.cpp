@@ -25,10 +25,13 @@ void TileObject::Render() {
 
   // TMX gids are 1-based; convert to 0-based tile index.
   unsigned index = static_cast<unsigned>(data.gid - 1);
-  tileSet.RenderTile(
+  tileSet.RenderTileEx(
     index,
     associated.box.x,
     associated.box.y,
+    associated.angleDeg,
+    data.flipH,
+    data.flipV,
     scale
   );
 }

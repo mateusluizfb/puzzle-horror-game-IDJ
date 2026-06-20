@@ -75,7 +75,8 @@ void TileMap::LoadTxt(const std::string& file) {
       }
 
       try {
-        int tile = std::stoi(value);
+		// evitar problema de overflow stoi -> stoll
+		int tile = (int)(std::stoll(value) & 0x0FFFFFFF);
         tileMatrix.push_back(tile);
 
         ++tilesRead;
@@ -167,7 +168,9 @@ void TileMap::LoadTmx(const std::string& file) {
       size_t end = token.find_last_not_of(" \t\r\n");
       token = token.substr(start, end - start + 1);
       if (token.empty()) continue;
-      tileMatrix.push_back(std::stoi(token));
+	  // stoll para nao dar erro, e convertemos (int) para ignorar os bits gigantes
+	  // O problema era quando invertiamos uma sprite no tiled dava overflow
+	  tileMatrix.push_back((int)std::stoll(token));
     }
   }
 

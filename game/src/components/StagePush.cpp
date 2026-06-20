@@ -53,8 +53,13 @@ void StagePush::NotifyCollision(GameObject& other) {
     return;
   }
 
-  if (targetStage == "WarningState") {
+  if (targetStage == "WarningState" && inputManager.KeyPress(E_KEY)) {
     Game::GetInstance().Push(new WarningState());
+	return;
+  }
+  
+  if (targetStage == "MazeState") {
+    Game::GetInstance().Push(new MazeState());
 	return;
   }
 
