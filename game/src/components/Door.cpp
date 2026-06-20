@@ -29,7 +29,6 @@ void Door::NotifyCollision(GameObject& other) {
 		// O Salto de Fe (Condicao de Vitoria)
 		if (isWinCondition) {
 			Log::info("[DOOR] A FÉ FOI RECOMPENSADA. O labirinto foi vencido!");
-			GameData::playerVictory = true;
 			maze->RequestPop();
 			Game::GetInstance().Push(new KitchenState());
 			return;
