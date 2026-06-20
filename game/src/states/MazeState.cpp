@@ -34,6 +34,7 @@ MazeState::MazeState() : State(), //music("game/assets/audio/BGM.wav"),
 MazeState::~MazeState()
 {
     Log::info("MAZE_STATE - Destroying state");
+	Camera::GetInstance().Unfollow();
     objectArray.clear();
     if (lightMap != nullptr) SDL_DestroyTexture(lightMap);
 }
@@ -249,6 +250,7 @@ void MazeState::Render() {
 
 void MazeState::Pause() {
     Log::info("MAZE_STATE - Pausing state");
+	Camera::GetInstance().Unfollow();
 }
 
 void MazeState::Resume() {
