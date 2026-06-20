@@ -75,7 +75,7 @@ void StagePush::NotifyCollision(GameObject& other) {
     Game::GetInstance().Push(new LivingRoomCorridorState());
     return;
   }
-  
+
   if (targetStage == "LivingRoomState" && inputManager.KeyPress(E_KEY))
   {
     Game::GetInstance().Push(new LivingRoomState());
