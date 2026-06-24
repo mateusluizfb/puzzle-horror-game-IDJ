@@ -34,7 +34,6 @@ void SpriteRenderer::SetFrame(int frame, SDL_RendererFlip flip)
 }
 
 void SpriteRenderer::SetPosition(int x, int y) {
-  sprite->SetPosition(x, y);
   associated.box.x = x;
   associated.box.y = y;
 }

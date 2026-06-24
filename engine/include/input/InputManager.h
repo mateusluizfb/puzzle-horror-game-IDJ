@@ -17,6 +17,7 @@
 #define Z_KEY SDLK_z
 #define X_KEY SDLK_x
 #define M_KEY SDLK_m
+#define N_KEY SDLK_n
 #define R_KEY SDLK_r
 
 class InputManager {

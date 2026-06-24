@@ -11,16 +11,27 @@ EndState::EndState() : State(), backgroundMusic() {
 
   if (GameData::playerVictory) {
     GameObject *bgGameObject = new GameObject();
-    bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Win.png"));
+    SpriteRenderer *bgSpriteRenderer = new SpriteRenderer(*bgGameObject, "game/assets/img/Win.png");
+    bgGameObject->AddComponent(bgSpriteRenderer);
     this->AddObject(bgGameObject);
 
-    backgroundMusic.Open("game/audio/endStateWin.ogg");
+    // backgroundMusic.Open("game/audio/endStateWin.ogg");
   } else {
     GameObject *bgGameObject = new GameObject();
-    bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/Lose.png"));
+    SpriteRenderer *bgSpriteRenderer = new SpriteRenderer(*bgGameObject, "game/assets/img/game_over_screen.png");
+    bgSpriteRenderer->SetScale(6.0, 6.0);
+    // bgSpriteRenderer->SetPosition(800, 450);
+    bgGameObject->AddComponent(bgSpriteRenderer);
     this->AddObject(bgGameObject);
 
-    backgroundMusic.Open("game/audio/endStateLose.ogg");
+    GameObject *bgTextGameObject = new GameObject();
+    SpriteRenderer *bgTextSpriteRenderer = new SpriteRenderer(*bgTextGameObject, "game/assets/img/game_over_text.png");
+    bgTextSpriteRenderer->SetScale(3.5, 3.5);
+    bgTextSpriteRenderer->SetPosition(300, 200);
+    bgGameObject->AddComponent(bgTextSpriteRenderer);
+    this->AddObject(bgTextGameObject);
+
+    // backgroundMusic.Open("game/audio/endStateLose.ogg");
   }
 }
 

@@ -3,6 +3,7 @@
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset.tsx"/>
+ <tileset firstgid="1054" source="furniture_tileset_v2.tsx"/>
  <layer id="1" name="Tile Layer 1" width="19" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -24,13 +25,13 @@
  <layer id="3" name="Tile Layer 2" width="19" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,115,116,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,146,147,0,0,327,328,329,330,331,0,0,0,0,0,
-0,0,0,0,0,177,178,118,119,389,390,391,392,393,0,0,0,0,0,
-0,0,0,0,0,208,209,149,150,420,421,422,423,424,0,0,0,0,0,
+0,0,0,0,0,115,116,0,0,0,0,0,0,0,1357,0,0,0,0,
+0,0,0,0,0,146,147,1470,1470,327,328,329,330,331,1388,0,0,0,0,
+0,0,0,0,1358,177,178,118,119,389,390,391,392,393,1358,0,0,0,0,
+0,0,0,0,1389,208,209,149,150,420,421,422,423,424,1389,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,110,110,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1472,0,0,0,
+0,0,0,0,0,0,0,110,110,0,0,0,0,0,0,1503,0,0,0,
 0,0,0,0,0,111,203,204,205,206,113,0,0,0,0,0,0,0,0,
 0,0,0,0,0,142,234,235,236,237,144,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,265,266,267,268,0,0,0,0,0,0,0,0,0,
@@ -96,17 +97,10 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" gid="75" x="224" y="144" width="16" height="16">
+  <object id="7" gid="75" x="224" y="160" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="QuizState"/>
-    <property name="stage_push" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="8" gid="75" x="224" y="176" width="16" height="16">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="stage_change_name" value="WaterTankPuzzleState"/>
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>

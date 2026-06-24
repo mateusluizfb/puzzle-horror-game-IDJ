@@ -8,15 +8,10 @@
 #include "Camera.h"
 #include "Text.h"
 #include "StageState.h"
+#include "EndState.h"
 
 TitleState::TitleState() : State() {
   Log::info("TITLE_STATE - Initializing TitleState");
-
-  GameObject *titleGameObject = new GameObject();
-  SpriteRenderer *titleSpriteRenderer = new SpriteRenderer(*titleGameObject, "game/assets/img/title_screen.png");
-  titleSpriteRenderer->SetScale(0.6, 0.6);
-  titleGameObject->AddComponent(titleSpriteRenderer);
-  this->AddObject(titleGameObject);
 }
 
 TitleState::~TitleState() {
@@ -27,6 +22,19 @@ TitleState::~TitleState() {
 
 void TitleState::LoadAssets() {
   Log::info("TITLE_STATE - Loading assets for TitleState");
+
+  GameObject *titleGameObject = new GameObject();
+  SpriteRenderer *titleSpriteRenderer = new SpriteRenderer(*titleGameObject, "game/assets/img/title_screen.png");
+  titleSpriteRenderer->SetScale(0.6, 0.6);
+  titleGameObject->AddComponent(titleSpriteRenderer);
+  this->AddObject(titleGameObject);
+
+  GameObject *titleTextGameObject = new GameObject();
+  SpriteRenderer *titleTextSpriteRenderer = new SpriteRenderer(*titleTextGameObject, "game/assets/img/title_text.png");
+  titleTextSpriteRenderer->SetScale(3.5, 3.5);
+  titleTextSpriteRenderer->SetPosition(800, 450);
+  titleTextGameObject->AddComponent(titleTextSpriteRenderer);
+  this->AddObject(titleTextGameObject);
 
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
@@ -55,6 +63,12 @@ void TitleState::Update(float dt) {
   {
     Log::info("TITLE_STATE - M key pressed, popping TitleState");
     Game::GetInstance().Push(new StageState());
+  }
+
+  if (inputManager.KeyPress(N_KEY))
+  {
+    Log::info("TITLE_STATE - M key pressed, popping TitleState");
+    Game::GetInstance().Push(new EndState());
   }
 
   UpdateArray(dt);
