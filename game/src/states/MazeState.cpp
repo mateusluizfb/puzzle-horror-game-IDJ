@@ -227,6 +227,11 @@ void MazeState::Update(float dt) {
     // Remove os objetos destruidos
     UpdateDead();
 
+    std::weak_ptr<GameObject> checkPlayer = this->GetObjectByTag("player");
+
+    if (checkPlayer.expired()) Camera::GetInstance().Unfollow();
+    else Camera::GetInstance().Follow(checkPlayer.lock().get());
+
     Camera::GetInstance().Update(dt);
 }
 
@@ -235,7 +240,7 @@ void MazeState::Render() {
 
     // Redireciona a pintura para a pelicula escura
     SDL_SetRenderTarget(renderer, lightMap);
-    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+    SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);
     SDL_RenderClear(renderer);
 
     // Desenha as luzes na pelicula
