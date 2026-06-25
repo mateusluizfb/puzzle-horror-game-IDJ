@@ -25,6 +25,7 @@ private:
   TileObjectData data;
   TileSet tileSet;
   Vec2 scale;
+  bool hidden = false;
 
 public:
   // tileSetFile  : path to the tileset image (e.g. "game/assets/img/Tileset.png")
@@ -38,6 +39,8 @@ public:
 
   void Render() override;
   void Update(float dt) override;
+  void Show();
+  void Hide();
 
   const TileObjectData& GetData() const;
 };

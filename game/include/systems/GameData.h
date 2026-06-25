@@ -11,7 +11,8 @@ class GameData {
     static Vec2 tileScaleFar;
     static Vec2 tileScale;
     static bool dialogueActive;
-	static int playerLives;
+    static int playerLives;
+    static bool hasLivingRoomKey;
 };
 
 #endif

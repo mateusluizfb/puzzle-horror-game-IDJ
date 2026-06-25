@@ -21,6 +21,7 @@
 #include "TileObject.h"
 #include "Pushable.h"
 #include "Wall.h"
+#include "Key.h"
 #include "StagePush.h"
 #include "Quiz.h"
 #include "QuizUI.h"
@@ -81,6 +82,9 @@ void LivingRoomState::LoadAssets()
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
+  });
+  tileObjects.RegisterComponent("key", [](GameObject& go) -> Component* {
+    return new Key(go);
   });
   tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *
                                  {

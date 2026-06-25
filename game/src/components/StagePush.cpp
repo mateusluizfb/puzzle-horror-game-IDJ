@@ -14,6 +14,7 @@
 #include "KitchenCorridorState.h"
 #include "KitchenState.h"
 #include "QuizState.h"
+#include "GameData.h"
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -53,11 +54,12 @@ void StagePush::NotifyCollision(GameObject& other) {
     return;
   }
 
-  if (targetStage == "WarningState" && inputManager.KeyPress(E_KEY)) {
+  if (targetStage == "WarningState" && inputManager.KeyPress(E_KEY) && GameData::hasLivingRoomKey)
+  {
     Game::GetInstance().Push(new WarningState());
-	return;
+	  return;
   }
-  
+
   if (targetStage == "MazeState") {
     Game::GetInstance().Push(new MazeState());
 	return;

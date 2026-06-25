@@ -21,6 +21,7 @@ TileObject::TileObject(GameObject& associated,
 }
 
 void TileObject::Render() {
+  if (hidden) return;
   if (data.gid <= 0) return;
 
   // TMX gids are 1-based; convert to 0-based tile index.
@@ -42,4 +43,12 @@ void TileObject::Update(float /*dt*/) {
 
 const TileObjectData& TileObject::GetData() const {
   return data;
+}
+
+void TileObject::Show() {
+  hidden = false;
+}
+
+void TileObject::Hide() {
+  hidden = true;
 }
