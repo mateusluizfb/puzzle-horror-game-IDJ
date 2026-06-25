@@ -14,6 +14,9 @@ struct TileObjectData {
   float y;
   float width;
   float height;
+  float angle;
+  bool flipH;
+  bool flipV;
   std::map<std::string, std::string> properties;
 };
 

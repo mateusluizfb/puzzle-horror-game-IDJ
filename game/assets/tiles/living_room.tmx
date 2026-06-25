@@ -86,7 +86,7 @@
   <object id="54" x="284.352" y="65.7747" width="17.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
-    <property name="stage_change_name" value="KitchenCorridorState"/>
+    <property name="stage_change_name" value="WarningState"/>
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
