@@ -15,7 +15,6 @@
 #include "Game.h"
 #include "GameData.h"
 #include "GameObject.h"
-#include "MazeState.h"
 #include "TileMap.h"
 #include "TileObjects.h"
 #include "TileObject.h"
@@ -26,6 +25,7 @@
 #include "Quiz.h"
 #include "QuizUI.h"
 #include "KitchenCorridorState.h"
+#include "WarningState.h"
 
 LivingRoomState::LivingRoomState(): State(), music("game/audio/BGM.wav")
 {
@@ -172,7 +172,7 @@ void LivingRoomState::Update(float dt)
   {
     Log::info("LIVINGROOM_STATE - X key pressed, pushing KitchenCorridorState");
     music.Stop();
-    Game::GetInstance().Push(new MazeState());
+    Game::GetInstance().Push(new WarningState());
   }
 
   UpdateArray(dt);

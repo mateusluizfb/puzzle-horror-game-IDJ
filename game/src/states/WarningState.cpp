@@ -62,16 +62,29 @@ WarningState::~WarningState() {
 
 void WarningState::Update(float dt) {
 	InputManager& input = InputManager::GetInstance();
-	UpdateArray(dt);
+	std::weak_ptr<GameObject> playerPtr = this->GetObjectByTag("player");
 
 	if (input.QuitRequested() || input.KeyPress(ESCAPE_KEY))
 		quitRequested = true;
 
 	// Ao pressionar Espaco, remove este aviso da pilha e empurra o labirinto real
-	if (input.KeyPress(SDLK_SPACE)) {
-		popRequested = true;
+	if (input.KeyPress(SDLK_SPACE))
+		Game::GetInstance().Push(new MazeState());
+
+	if (input.KeyPress(Z_KEY)) {
+		Log::info("WARNING_STATE - Z key pressed, popping state");
+		//music.Stop();
+		this->RequestPop();
+	}
+
+	if (input.KeyPress(X_KEY)) {
+		Log::info("WARNING_STATE - X key pressed, pushing KitchenCorridorState");
+		//music.Stop();
 		Game::GetInstance().Push(new MazeState());
 	}
+
+
+	UpdateArray(dt);
 }
 
 void WarningState::Render() {
@@ -88,7 +101,11 @@ void WarningState::Start() {
 }
 
 void WarningState::Pause() {}
-void WarningState::Resume() {}
+void WarningState::Resume() {
+	Log::info("WARNING_STATE - Resuming state");
+	Camera::GetInstance().Unfollow();
+	Camera::GetInstance().SetPosition(0, 0);
+}
 
 void WarningState::LoadAssets() {
 	Resources::GetFont("game/assets/font/neodgm.ttf", 46);
