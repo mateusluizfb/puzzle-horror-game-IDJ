@@ -78,7 +78,7 @@ void FollowingMonster::FollowPlayer(float dt, Animator *animator, bool checkProx
 
     if (checkProximity) {
         float distance = associated.box.GetCenter().Distance(player->box.GetCenter());
-        if (distance <= 75.0f) {
+        if (distance <= 85.0f) {
             flickerTimer.Restart();
             currentState = (currentState == State::Stage1) ? State::Flicker1 : State::Flicker2;
         }
