@@ -29,6 +29,8 @@ private:
   bool isComposite = false;
 
 public:
+  bool disabled = false;
+
   Collider(GameObject &associated, Vec2 scale = Vec2(1, 1), Vec2 offset = Vec2(0, 0));
 
   void Update(float dt);

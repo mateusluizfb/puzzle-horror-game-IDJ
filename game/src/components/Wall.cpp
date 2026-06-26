@@ -25,6 +25,11 @@ void Wall::Render()
 
 void Wall::NotifyCollision(GameObject &other)
 {
+  Collider *collider = other.GetComponent<Collider>();
+
+  if (collider->disabled)
+    return;
+
   if (other.tag != "wall") {
     Collision::ResolveOverlap(other, associated);
   }

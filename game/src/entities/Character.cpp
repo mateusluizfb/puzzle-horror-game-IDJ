@@ -222,6 +222,10 @@ void Character::NotifyCollision(GameObject &other) {
     return;
   };
 
+  if (other.tag == "monster") {
+    this->associated.RequestDelete();
+  }
+
   if (hp <= 0) return;
 
   hit = true;

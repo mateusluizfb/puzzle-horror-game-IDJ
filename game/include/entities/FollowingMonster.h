@@ -1,10 +1,13 @@
 #ifndef FOLLOWING_MONSTER_H
 #define FOLLOWING_MONSTER_H
 
+#include <cstdlib>
 #include "Component.h"
 #include "GameObject.h"
 #include "Vec2.h"
 #include "Timer.h"
+
+class Animator;
 
 class FollowingMonster : public Component
 {
@@ -17,8 +20,14 @@ public:
     void Render() override;
 
 private:
-    float linearSpeed = 150.0f;
+    enum class State { Stage1, Flicker1, Stage2, Flicker2, Stage3 };
+
+    void FollowPlayer(float dt, Animator *animator, bool checkProximity);
+
+    float linearSpeed = 80.0f;
     Vec2 speed;
+    State currentState = State::Stage1;
+    Timer flickerTimer;
 };
 
 #endif

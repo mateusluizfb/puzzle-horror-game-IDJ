@@ -124,13 +124,12 @@ void LivingRoomState::LoadAssets()
   Log::debug("LIVINGROOM_STATE - Starting FollowingMonster game object");
   GameObject *monsterGameObject = new GameObject();
   FollowingMonster *monster = new FollowingMonster(*monsterGameObject);
-  // Collider *monsterCollider = new Collider(*monsterGameObject, Vec2(1, 1), Vec2(1, 1));
+  Collider *monsterCollider = new Collider(*monsterGameObject, Vec2(1, 1), Vec2(1, 1));
+  monsterCollider->disabled = true;
   monsterGameObject->AddComponent(monster);
-  // monsterGameObject->AddComponent(monsterCollider);
+  monsterGameObject->AddComponent(monsterCollider);
   monsterGameObject->tag = "monster";
   this->AddObject(monsterGameObject);
-  SpriteRenderer *spriteRenderer2 = monsterGameObject->GetComponent<SpriteRenderer>();
-  spriteRenderer2->SetPosition(0, 0);
   Log::debug("LIVINGROOM_STATE - FollowingMonster game object loaded");
 }
 
