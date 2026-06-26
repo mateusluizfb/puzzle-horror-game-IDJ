@@ -9,6 +9,7 @@
 #include "Text.h"
 #include "StageState.h"
 #include "EndState.h"
+#include "GameData.h"
 
 TitleState::TitleState() : State() {
   Log::info("TITLE_STATE - Initializing TitleState");
@@ -67,7 +68,14 @@ void TitleState::Update(float dt) {
 
   if (inputManager.KeyPress(N_KEY))
   {
-    Log::info("TITLE_STATE - M key pressed, popping TitleState");
+    Log::info("TITLE_STATE - N key pressed, popping TitleState");
+    Game::GetInstance().Push(new EndState());
+  }
+
+  if (inputManager.KeyPress(B_KEY))
+  {
+    GameData::playerVictory = true;
+    Log::info("TITLE_STATE - B key pressed, popping TitleState");
     Game::GetInstance().Push(new EndState());
   }
 

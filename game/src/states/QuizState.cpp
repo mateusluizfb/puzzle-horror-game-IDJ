@@ -11,6 +11,7 @@
 #include "TileObjects.h"
 #include "Quiz.h"
 #include "QuizUI.h"
+#include "EndState.h"
 
 QuizState::QuizState() : State()
 {
@@ -64,7 +65,15 @@ void QuizState::Update(float dt)
     Quiz* quiz = quizObject->GetComponent<Quiz>();
     if (quiz && quiz->GetState() == QuizProgressState::Finished) {
       Log::info("QUIZ_STATE - Quiz finished, returning to TitleState");
-      this->RequestPop();
+
+      if (quiz && quiz->IsAllCorrect())
+      {
+        GameData::playerVictory = true;
+        Game::GetInstance().Push(new EndState());
+      } else {
+        GameData::playerVictory = false;
+        Game::GetInstance().Push(new EndState());
+      }
     }
   }
 
