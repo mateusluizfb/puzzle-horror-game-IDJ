@@ -24,7 +24,7 @@
 #include "QuizUI.h"
 #include "LivingRoomState.h"
 
-LivingRoomCorridorState::LivingRoomCorridorState(): State(), music("game/audio/BGM.wav")
+LivingRoomCorridorState::LivingRoomCorridorState(): State(), music("game/assets/music/soundtrack.wav")
 {
   Log::info("LIVINGROOMCORRIDOR_STATE - Initializing state");
 
@@ -43,6 +43,8 @@ void LivingRoomCorridorState::Start()
   Log::info("LIVINGROOMCORRIDOR_STATE - Starting state");
 
   StartArray();
+
+  music.Play(-1);
 }
 
 void LivingRoomCorridorState::LoadAssets()
@@ -180,4 +182,5 @@ void LivingRoomCorridorState::Resume()
     Log::error("LIVINGROOMCORRIDOR_STATE - Cannot resume: player object not found");
     return;
   }
+  music.Play(-1);
 }

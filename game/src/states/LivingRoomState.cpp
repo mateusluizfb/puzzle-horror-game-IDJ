@@ -24,10 +24,9 @@
 #include "StagePush.h"
 #include "Quiz.h"
 #include "QuizUI.h"
-#include "KitchenCorridorState.h"
 #include "WarningState.h"
 
-LivingRoomState::LivingRoomState(): State(), music("game/audio/BGM.wav")
+LivingRoomState::LivingRoomState(): State(), music("game/assets/music/soundtrack.wav")
 {
   Log::info("LIVINGROOM_STATE - Initializing state");
 
@@ -47,6 +46,7 @@ void LivingRoomState::Start()
   Log::info("LIVINGROOM_STATE - Starting state");
 
   StartArray();
+  music.Play(-1);
 }
 
 void LivingRoomState::LoadAssets()
@@ -170,7 +170,7 @@ void LivingRoomState::Update(float dt)
 
   if (inputManager.KeyPress(X_KEY))
   {
-    Log::info("LIVINGROOM_STATE - X key pressed, pushing KitchenCorridorState");
+    Log::info("LIVINGROOM_STATE - X key pressed, pushing WarningState");
     music.Stop();
     Game::GetInstance().Push(new WarningState());
   }

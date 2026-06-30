@@ -24,7 +24,7 @@
 #include "QuizUI.h"
 #include "BedroomState.h"
 
-KitchenState::KitchenState(): State(), music("game/audio/BGM.wav")
+KitchenState::KitchenState(): State(), music("game/assets/music/soundtrack.wav")
 {
   Log::info("KITCHEN_STATE - Initializing state");
 
@@ -37,6 +37,7 @@ KitchenState::~KitchenState()
   Log::info("KITCHEN_STATE - Destroying state");
 
   objectArray.clear();
+  music.Stop();
 }
 
 void KitchenState::Start()
@@ -44,6 +45,8 @@ void KitchenState::Start()
   Log::info("KITCHEN_STATE - Starting state");
 
   StartArray();
+
+  music.Play(-1);
 }
 
 void KitchenState::LoadAssets()
@@ -183,4 +186,5 @@ void KitchenState::Resume()
     Log::error("KITCHEN_STATE - Cannot resume: player object not found");
     return;
   }
+  music.Play(-1);
 }

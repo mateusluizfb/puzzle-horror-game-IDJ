@@ -17,7 +17,7 @@
 #include "Light.h"
 #include <iostream>
 
-MazeState::MazeState() : State(), //music("game/assets/audio/BGM.wav"),
+MazeState::MazeState() : State(), music("game/assets/music/soundtrack.wav"),
 	loopCount(0), lightMap(nullptr)
 {
 	Log::info("MAZE_STATE - Initializing state");
@@ -42,6 +42,8 @@ MazeState::~MazeState()
 void MazeState::Start()
 {
     StartArray();
+
+	music.Play(-1);
 }
 
 void MazeState::LoadAssets()
@@ -263,8 +265,10 @@ void MazeState::Resume() {
 
     // Devolve o foco da camera para o heroi ao voltar para o labirinto
     std::weak_ptr<GameObject> playerPtr = this->GetObjectByTag("player");
-    if (!playerPtr.expired())
+    if (!playerPtr.expired()) {
         Camera::GetInstance().Follow(playerPtr.lock().get());
+	}
+	music.Play(-1);
 }
 
 void MazeState::AddLoop() {
