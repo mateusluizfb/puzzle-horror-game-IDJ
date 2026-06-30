@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="12">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="15">
  <tileset firstgid="1" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="13" source="furniture_tileset_v2.tsx"/>
+ <tileset firstgid="974" source="test_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="19" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -92,6 +93,12 @@
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" gid="1049" x="96" y="144" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="key" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

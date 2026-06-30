@@ -72,7 +72,7 @@ void StagePush::NotifyCollision(GameObject& other) {
     return;
   }
 
-  if (targetStage == "LivingRoomCorridorState" && inputManager.KeyPress(E_KEY))
+  if (targetStage == "LivingRoomCorridorState" && inputManager.KeyPress(E_KEY) && GameData::hasBedroomKey)
   {
     Game::GetInstance().Push(new LivingRoomCorridorState());
     return;

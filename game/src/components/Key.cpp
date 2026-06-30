@@ -5,8 +5,9 @@
 #include "TileObject.h"
 #include "GameData.h"
 
-Key::Key(GameObject& associated)
+Key::Key(GameObject& associated, Key::Type type)
   : Component(associated) {
+  this->type = type;
   associated.tag = "key";
 
   GameObject *textGameObject = new GameObject();
@@ -34,7 +35,16 @@ void Key::Render() {}
 void Key::NotifyCollision(GameObject& other) {
   if (collected) return;
   
-  if (other.tag == "player") {
+  if (other.tag == "player" && this->type == Type::Bedroom) {
+    collected = true;
+    GameData::hasBedroomKey = true;
+    keyText->Show();
+    TileObject *tile = associated.GetComponent<TileObject>();
+    if (tile) tile->Hide();
+    Log::info("KEY - Player collected the bedroom key");
+  }
+
+  if (other.tag == "player" && this->type == Type::LivingRoom) {
     collected = true;
     GameData::hasLivingRoomKey = true;
     keyText->Show();

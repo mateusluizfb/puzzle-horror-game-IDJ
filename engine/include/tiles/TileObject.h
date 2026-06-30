@@ -10,6 +10,8 @@ struct TileObjectData {
   int id;
   std::string name;
   int gid;               // 1-based global tile id from TMX
+  int firstgid = 1;      // firstgid of the tileset this object's tile belongs to
+  std::string tileSetFile; // resolved image path for this object's tileset
   float x;
   float y;
   float width;

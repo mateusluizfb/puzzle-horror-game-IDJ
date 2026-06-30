@@ -8,6 +8,7 @@
 
 struct TileSprite {
   unsigned gid;
+  int firstgid;
   Vec2 offset;
 };
 
@@ -20,7 +21,7 @@ private:
 public:
   CompositeTileRenderer(GameObject& associated, const std::string& tileSetFile, int tileWidth, int tileHeight, Vec2 scale);
   
-  void AddTile(unsigned gid, Vec2 offset);
+  void AddTile(unsigned gid, int firstgid, Vec2 offset);
   
   void Render() override;
   void Update(float dt) override;

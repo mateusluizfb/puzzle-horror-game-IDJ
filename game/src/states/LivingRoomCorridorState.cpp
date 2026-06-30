@@ -87,6 +87,9 @@ void LivingRoomCorridorState::LoadAssets()
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
+  tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
+    return new Pushable(go, 150.0f);
+  });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
   });

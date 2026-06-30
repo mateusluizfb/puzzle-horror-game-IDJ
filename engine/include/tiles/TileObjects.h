@@ -12,6 +12,14 @@
 #include "Rect.h"
 #include "Collider.h"
 
+struct TileSetInfo {
+  int firstgid;
+  int tileCount;
+  int tileWidth;
+  int tileHeight;
+  std::string imageFile; // resolved path to the tileset image
+};
+
 class TileObjects {
 private:
   std::vector<TileObjectData> objects;
@@ -22,6 +30,7 @@ private:
   int tileWidth;
   int tileHeight;
   Vec2 scale;
+  std::vector<TileSetInfo> tilesets;
 
   std::map<std::string, std::function<Component*(GameObject&)>> componentFactories;
   std::vector<std::string> componentRegistrationOrder;

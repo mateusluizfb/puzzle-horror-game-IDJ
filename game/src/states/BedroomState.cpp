@@ -23,6 +23,7 @@
 #include "Quiz.h"
 #include "QuizUI.h"
 #include "LivingRoomCorridorState.h"
+#include "Key.h"
 
 BedroomState::BedroomState(): State(), music("game/audio/BGM.wav")
 {
@@ -89,6 +90,9 @@ void BedroomState::LoadAssets()
   );
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
+  });
+  tileObjects.RegisterComponent("key", [](GameObject& go) -> Component* {
+    return new Key(go, Key::Type::Bedroom);
   });
   tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *
                                  {

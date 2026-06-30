@@ -13,6 +13,7 @@ class GameData {
     static bool dialogueActive;
     static int playerLives;
     static bool hasLivingRoomKey;
+    static bool hasBedroomKey;
 };
 
 #endif

@@ -84,7 +84,7 @@ void LivingRoomState::LoadAssets()
     return new Wall(go);
   });
   tileObjects.RegisterComponent("key", [](GameObject& go) -> Component* {
-    return new Key(go);
+    return new Key(go, Key::Type::LivingRoom);
   });
   tileObjects.RegisterComponent("stage_push", [](GameObject &go) -> Component *
                                  {

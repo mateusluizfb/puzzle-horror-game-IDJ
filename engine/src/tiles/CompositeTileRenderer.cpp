@@ -7,13 +7,13 @@ CompositeTileRenderer::CompositeTileRenderer(GameObject& associated, const std::
     scale(scale)
 {}
 
-void CompositeTileRenderer::AddTile(unsigned gid, Vec2 offset) {
-  tiles.push_back({gid, offset});
+void CompositeTileRenderer::AddTile(unsigned gid, int firstgid, Vec2 offset) {
+  tiles.push_back({gid, firstgid, offset});
 }
 
 void CompositeTileRenderer::Render() {
   for (const auto& tile : tiles) {
-    unsigned index = tile.gid - 1;
+    unsigned index = tile.gid - tile.firstgid;
     tileSet.RenderTile(
       index,
       associated.box.x + tile.offset.x,

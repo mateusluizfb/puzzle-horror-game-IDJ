@@ -43,24 +43,51 @@ void TileObjects::LoadTmx(const std::string& file) {
     throw std::runtime_error("TileObjects::LoadTmx: Root element is not <map> in " + file);
   }
 
-  // --- Parse tileset info from the external TSX file ---
-  const XmlNode* tilesetRef = root.findChild("tileset");
-  if (!tilesetRef) {
+  // --- Parse ALL tilesets referenced by the TMX ---
+  std::string tmxDir = DirOf(file);
+
+  for (const XmlNode* tilesetRef : root.findChildren("tileset")) {
+    TileSetInfo info;
+    info.firstgid = std::stoi(tilesetRef->getAttribute("firstgid", "1"));
+
+    std::string tsxSource = tilesetRef->getAttribute("source");
+    if (tsxSource.empty()) {
+      // Inline tileset (no external TSX). Read tile dimensions directly.
+      info.tileWidth  = std::stoi(tilesetRef->getAttribute("tilewidth",  "0"));
+      info.tileHeight = std::stoi(tilesetRef->getAttribute("tileheight", "0"));
+      info.tileCount  = std::stoi(tilesetRef->getAttribute("tilecount",  "0"));
+      const XmlNode* image = tilesetRef->findChild("image");
+      if (image) {
+        std::string imgSource = image->getAttribute("source");
+        info.imageFile = tmxDir + imgSource;
+      }
+    } else {
+      std::string tsxPath = tmxDir + tsxSource;
+      XmlNode tsx = XmlParser::ParseFile(tsxPath);
+
+      info.tileWidth  = std::stoi(tsx.getAttribute("tilewidth",  "0"));
+      info.tileHeight = std::stoi(tsx.getAttribute("tileheight", "0"));
+      info.tileCount  = std::stoi(tsx.getAttribute("tilecount",  "0"));
+
+      const XmlNode* image = tsx.findChild("image");
+      if (image) {
+        std::string imgSource = image->getAttribute("source");
+        // The image path in the TSX is relative to the TSX file's directory.
+        std::string tsxDir = DirOf(tsxPath);
+        info.imageFile = tsxDir + imgSource;
+      }
+    }
+
+    tilesets.push_back(info);
+  }
+
+  if (tilesets.empty()) {
     throw std::runtime_error("TileObjects::LoadTmx: No <tileset> found in " + file);
   }
 
-  std::string tsxSource = tilesetRef->getAttribute("source");
-  if (tsxSource.empty()) {
-    throw std::runtime_error("TileObjects::LoadTmx: <tileset> has no source attribute in " + file);
-  }
-
-  std::string tmxDir = DirOf(file);
-  std::string tsxPath = tmxDir + tsxSource;
-
-  XmlNode tsx = XmlParser::ParseFile(tsxPath);
-
-  tileWidth  = std::stoi(tsx.getAttribute("tilewidth",  "0"));
-  tileHeight = std::stoi(tsx.getAttribute("tileheight", "0"));
+  // Keep tileWidth/tileHeight for backwards compatibility (use the first tileset).
+  tileWidth  = tilesets.front().tileWidth;
+  tileHeight = tilesets.front().tileHeight;
 
   // --- Parse object group ---
   const XmlNode* objectgroup = root.findChild("objectgroup");
@@ -73,8 +100,8 @@ void TileObjects::LoadTmx(const std::string& file) {
     TileObjectData data;
     data.id     = std::stoi(obj->getAttribute("id",     "0"));
     data.name   = obj->getAttribute("name");
-	// evitar overflow e suporta rotacao de sprite
-	unsigned long long raw_gid = std::stoull(obj->getAttribute("gid", "0"));
+    // evitar overflow e suporta rotacao de sprite
+    unsigned long long raw_gid = std::stoull(obj->getAttribute("gid", "0"));
     bool flipH = (raw_gid & 0x80000000) != 0; // Bit 32
     bool flipV = (raw_gid & 0x40000000) != 0; // Bit 31
     bool flipD = (raw_gid & 0x20000000) != 0; // Bit 30
@@ -104,6 +131,28 @@ void TileObjects::LoadTmx(const std::string& file) {
     data.width  = std::stof(obj->getAttribute("width",  "0"));
     data.height = std::stof(obj->getAttribute("height", "0"));
 
+    // Resolve which tileset this object's tile belongs to and compute local index info.
+    data.firstgid = 1;
+    data.tileSetFile = tileSetFile;
+    if (data.gid > 0) {
+      // Find the tileset whose gid range contains this gid (last tileset with firstgid <= gid).
+      const TileSetInfo* matched = nullptr;
+      for (const auto& ts : tilesets) {
+        if (ts.firstgid <= data.gid) {
+          if (!matched || ts.firstgid > matched->firstgid) {
+            matched = &ts;
+          }
+        }
+      }
+      if (matched) {
+        data.firstgid = matched->firstgid;
+        data.tileSetFile = matched->imageFile;
+      } else {
+        Log::warning("TileObjects::LoadTmx: No tileset found for gid=" +
+                     std::to_string(data.gid) + " in " + file);
+      }
+    }
+
     const XmlNode* props = obj->findChild("properties");
     if (props) {
       for (const XmlNode* prop : props->findChildren("property")) {
@@ -130,7 +179,7 @@ void TileObjects::SpawnObject(State& state, const TileObjectData& data) {
 
   GameObject *go = new GameObject();
   go->angleDeg = data.angle;
-  go->AddComponent(new TileObject(*go, data, tileSetFile, tileWidth, tileHeight, scale));
+  go->AddComponent(new TileObject(*go, data, data.tileSetFile, tileWidth, tileHeight, scale));
 
   for (const std::string& key : componentRegistrationOrder) {
     auto propIt = data.properties.find(key);
@@ -216,7 +265,7 @@ void TileObjects::MergeCompositeColliders(State& state) {
     TileObject* primaryTile = primary->GetComponent<TileObject>();
     if (primaryTile) {
       const TileObjectData& data = primaryTile->GetData();
-      renderer->AddTile(data.gid, Vec2(0, 0));
+      renderer->AddTile(data.gid, data.firstgid, Vec2(0, 0));
     }
     primary->AddComponent(renderer);
 
@@ -237,7 +286,7 @@ void TileObjects::MergeCompositeColliders(State& state) {
           go->box.x - primary->box.x,
           go->box.y - primary->box.y
         );
-        renderer->AddTile(data.gid, offset);
+        renderer->AddTile(data.gid, data.firstgid, offset);
         
         for (const std::string& key : componentRegistrationOrder) {
           auto propIt = data.properties.find(key);
