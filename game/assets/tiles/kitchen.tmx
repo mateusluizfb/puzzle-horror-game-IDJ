@@ -98,7 +98,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" gid="75" x="160.5" y="52.5" width="16" height="16">
+  <object id="7" gid="75" x="160" y="64" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="QuizState"/>

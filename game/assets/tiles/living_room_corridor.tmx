@@ -67,7 +67,7 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="3" x="209.25" y="193.583" width="13.5518" height="6.4695">
+  <object id="3" x="208" y="192" width="16.3018" height="6.4695">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="LivingRoomState"/>
@@ -146,7 +146,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="22" gid="633" x="208" y="192" width="16" height="16">
+  <object id="22" gid="633" x="208" y="176" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="pushable" type="bool" value="true"/>
