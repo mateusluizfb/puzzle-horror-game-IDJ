@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="19">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="23">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset_v2.tsx"/>
@@ -59,7 +59,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" x="2.85726" y="133.472" width="17.7185" height="21.7195">
+  <object id="1" x="10.1073" y="133.472" width="5.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="spawn_pont" type="bool" value="true"/>
@@ -67,7 +67,7 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="3" x="207.908" y="191.772" width="16.0518" height="21.7195">
+  <object id="3" x="209.25" y="193.583" width="13.5518" height="6.4695">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="LivingRoomState"/>
@@ -122,12 +122,6 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="15" gid="633" x="208" y="192" width="16" height="16">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="pushable" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="17" name="wall" x="10.2801" y="63.9343" width="21.1064" height="30.1314">
    <properties>
     <property name="collider" type="bool" value="true"/>
@@ -138,6 +132,24 @@
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="19" name="wall" x="-3.0532" y="132.101" width="12.1064" height="31.1314">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="20" name="wall" x="207.947" y="201.768" width="16.4397" height="14.1314">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="22" gid="633" x="208" y="192" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

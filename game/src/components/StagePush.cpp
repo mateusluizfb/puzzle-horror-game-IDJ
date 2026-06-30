@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "Text.h"
 
 #include "TitleState.h"
 #include "EndState.h"
@@ -23,9 +24,23 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
 {
   Log::debug("StagePush - Registered for object: " + associated.tag +
              " -> target stage: " + targetStage);
+
+  GameObject* textGameObject = new GameObject();
+  SDL_Color white = {255, 255, 255, 255};
+  promptText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to open", white);
+  promptText->Hide();
+  textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
+  textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
+  associated.AddComponent(promptText);
 }
 
 void StagePush::Update(float /*dt*/) {
+  if (isTouching) {
+    promptText->Show();
+  } else {
+    promptText->Hide();
+  }
+  isTouching = false;
   triggered = false;
 }
 
@@ -33,6 +48,13 @@ void StagePush::Render() {}
 
 void StagePush::NotifyCollision(GameObject& other) {
   if (other.tag != "player" || triggered) return;
+
+  if (targetStage != "TitleState" &&
+      targetStage != "EndState"   &&
+      targetStage != "StageState" &&
+      targetStage != "MazeState") {
+    isTouching = true;
+  }
 
   InputManager& inputManager = InputManager::GetInstance();
 

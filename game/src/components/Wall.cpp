@@ -30,7 +30,7 @@ void Wall::NotifyCollision(GameObject &other)
   if (collider->disabled)
     return;
 
-  if (other.tag != "wall") {
+  if (other.tag != "wall"){
     Collision::ResolveOverlap(other, associated);
   }
 }

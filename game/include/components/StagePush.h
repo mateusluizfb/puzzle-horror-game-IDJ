@@ -3,12 +3,15 @@
 
 #include "Component.h"
 #include <string>
+#include "Text.h"
 
 class StagePush : public Component {
 private:
   std::string previousStage;
   std::string targetStage;
   bool triggered;
+  Text* promptText = nullptr;
+  bool isTouching = false;
 
 public:
   StagePush(GameObject& associated, const std::string& stageName);
