@@ -16,13 +16,13 @@ Character::Character(GameObject &associated, std::string sprite)
     hitSound("game/audio/Hit1.wav"),
     deathSound("game/audio/Dead.wav"),
     hit(false),
-	isInvulnerable(false),
-    invulnerabilityTimer(Timer()),
     taskQueue(),
     speed(Vec2(0, 0)),
     linearSpeed(250),
     hp(100),
-    deathTimer(Timer())
+    deathTimer(Timer()),
+    isInvulnerable(false),
+    invulnerabilityTimer(Timer())
 {
   SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, "game/assets/spritesheets/player.png", 8, 8);
   spriteRenderer->SetScale(2, 2);
@@ -134,9 +134,11 @@ void Character::Update(float dt) {
     return;
   }
   
+  Vec2 moveDir(0, 0);
+
   while (!taskQueue.empty()) {
       Command item = taskQueue.front();
-  
+
       switch (item.type)
       {
         case CommandType::MOVE:
@@ -146,35 +148,35 @@ void Character::Update(float dt) {
             this->SetLinearSpeed(150.0f);
           }
 
-          speed = item.pos.Normalize() * linearSpeed;
-  
- 
-          SpriteRenderer* spriteRenderer = associated.GetComponent<SpriteRenderer>();
-
-
-          if (speed.x == 0 && speed.y < 0) {
-            animator->SetAnimation("walk_up");
-          } else if (speed.x == 0 && speed.y > 0) {
-            animator->SetAnimation("walk_down");
-          } else if (speed.x > 0) {
-            animator->SetAnimation("walk_right");
-          } else if (speed.x < 0) {
-            animator->SetAnimation("walk_left");
-          }
-
-          Vec2 moveDelta = speed * dt;
-          if (blockDir.x > 0 && moveDelta.x > 0) moveDelta.x = 0;
-          if (blockDir.x < 0 && moveDelta.x < 0) moveDelta.x = 0;
-          if (blockDir.y > 0 && moveDelta.y > 0) moveDelta.y = 0;
-          if (blockDir.y < 0 && moveDelta.y < 0) moveDelta.y = 0;
-
-          associated.box.x += moveDelta.x;
-          associated.box.y += moveDelta.y;
+          moveDir = moveDir + item.pos;
           break;
         }
       }
 
       taskQueue.pop();
+  }
+
+  if (moveDir.x != 0 || moveDir.y != 0) {
+    speed = moveDir.Normalize() * linearSpeed;
+
+    if (speed.x == 0 && speed.y < 0) {
+      animator->SetAnimation("walk_up");
+    } else if (speed.x == 0 && speed.y > 0) {
+      animator->SetAnimation("walk_down");
+    } else if (speed.x > 0) {
+      animator->SetAnimation("walk_right");
+    } else if (speed.x < 0) {
+      animator->SetAnimation("walk_left");
+    }
+
+    Vec2 moveDelta = speed * dt;
+    if (blockDir.x > 0 && moveDelta.x > 0) moveDelta.x = 0;
+    if (blockDir.x < 0 && moveDelta.x < 0) moveDelta.x = 0;
+    if (blockDir.y > 0 && moveDelta.y > 0) moveDelta.y = 0;
+    if (blockDir.y < 0 && moveDelta.y < 0) moveDelta.y = 0;
+
+    associated.box.x += moveDelta.x;
+    associated.box.y += moveDelta.y;
   }
 
   this->SetLinearSpeed(250.0f);
