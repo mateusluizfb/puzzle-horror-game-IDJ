@@ -148,6 +148,8 @@ void Character::Update(float dt) {
             this->SetLinearSpeed(150.0f);
           }
 
+          // In case the taskQueue enqueues the same move direction twice,
+          // in might happen when pressing two arrows for diagonal movement
           moveDir = moveDir + item.pos;
           break;
         }

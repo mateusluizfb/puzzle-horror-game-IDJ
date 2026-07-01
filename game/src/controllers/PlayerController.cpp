@@ -34,8 +34,6 @@ void PlayerController::Update(float dt) {
   if (inputManager.IsKeyDown(SDLK_s) || inputManager.IsKeyDown(DOWN_ARROW_KEY)) {
     character->Issue(Character::Command(CommandType::MOVE, 0, 1));
   }
-
-  Log::debug("Mouse: " + std::to_string(inputManager.GetMouseX()) + "x" + std::to_string(inputManager.GetMouseY()));
 }
 
 void PlayerController::Render() {
