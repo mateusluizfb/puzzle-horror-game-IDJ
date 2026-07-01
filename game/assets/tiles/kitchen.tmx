@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="14">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="16">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset.tsx"/>
@@ -98,13 +98,6 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" gid="75" x="160" y="64" width="16" height="16">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="stage_change_name" value="QuizState"/>
-    <property name="stage_push" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="9" name="wall" x="223.819" y="41.0177" width="21.612" height="22.9647">
    <properties>
     <property name="collider" type="bool" value="true"/>
@@ -133,6 +126,20 @@
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" gid="76" x="224" y="64" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="document" type="bool" value="true"/>
+    <property name="document_text" value="placeholder"/>
+   </properties>
+  </object>
+  <object id="15" gid="40" x="160" y="64" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="stage_change_name" value="QuizState"/>
+    <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

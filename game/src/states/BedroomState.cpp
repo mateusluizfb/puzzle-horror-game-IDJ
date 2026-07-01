@@ -24,6 +24,7 @@
 #include "QuizUI.h"
 #include "LivingRoomCorridorState.h"
 #include "Key.h"
+#include "Document.h"
 
 BedroomState::BedroomState(): State(), music("game/audio/BGM.wav")
 {
@@ -88,6 +89,15 @@ void BedroomState::LoadAssets()
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
+  tileObjects.RegisterComponent("document", [](GameObject &go) -> Component * {
+    const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
+    std::string text;
+    auto it = data.properties.find("document_text");
+    if (it != data.properties.end()) {
+      text = it->second;
+    }
+    return new Document(go, text);
+  });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
   });

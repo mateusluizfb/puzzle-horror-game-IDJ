@@ -22,6 +22,7 @@
 #include "StagePush.h"
 #include "Quiz.h"
 #include "QuizUI.h"
+#include "Document.h"
 #include "LivingRoomState.h"
 
 LivingRoomCorridorState::LivingRoomCorridorState(): State(), music("game/audio/BGM.wav")
