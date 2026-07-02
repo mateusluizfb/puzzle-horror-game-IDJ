@@ -166,6 +166,31 @@ void MazeState::LoadAssets()
 		return new Saint(go);
 	});
 
+	// SANTOS
+	tileObjects.RegisterComponent("saint", [](GameObject& go) -> Component* {
+		// 1. Removemos a imagem engessada do Tiled (para sumir com o pé de mesa)
+		TileObject* tileObj = go.GetComponent<TileObject>();
+		if (tileObj) go.RemoveComponent(tileObj);
+
+		// 2. Injetamos um SpriteRenderer nativo do C++ (começando virado para baixo)
+		SpriteRenderer* saintSprite = go.GetComponent<SpriteRenderer>();
+
+        if (saintSprite == nullptr) {
+            // Se realmente não existir nenhum, nós criamos.
+            saintSprite = new SpriteRenderer(go, "game/assets/img/saints/Santo_Baixo.png");
+            go.AddComponent(saintSprite);
+        } else {
+            // Se já existir (criado pelo TileObjects), nós o reciclamos!
+            saintSprite->Open("game/assets/img/saints/Santo_Baixo.png");
+        }
+
+		saintSprite->SetScale(2.5f, 2.5f);
+		go.box.x -= 20.0f;
+		go.box.y -= 40.0f;
+
+		return new Saint(go);
+	});
+
     tileObjects.Load(*this);
     Log::debug("MAZE_STATE - TileObjects loader finished");
 
@@ -336,11 +361,24 @@ void MazeState::ShuffleDoors() {
 
 			// GIRA O GAMEOBJECT DIRETAMENTE (Sem depender de SpriteRenderer!)
 			saintsList[i]->angleDeg = 0; // O padrao (olhando para a direita)
+			SpriteRenderer* saintSprite = saintsList[i]->GetComponent<SpriteRenderer>();
 
-			if (assignedSide == "up") saintsList[i]->angleDeg = -90;
-			else if (assignedSide == "down") saintsList[i]->angleDeg = 90;
-			else if (assignedSide == "left") saintsList[i]->angleDeg = 180;
-            // Se for "right", o angulo continua 0.
+			if (saintSprite != nullptr) {
+                // 3. Troca a imagem da cabeça de acordo com a direção sorteada!
+                if (assignedSide == "up") {
+                    saintSprite->Open("game/assets/img/saints/Santo_Cima.png");
+                }
+                else if (assignedSide == "down") {
+                    saintSprite->Open("game/assets/img/saints/Santo_Baixo.png");
+                }
+                else if (assignedSide == "left") {
+                    saintSprite->Open("game/assets/img/saints/Santo_Esquerda.png");
+                }
+                else if (assignedSide == "right") {
+                    saintSprite->Open("game/assets/img/saints/Santo_Direita.png");
+                }
+				saintSprite->SetScale(2.5f, 2.5f);
+            }
 
             // ALARME DE TESTE NO TERMINAL:
             Log::info("[SANTOS] Santo [" + std::to_string(i) + "] foi forçado a olhar para: " + assignedSide);
