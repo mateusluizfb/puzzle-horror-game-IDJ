@@ -35,12 +35,6 @@ void Sprite::Open(const std::string &file)
 {
   Log::info("SPRITE - Opening sprite: " + file);
 
-  if (texture != nullptr)
-  {
-    Log::debug("SPRITE - Sprite already opened, skipping: " + file);
-    return;
-  };
-
   texture = Resources::GetImage(file.c_str());
 
   if (texture == nullptr)
