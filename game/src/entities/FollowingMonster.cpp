@@ -12,7 +12,8 @@ FollowingMonster::FollowingMonster(GameObject &associated)
 {
     associated.tag = "monster";
 
-    SpriteRenderer *spriteRenderer = new SpriteRenderer(associated, "game/assets/spritesheets/player.png", 8, 8);
+    SpriteRenderer *spriteRenderer = new SpriteRenderer(associated,
+			"game/assets/spritesheets/Kramulhao.png", 8, 4);
     Animator *animator = new Animator(associated);
 
     spriteRenderer->SetPosition(1100, 850);
@@ -26,12 +27,8 @@ FollowingMonster::FollowingMonster(GameObject &associated)
     animator->AddAnimation("walk_up", Animation(8, 15, 0.2));
     animator->AddAnimation("walk_right", Animation(16, 23, 0.2));
     animator->AddAnimation("walk_left", Animation(24, 31, 0.2));
-    animator->AddAnimation("idle_down", Animation(32, 37, 0.2));
-    animator->AddAnimation("idle_up", Animation(40, 45, 0.2));
-    animator->AddAnimation("idle_right", Animation(48, 53, 0.2));
-    animator->AddAnimation("idle_left", Animation(56, 61, 0.2));
 
-    animator->SetAnimation("idle_down");
+    animator->SetAnimation("walk_up");
 }
 
 FollowingMonster::~FollowingMonster() {}
@@ -57,15 +54,14 @@ void FollowingMonster::FollowPlayer(float dt, Animator *animator, bool checkProx
     Vec2 direction = diff.Normalize();
     speed = direction * linearSpeed;
 
-    if (speed.x == 0 && speed.y < 0) {
-        animator->SetAnimation("walk_up");
-    } else if (speed.x == 0 && speed.y > 0) {
-        animator->SetAnimation("walk_down");
-    } else if (speed.x > 0) {
-        animator->SetAnimation("walk_right");
-    } else if (speed.x < 0) {
-        animator->SetAnimation("walk_left");
-    }
+	float absX = std::abs(speed.x);
+	float absY = std::abs(speed.y);
+
+	if (absX > absY) {
+		animator->SetAnimation(speed.x > 0 ? "walk_right" : "walk_left");
+	} else {
+		animator->SetAnimation(speed.y > 0 ? "walk_down" : "walk_up");
+	}
 
     Vec2 moveDelta = speed * dt;
     if (blockDir.x > 0 && moveDelta.x > 0) moveDelta.x = 0;
