@@ -43,7 +43,7 @@ void MazeState::Start()
 {
     StartArray();
 
-	music.Play(-1);
+	//music.Play(-1);
 }
 
 void MazeState::LoadAssets()
@@ -193,28 +193,28 @@ void MazeState::Update(float dt) {
     if (inputManager.QuitRequested())
     {
         Log::warning("MAZE_STATE - Quit requested via SDL event");
-        music.Stop();
+        //music.Stop();
         this->RequestQuit();
     }
 
     if (inputManager.KeyPress(ESCAPE_KEY))
     {
         Log::info("MAZE_STATE - Escape key pressed, popping state");
-        music.Stop();
+        //music.Stop();
         this->RequestPop();
     }
 
 	if (inputManager.KeyPress(Z_KEY))
 	{
 		Log::info("KITCHEN_STATE - Z key pressed, popping state");
-		music.Stop();
+		//music.Stop();
 		this->RequestPop();
 	}
 
 	if (inputManager.KeyPress(X_KEY))
 	{
 		Log::info("KITCHEN_STATE - X key pressed, pushing KitchenState");
-		music.Stop();
+		//music.Stop();
 		Game::GetInstance().Push(new KitchenState());
 	}
 
@@ -268,7 +268,7 @@ void MazeState::Resume() {
     if (!playerPtr.expired()) {
         Camera::GetInstance().Follow(playerPtr.lock().get());
 	}
-	music.Play(-1);
+	//music.Play(-1);
 }
 
 void MazeState::AddLoop() {

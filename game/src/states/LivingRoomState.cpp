@@ -46,7 +46,7 @@ void LivingRoomState::Start()
   Log::info("LIVINGROOM_STATE - Starting state");
 
   StartArray();
-  music.Play(-1);
+  //music.Play(-1);
 }
 
 void LivingRoomState::LoadAssets()
@@ -150,28 +150,28 @@ void LivingRoomState::Update(float dt)
   if (inputManager.QuitRequested())
   {
     Log::warning("LIVINGROOM_STATE - Quit requested via SDL event");
-    music.Stop();
+    //music.Stop();
     this->RequestQuit();
   }
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
     Log::info("LIVINGROOM_STATE - Escape key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 
   if (inputManager.KeyPress(Z_KEY))
   {
     Log::info("LIVINGROOM_STATE - Z key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 
   if (inputManager.KeyPress(X_KEY))
   {
     Log::info("LIVINGROOM_STATE - X key pressed, pushing WarningState");
-    music.Stop();
+    //music.Stop();
     Game::GetInstance().Push(new WarningState());
   }
 
