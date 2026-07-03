@@ -251,7 +251,7 @@
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="document" type="bool" value="true"/>
-    <property name="document_text" value="placeholder"/>
+    <property name="document_text" value="Catequizou índios, morto por índios sendo arrastado por 4km por cavalos. Juan del Castillo (1595-1628). Um dos Santos Mártires das Missões."/>
    </properties>
   </object>
   <object id="135" gid="639" x="96" y="128" width="16" height="16">

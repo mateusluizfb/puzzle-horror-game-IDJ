@@ -132,7 +132,7 @@
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="document" type="bool" value="true"/>
-    <property name="document_text" value="placeholder"/>
+    <property name="document_text" value="Um dos fundadores de São Paulo e Rio de Janeiro. Foi dramaturgo,gramatico e poeta nascido nas ilhas canárias, gramaticou o tupi. José de Anchieta (1534-1597). Apostolo do Brasil Dramaturgo, gramatico e poeta nascido nas ilhas canárias."/>
    </properties>
   </object>
   <object id="15" gid="40" x="160" y="64" width="16" height="16">
