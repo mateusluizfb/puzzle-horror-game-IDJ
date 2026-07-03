@@ -74,6 +74,8 @@ void QuizState::Update(float dt)
         GameData::playerVictory = false;
         Game::GetInstance().Push(new EndState());
       }
+
+	  music.Stop();
     }
   }
 

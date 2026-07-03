@@ -135,14 +135,14 @@ void StageState::Update(float dt)
   if (inputManager.QuitRequested())
   {
     Log::warning("STAGE_STATE - Quit requested via SDL event");
-    music.Stop();
+    //music.Stop();
     this->RequestQuit();
   }
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
     Log::info("STAGE_STATE - Escape key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 

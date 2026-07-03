@@ -1,9 +1,13 @@
 #ifndef TITLESTATE_H
 #define TITLESTATE_H
 
+#include "Music.h"
 #include "State.h"
+#include <memory>
 
 class TitleState : public State {
+private:
+  Music music;
 public:
     TitleState();
     ~TitleState();

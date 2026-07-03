@@ -1,11 +1,14 @@
 #ifndef QUIZSTATE_H
 #define QUIZSTATE_H
 
+#include "Music.h"
 #include "State.h"
 #include "Quiz.h"
 
 class QuizState : public State
 {
+private:
+  Music music;
 public:
   QuizState();
   ~QuizState();

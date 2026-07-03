@@ -12,7 +12,6 @@
 #include "WaterTankPuzzleState.h"
 #include "LivingRoomCorridorState.h"
 #include "LivingRoomState.h"
-#include "KitchenCorridorState.h"
 #include "KitchenState.h"
 #include "QuizState.h"
 #include "GameData.h"
@@ -103,12 +102,6 @@ void StagePush::NotifyCollision(GameObject& other) {
   if (targetStage == "LivingRoomState" && inputManager.KeyPress(E_KEY))
   {
     Game::GetInstance().Push(new LivingRoomState());
-    return;
-  }
-
-  if (targetStage == "KitchenCorridorState" && inputManager.KeyPress(E_KEY))
-  {
-    Game::GetInstance().Push(new KitchenCorridorState());
     return;
   }
 

@@ -11,7 +11,8 @@
 #include "EndState.h"
 #include "GameData.h"
 
-TitleState::TitleState() : State() {
+TitleState::TitleState() : State(), music("game/assets/music/soundtrack.wav")
+{
   Log::info("TITLE_STATE - Initializing TitleState");
 }
 
@@ -44,6 +45,9 @@ void TitleState::LoadAssets() {
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   textGameObject->AddComponent(text);
   this->AddObject(textGameObject);
+
+  //MUSICA
+  music.Play(-1);
 }
 
 void TitleState::Update(float dt) {
