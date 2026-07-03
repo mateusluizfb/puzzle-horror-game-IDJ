@@ -26,6 +26,7 @@ public:
   void SetAnimation(std::string name);
   void AddAnimation(std::string name, Animation anim);
   std::string GetCurrent();
+  int GetCurrentFrame();
 
   void Update(float dt);
   void Render();

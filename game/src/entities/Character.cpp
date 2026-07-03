@@ -41,6 +41,9 @@ Character::Character(GameObject &associated, std::string sprite)
   animator->AddAnimation("idle_left", Animation(56, 61, 0.2));
 
   animator->SetAnimation("idle_down");
+
+  stepSound.Open("game/assets/sounds/step-sound.mp3");
+  lastStepFrame = -1;
 }
 
 Character::~Character() {
@@ -170,6 +173,22 @@ void Character::Update(float dt) {
     } else if (speed.x < 0) {
       animator->SetAnimation("walk_left");
     }
+
+	// SOM DE PASSOS
+	int currentFrame = animator->GetCurrentFrame();
+	// Cada animacao tem 6 frames, pegamos o resto da divisao por 6
+	int currentColumn = currentFrame % 6;
+
+	// O pe da crianca toca o chao nas colunas 2 e 5 da sua arte
+	bool isFootstepFrame = (currentColumn == 2 || currentColumn == 5);
+
+    if (isFootstepFrame && currentFrame != lastStepFrame) {
+        stepSound.Play(1);
+        lastStepFrame = currentFrame;
+    } else if (!isFootstepFrame) {
+        lastStepFrame = -1;
+    }
+
 
     Vec2 moveDelta = speed * dt;
     if (blockDir.x > 0 && moveDelta.x > 0) moveDelta.x = 0;

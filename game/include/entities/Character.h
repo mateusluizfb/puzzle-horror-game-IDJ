@@ -61,11 +61,11 @@ private:
   Vec2 speed;
   float linearSpeed;
   int hp;
-
-private:
   Timer deathTimer;
   bool isInvulnerable;
   Timer invulnerabilityTimer;
+  Sound stepSound;
+  int lastStepFrame;
 };
 
 #endif
