@@ -6,6 +6,7 @@
 #include "SDL_include.h"
 
 #include "Rect.h"
+#include "DialogueBox.h"
 
 #include <string>
 #include <vector>
@@ -17,6 +18,7 @@ GameObject* CreateDialogueBox(Rect box,
                               int fontSize,
                               SDL_Color textColor,
                               std::string text,
-                              std::vector<std::string> options);
+                              std::vector<std::string> options,
+                              DialogueBox::PortraitMode portraitMode = DialogueBox::PortraitMode::STILL);
 
 #endif
