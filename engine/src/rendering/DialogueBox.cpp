@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "InputManager.h"
 #include "Log.h"
+#include "SpriteRenderer.h"
 
 #include <sstream>
 
@@ -36,6 +37,12 @@ DialogueBox::DialogueBox(GameObject& associated,
       borderVisible(true)
 {
     Log::info("DIALOGUE_BOX - Created");
+
+    // GameObject *kidLargeGameObject = new GameObject();
+    SpriteRenderer *kidLargeSpriteRenderer = new SpriteRenderer(this->associated, "game/assets/img/kid_large_thinking.png");
+    kidLargeSpriteRenderer->SetScale(0.25, 0.25);
+    kidLargeSpriteRenderer->SetPosition(100, 100);
+    this->associated.AddComponent(kidLargeSpriteRenderer);
 }
 
 DialogueBox::~DialogueBox()

@@ -52,7 +52,7 @@ void QuizUI::ShowResult(Quiz* quiz) {
   GameObject *go = CreateDialogueBox(
       box,
       "game/assets/font/neodgm.ttf", 24, white,
-      quiz->IsAllCorrect() ? "Congratulations! You answered all questions correctly!" : "Quiz completed! Better luck next time.",
+      quiz->IsAllCorrect() ? "Ora ora, então você é o bichão mesmo ein..." : "Infelizmente você vai .&@#$%@????++___As!@#%%!@#!!@#¨:!!!@@##:):)sedesedesedesedesedesedesedesede_sede",
       {});
 
   currentState.AddObject(go);

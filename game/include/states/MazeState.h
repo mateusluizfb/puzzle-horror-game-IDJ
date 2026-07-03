@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <memory>
 #include <vector>
-#include "SDL2/SDL.h"
 
 class MazeState : public State {
 	private:

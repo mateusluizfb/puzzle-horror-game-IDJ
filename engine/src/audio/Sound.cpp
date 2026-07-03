@@ -50,3 +50,12 @@ Sound::~Sound() {
 
   chunk = nullptr;
 }
+
+void Sound::SetVolume(int volume) {
+  if (chunk == nullptr)
+  {
+    throw std::runtime_error("SOUND - Can't set volume of a sound that is not open.");
+  }
+
+  Mix_VolumeChunk(chunk, volume);
+}

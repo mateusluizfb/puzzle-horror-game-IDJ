@@ -90,6 +90,15 @@ void LivingRoomCorridorState::LoadAssets()
       "game/assets/tiles/test_tileset.png",
       tileScale
   );
+  tileObjects.RegisterComponent("document", [](GameObject &go) -> Component * {
+    const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
+    std::string text;
+    auto it = data.properties.find("document_text");
+    if (it != data.properties.end()) {
+      text = it->second;
+    }
+    return new Document(go, text);
+  });
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
     return new Pushable(go, 150.0f);
   });

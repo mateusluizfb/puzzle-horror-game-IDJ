@@ -45,6 +45,8 @@ void SpriteRenderer::SetCameraFollower(bool cameraFollower) {
 void SpriteRenderer::Update(float dt) {}
 
 void SpriteRenderer::Render() {
+  if (hidden) return;
+
   sprite->Render(associated.box.x, associated.box.y, associated.box.w, associated.box.h, associated.angleDeg);
 }
 

@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "Collider.h"
 #include "Collision.h"
+#include "InputManager.h"
 
 FollowingMonster::FollowingMonster(GameObject &associated)
   : Component(associated), speed(0, 0)

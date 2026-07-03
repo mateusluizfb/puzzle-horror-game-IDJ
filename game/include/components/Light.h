@@ -3,7 +3,6 @@
 #include "Sprite.h"
 #include <string>
 #include <vector>
-#include <SDL2/SDL.h>
 
 class Light : public Component {
 	private:

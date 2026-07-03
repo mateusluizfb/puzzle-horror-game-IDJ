@@ -12,6 +12,8 @@ private:
   class Sprite* sprite;
 
 public:
+  bool hidden = false;
+
   SpriteRenderer(GameObject &associated);
   SpriteRenderer(GameObject &associated, std::string file, int frameCountW = 1, int frameCountH = 1);
 
