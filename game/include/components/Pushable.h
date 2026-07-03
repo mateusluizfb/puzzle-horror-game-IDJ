@@ -8,12 +8,14 @@
 #include "GameObject.h"
  
 class Pushable : public Component {
-private:
-  Vec2 pushDirection;
-  float pushSpeed;
-  Text *pushText = nullptr;
- 
-public:
+ private:
+   static constexpr int GLUE_GRACE_FRAMES = 2;
+   int glueGrace = 0;
+   Vec2 pushDirection;
+   float pushSpeed;
+   Text *pushText = nullptr;
+  
+ public:
   bool isTouching = false; 
   bool togglePush = false;
   GameObject* gluedPlayer = nullptr;

@@ -31,24 +31,29 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 void Pushable::Update(float dt) {
   if (gluedPlayer && gluedPlayer->IsDead()) return;
 
-  if (gluedPlayer && !isTouching) {
-    Character *charComp = gluedPlayer->GetComponent<Character>();
-    
-    charComp->isGlued = false;
-    gluedPlayer = nullptr;
-    togglePush = false;
-    pushText->SetText("Press E to push");
-  }
-
-  if (gluedPlayer && isTouching) {
+  if (gluedPlayer) {
     if (glueHorizontal) {
       associated.box.x = gluedPlayer->box.x + glueOffset.x;
     } else {
       associated.box.y = gluedPlayer->box.y + glueOffset.y;
     }
+
+    if (isTouching) {
+      glueGrace = GLUE_GRACE_FRAMES;
+    } else {
+      --glueGrace;
+    }
+
+    if (glueGrace <= 0) {
+      Character *charComp = gluedPlayer->GetComponent<Character>();
+      if (charComp) charComp->isGlued = false;
+      gluedPlayer = nullptr;
+      togglePush = false;
+      pushText->SetText("Press E to push/pull");
+    }
   }
 
-  if (isTouching && !togglePush) {
+  if (isTouching || togglePush) {
     pushText->Show();
   } else {
     pushText->Hide();
@@ -86,6 +91,7 @@ void Pushable::NotifyCollision(GameObject& other) {
       if (togglePush) {
         gluedPlayer = &other;
         glueOffset = Vec2(associated.box.x - other.box.x, associated.box.y - other.box.y);
+        glueGrace = GLUE_GRACE_FRAMES;
         
         // Use pushDirection instead of blockDir to determine the axis.
         // pushDirection is calculated as (associated.center - other.center).
