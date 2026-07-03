@@ -11,6 +11,7 @@ private:
   std::string targetStage;
   bool triggered;
   Text* promptText = nullptr;
+  Text* lockedPromptText = nullptr;
   bool isTouching = false;
 
 public:

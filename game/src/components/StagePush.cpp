@@ -24,21 +24,38 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
   Log::debug("StagePush - Registered for object: " + associated.tag +
              " -> target stage: " + targetStage);
 
-  GameObject* textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
+
+  GameObject* textGameObject = new GameObject();
   promptText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to open", white);
   promptText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   associated.AddComponent(promptText);
+
+  GameObject* lockedTextGameObject = new GameObject();
+  lockedPromptText = new Text(*lockedTextGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Door is locked", white);
+  lockedPromptText->Hide();
+  lockedTextGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
+  lockedTextGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
+  associated.AddComponent(lockedPromptText);
+
 }
 
 void StagePush::Update(float /*dt*/) {
-  if (isTouching) {
+  if (isTouching && targetStage == "Locked")
+  {
+    lockedPromptText->Show();
+  } else {
+    lockedPromptText->Hide();
+  }
+
+  if (isTouching && targetStage != "Locked") {
     promptText->Show();
   } else {
     promptText->Hide();
   }
+
   isTouching = false;
   triggered = false;
 }

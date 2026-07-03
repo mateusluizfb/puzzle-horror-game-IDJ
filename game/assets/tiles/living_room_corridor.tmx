@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="24">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="28">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset_v2.tsx"/>
@@ -13,9 +13,9 @@
 1087,1087,1087,1087,1087,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1087,1087,1087,1087,1087,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1087,1087,1087,1087,1087,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1087,1087,1087,1087,3221226544,3221226544,3221226544,3221226544,3221226544,3221226544,3221226544,3221226544,1072,1072,1072,1072,1072,1072,1077,
-89,1087,1087,1087,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,
-89,1087,1087,1087,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,
+1087,1087,1087,1087,1087,1072,1072,1072,1072,1072,1072,1072,1072,1072,1072,1072,1072,1072,1077,
+89,1087,1087,1087,1087,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,1077,
+89,1087,1087,1087,1087,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,1082,
 1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,
 1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,
 1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,1087,
@@ -26,14 +26,14 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1055,1056,1056,1056,1057,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1060,0,509,0,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1060,369,0,369,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1060,369,0,369,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1060,508,508,508,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1060,369,549,369,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1060,369,580,369,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1060,400,0,400,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1060,0,0,0,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-1060,0,0,0,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1058,
-511,0,0,0,0,0,0,0,0,427,0,427,0,427,0,427,0,0,1062,
-542,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1062,
+1060,0,0,0,1062,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1056,1058,
+511,0,0,0,1062,0,0,0,0,427,0,427,0,427,0,427,0,0,1062,
+542,0,0,0,1062,0,0,0,0,0,0,0,0,0,0,0,0,0,1062,
 1060,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1062,
 1060,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1062,
 1065,1066,1066,1066,1066,1066,1066,1066,1066,1066,1066,1066,1066,511,1066,1066,1066,1066,1068,
@@ -45,7 +45,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,518,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,397,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,397,0,397,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,428,0,428,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -62,8 +62,7 @@
   <object id="1" x="10.1073" y="133.472" width="5.7185" height="21.7195">
    <properties>
     <property name="collider" type="bool" value="true"/>
-    <property name="spawn_pont" type="bool" value="true"/>
-    <property name="stage_change_name" value="Pop"/>
+    <property name="stage_change_name" value="Locked"/>
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
@@ -74,7 +73,7 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="4" name="wall" x="66.5868" y="143.04" width="225.905" height="19.1592">
+  <object id="4" name="wall" x="70.9813" y="143.04" width="217.116" height="9.96597">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -86,7 +85,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="8" name="wall" x="65.2535" y="16.7617" width="18.2899" height="124.634">
+  <object id="8" name="wall" x="68.9805" y="16.7617" width="14.5629" height="124.634">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -104,7 +103,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="11" name="wall" x="18.6705" y="47.4284" width="47.4397" height="15.4647">
+  <object id="11" name="wall" x="15.4404" y="47.9253" width="47.4397" height="15.4647">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -152,11 +151,23 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="23" gid="76" x="32" y="64" width="16" height="16">
+  <object id="23" gid="76" x="32" y="80" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="document" type="bool" value="true"/>
-    <property name="document_text" value="Santo da paz e da caridade(no santo), poderes sobrenaturais. Frei Galvão - Santo da paz e da caridade (1739-1822). Curador dos pobres e enfermos."/>
+    <property name="document_text" value="Santo da paz e da caridade (no santo), poderes sobrenaturais. Frei Galvão - Santo da paz e da caridade (1739-1822). Curador dos pobres e enfermos."/>
+   </properties>
+  </object>
+  <object id="24" gid="639" x="192" y="176" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="pushable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="25" gid="635" x="224" y="176" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

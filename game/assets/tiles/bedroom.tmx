@@ -65,7 +65,7 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="6" name="wall" x="97.0246" y="60.427" width="109.81" height="18.3586">
+  <object id="6" name="wall" x="83.7746" y="60.427" width="134.31" height="18.3586">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
