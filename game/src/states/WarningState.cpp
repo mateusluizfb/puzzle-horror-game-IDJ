@@ -78,7 +78,7 @@ void WarningState::Update(float dt) {
 	}
 
 	if (input.KeyPress(X_KEY)) {
-		Log::info("WARNING_STATE - X key pressed, pushing KitchenCorridorState");
+		Log::info("WARNING_STATE - X key pressed, pushing MazeState");
 		//music.Stop();
 		Game::GetInstance().Push(new MazeState());
 	}

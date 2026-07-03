@@ -25,7 +25,7 @@
 #include "BedroomState.h"
 #include "Document.h"
 
-KitchenState::KitchenState(): State(), music("game/audio/BGM.wav")
+KitchenState::KitchenState(): State(), music("game/assets/music/soundtrack.wav")
 {
   Log::info("KITCHEN_STATE - Initializing state");
 
@@ -38,6 +38,7 @@ KitchenState::~KitchenState()
   Log::info("KITCHEN_STATE - Destroying state");
 
   objectArray.clear();
+  //music.Stop();
 }
 
 void KitchenState::Start()
@@ -45,6 +46,8 @@ void KitchenState::Start()
   Log::info("KITCHEN_STATE - Starting state");
 
   StartArray();
+
+  //music.Play(-1);
 }
 
 void KitchenState::LoadAssets()
@@ -140,28 +143,28 @@ void KitchenState::Update(float dt)
   if (inputManager.QuitRequested())
   {
     Log::warning("KITCHEN_STATE - Quit requested via SDL event");
-    music.Stop();
+    //music.Stop();
     this->RequestQuit();
   }
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
     Log::info("KITCHEN_STATE - Escape key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 
   if (inputManager.KeyPress(Z_KEY))
   {
     Log::info("KITCHEN_STATE - Z key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 
   if (inputManager.KeyPress(X_KEY))
   {
     Log::info("KITCHEN_STATE - X key pressed, pushing BedroomState");
-    music.Stop();
+    //music.Stop();
     Game::GetInstance().Push(new BedroomState());
   }
 
@@ -193,4 +196,5 @@ void KitchenState::Resume()
     Log::error("KITCHEN_STATE - Cannot resume: player object not found");
     return;
   }
+  //music.Play(-1);
 }

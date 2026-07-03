@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="134">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="137">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset_v2.tsx"/>
@@ -42,10 +42,10 @@
  </layer>
  <layer id="7" name="Tile Layer 3" width="19" height="14">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-333,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,105,106,105,106,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,136,137,136,137,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,167,168,167,168,0,0,0,0,0,0,0,0,
+333,0,0,0,0,0,0,198,199,198,199,0,0,0,0,0,0,0,0,
 364,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 333,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,333,
@@ -59,13 +59,13 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="3" name="wall" x="-7.66667" y="17" width="15.1468" height="209.442">
+  <object id="3" name="wall" x="-6.66667" y="16.6667" width="15.1468" height="209.442">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="5" name="wall" x="10" y="216.333" width="272.788" height="13.75">
+  <object id="5" name="wall" x="9.66667" y="215" width="281.121" height="13.75">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -102,7 +102,7 @@
     <property name="stage_push" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="54" x="284.352" y="65.7747" width="7.17305" height="28.0831">
+  <object id="54" x="284.352" y="66.108" width="7.17305" height="28.0831">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="stage_change_name" value="WarningState"/>
@@ -163,12 +163,6 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="110" name="wall" x="176" y="48" width="15.2302" height="14.4167">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="wall" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="113" gid="433" x="16" y="192" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
@@ -199,25 +193,13 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="119" gid="633" x="96" y="128" width="16" height="16">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="pushable" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="120" gid="633" x="96" y="112" width="16" height="16">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="pushable" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="121" gid="633" x="96" y="96" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="122" gid="635" x="112" y="80" width="16" height="16">
+  <object id="122" gid="635" x="96" y="112" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="pushable" type="bool" value="true"/>
@@ -230,12 +212,6 @@
    </properties>
   </object>
   <object id="124" gid="633" x="16" y="96" width="16" height="16">
-   <properties>
-    <property name="collider" type="bool" value="true"/>
-    <property name="pushable" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="125" gid="635" x="192" y="176" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="pushable" type="bool" value="true"/>
@@ -276,6 +252,18 @@
     <property name="collider" type="bool" value="true"/>
     <property name="document" type="bool" value="true"/>
     <property name="document_text" value="placeholder"/>
+   </properties>
+  </object>
+  <object id="135" gid="639" x="96" y="128" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="pushable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="136" gid="633" x="192" y="176" width="16" height="16">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

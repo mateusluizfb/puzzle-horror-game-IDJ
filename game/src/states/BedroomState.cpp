@@ -26,7 +26,7 @@
 #include "Key.h"
 #include "Document.h"
 
-BedroomState::BedroomState(): State(), music("game/audio/BGM.wav")
+BedroomState::BedroomState(): State(), music("game/assets/music/soundtrack.wav")
 {
   Log::info("BEDROOM_STATE - Initializing state");
 
@@ -45,6 +45,8 @@ void BedroomState::Start()
   Log::info("BEDROOM_STATE - Starting state");
 
   StartArray();
+
+  //music.Play(-1);
 }
 
 void BedroomState::LoadAssets()
@@ -140,28 +142,28 @@ void BedroomState::Update(float dt)
   if (inputManager.QuitRequested())
   {
     Log::warning("BEDROOM_STATE - Quit requested via SDL event");
-    music.Stop();
+    //music.Stop();
     this->RequestQuit();
   }
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
     Log::info("BEDROOM_STATE - Escape key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 
   if (inputManager.KeyPress(Z_KEY))
   {
     Log::info("BEDROOM_STATE - Z key pressed, popping state");
-    music.Stop();
+    //music.Stop();
     this->RequestPop();
   }
 
   if (inputManager.KeyPress(X_KEY))
   {
     Log::info("BEDROOM_STATE - X key pressed, pushing LivingRoomCorridorState");
-    music.Stop();
+    //music.Stop();
     Game::GetInstance().Push(new LivingRoomCorridorState());
   }
 
@@ -193,4 +195,5 @@ void BedroomState::Resume()
     Log::error("BEDROOM_STATE - Cannot resume: player object not found");
     return;
   }
+  //music.Play(-1);
 }
