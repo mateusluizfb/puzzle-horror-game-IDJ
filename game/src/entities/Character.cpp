@@ -181,7 +181,7 @@ void Character::Update(float dt) {
     associated.box.y += moveDelta.y;
   }
 
-  this->SetLinearSpeed(250.0f);
+  this->SetLinearSpeed(200);
 }
 
 void Character::Render() {
