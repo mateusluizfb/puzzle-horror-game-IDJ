@@ -25,7 +25,7 @@ Document::Document(GameObject& associated, const std::string& documentText, Dial
                         "game/assets/font/neodgm.ttf",
                         32,
                         Text::BLENDED,
-                        "Press E to Read",
+                        "Aperte E para ler",
                         white);
   promptText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;

@@ -20,7 +20,7 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
-  pushText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to push/pull", white);
+  pushText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte E para empurrar/puxar", white);
   pushText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
@@ -49,7 +49,7 @@ void Pushable::Update(float dt) {
       if (charComp) charComp->isGlued = false;
       gluedPlayer = nullptr;
       togglePush = false;
-      pushText->SetText("Press E to push/pull");
+      pushText->SetText("Aperte E para empurrar/puxar");
     }
   }
 
@@ -100,15 +100,15 @@ void Pushable::NotifyCollision(GameObject& other) {
         } else {
           glueHorizontal = false;
         }
-        
-        pushText->SetText("Press E to release");
-        
+
+        pushText->SetText("Aperte E para soltar");
+
         Character* charComp = other.GetComponent<Character>();
         if (charComp) charComp->isGlued = true;
       } else {
         gluedPlayer = nullptr;
-        pushText->SetText("Press E to push");
-        
+        pushText->SetText("Aperte E para empurrar/puxar");
+
         Character* charComp = other.GetComponent<Character>();
         if (charComp) charComp->isGlued = false;
       }

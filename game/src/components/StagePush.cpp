@@ -27,14 +27,14 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
   SDL_Color white = {255, 255, 255, 255};
 
   GameObject* textGameObject = new GameObject();
-  promptText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to open", white);
+  promptText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte E para abrir", white);
   promptText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   associated.AddComponent(promptText);
 
   GameObject* lockedTextGameObject = new GameObject();
-  lockedPromptText = new Text(*lockedTextGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Door is locked", white);
+  lockedPromptText = new Text(*lockedTextGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Porta trancada", white);
   lockedPromptText->Hide();
   lockedTextGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   lockedTextGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
