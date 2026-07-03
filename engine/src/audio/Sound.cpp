@@ -14,7 +14,7 @@ void Sound::Play(int times) {
     throw std::runtime_error("SOUND - Can't play a sound that is not open.");
   }
 
-  channel = Mix_PlayChannel(-1, chunk, 0);
+  channel = Mix_PlayChannel(-1, chunk, times);
 
   if (channel == -1)
   {

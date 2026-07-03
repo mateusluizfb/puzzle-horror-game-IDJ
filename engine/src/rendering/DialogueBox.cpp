@@ -13,7 +13,8 @@ DialogueBox::DialogueBox(GameObject& associated,
                          Rect box,
                          std::string fontFile,
                          int fontSize,
-                         SDL_Color textColor)
+                         SDL_Color textColor,
+                         PortraitMode portraitMode)
     : Component(associated),
       dialogBox{static_cast<int>(box.x), static_cast<int>(box.y),
                 static_cast<int>(box.w), static_cast<int>(box.h)},
@@ -34,12 +35,16 @@ DialogueBox::DialogueBox(GameObject& associated,
       optionSelectedColor{255, 255, 0, 255},
       currentState(State::IDLE),
       finished(false),
-      borderVisible(true)
+      borderVisible(true),
+      typingSound(),
+      typingSoundPlaying(false)
 {
     Log::info("DIALOGUE_BOX - Created");
 
-    // GameObject *kidLargeGameObject = new GameObject();
-    SpriteRenderer *kidLargeSpriteRenderer = new SpriteRenderer(this->associated, "game/assets/img/kid_large_thinking.png");
+    std::string portraitFile = (portraitMode == PortraitMode::THINKING)
+        ? "game/assets/img/kid_large_thinking.png"
+        : "game/assets/img/kid_large.png";
+    SpriteRenderer *kidLargeSpriteRenderer = new SpriteRenderer(this->associated, portraitFile);
     kidLargeSpriteRenderer->SetScale(0.25, 0.25);
     kidLargeSpriteRenderer->SetPosition(100, 100);
     this->associated.AddComponent(kidLargeSpriteRenderer);
@@ -48,9 +53,22 @@ DialogueBox::DialogueBox(GameObject& associated,
 DialogueBox::~DialogueBox()
 {
     Log::info("DIALOGUE_BOX - Destroyed");
+    StopTypingSound();
     if (font) {
         TTF_CloseFont(font);
         font = nullptr;
+    }
+}
+
+void DialogueBox::StopTypingSound()
+{
+    if (typingSoundPlaying) {
+        try {
+            typingSound.Stop();
+        } catch (const std::runtime_error& e) {
+            Log::error(std::string("DIALOGUE_BOX - Could not stop typing sound: ") + e.what());
+        }
+        typingSoundPlaying = false;
     }
 }
 
@@ -67,6 +85,12 @@ void DialogueBox::Start()
 
     currentState = State::TYPING;
     typingTimer = 0.0f;
+
+    try {
+        typingSound.Open("game/assets/music/typing.mp3");
+    } catch (const std::runtime_error& e) {
+        Log::error(std::string("DIALOGUE_BOX - Could not open typing sound: ") + e.what());
+    }
 }
 
 void DialogueBox::Update(float dt)
@@ -78,9 +102,18 @@ void DialogueBox::Update(float dt)
         break;
 
     case State::TYPING:
+        if (!typingSoundPlaying) {
+            try {
+                typingSound.Play(-1);
+                typingSoundPlaying = true;
+            } catch (const std::runtime_error& e) {
+                Log::error(std::string("DIALOGUE_BOX - Could not play typing sound: ") + e.what());
+            }
+        }
         UpdateTyping(dt);
         if (inputManager.KeyPress(SPACE_KEY)) {
             displayedText = fullText;
+            StopTypingSound();
             currentState = State::TEXT_SHOWN;
         }
         break;
@@ -129,6 +162,7 @@ void DialogueBox::UpdateTyping(float dt)
 
     if (displayedText.length() >= fullText.length()) {
         displayedText = fullText;
+        StopTypingSound();
         currentState = State::TEXT_SHOWN;
     }
 }
@@ -303,6 +337,7 @@ void DialogueBox::SetText(std::string text)
     if (currentState != State::IDLE) {
         currentState = State::TYPING;
         typingTimer = 0.0f;
+        typingSoundPlaying = false;
     }
 }
 
