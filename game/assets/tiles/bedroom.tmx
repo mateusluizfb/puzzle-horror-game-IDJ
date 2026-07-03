@@ -111,6 +111,7 @@
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="document" type="bool" value="true"/>
+    <property name="document_portrait_mode" value="thinking"/>
     <property name="document_text" value="No princípio, criou Deus os céus e a terra. E a terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o Espírito de Døæßðđŋħłµ??..???łµßðđŋħłµµßðłµµß??????????????___µßßðłµµß???ßðłµµß???criou Deus os céus corra água sede água sede água sede água sede água sedeágua sedeágua sedeágua sedeágua sedeágua sedeágua sedeágua sede"/>
    </properties>
   </object>
