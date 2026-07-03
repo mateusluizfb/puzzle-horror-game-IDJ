@@ -28,24 +28,23 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 }
 
 
-void Pushable::Update(float dt) {  
-  if (gluedPlayer) {
-    // Check if player has moved too far sideways to maintain the glue
-    float distY = std::abs(gluedPlayer->box.GetCenter().y - associated.box.GetCenter().y);
-    float distX = std::abs(gluedPlayer->box.GetCenter().x - associated.box.GetCenter().x);
-    float combinedHeight = (gluedPlayer->box.h + associated.box.h) * 0.75f;
-    float combinedWidth = (gluedPlayer->box.w + associated.box.w) * 0.75f;
+void Pushable::Update(float dt) {
+  if (gluedPlayer && gluedPlayer->IsDead()) return;
 
-    if ((glueHorizontal && distY > combinedHeight) || (!glueHorizontal && distX > combinedWidth)) {
-      gluedPlayer = nullptr;
-      togglePush = false;
-      pushText->SetText("Press E to push");
+  if (gluedPlayer && !isTouching) {
+    Character *charComp = gluedPlayer->GetComponent<Character>();
+    
+    charComp->isGlued = false;
+    gluedPlayer = nullptr;
+    togglePush = false;
+    pushText->SetText("Press E to push");
+  }
+
+  if (gluedPlayer && isTouching) {
+    if (glueHorizontal) {
+      associated.box.x = gluedPlayer->box.x + glueOffset.x;
     } else {
-      if (glueHorizontal) {
-        associated.box.x = gluedPlayer->box.x + glueOffset.x;
-      } else {
-        associated.box.y = gluedPlayer->box.y + glueOffset.y;
-      }
+      associated.box.y = gluedPlayer->box.y + glueOffset.y;
     }
   }
 
