@@ -2,8 +2,13 @@
 #ifndef END_STATE
 #define END_STATE
 
+#include <memory>
 #include "State.h"
 #include "Music.h"
+#include "Sound.h"
+#include "Timer.h"
+
+class GameObject;
 
 class EndState : public State {
   public:
@@ -18,6 +23,13 @@ class EndState : public State {
 
   private:
     Music backgroundMusic;
+
+    Timer jumpscareTimer;
+    bool jumpscareActive = false;
+    Sound scream;
+    std::weak_ptr<GameObject> exorcistGameObject;
+    std::weak_ptr<GameObject> gameOverScreen;
+    std::weak_ptr<GameObject> gameOverText;
 };
 
 #endif

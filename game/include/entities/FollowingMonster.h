@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Vec2.h"
 #include "Timer.h"
+#include "SpriteRenderer.h"
 
 class Animator;
 

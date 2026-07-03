@@ -20,6 +20,7 @@
 #define N_KEY SDLK_n
 #define R_KEY SDLK_r
 #define B_KEY SDLK_b
+#define H_KEY SDLK_h
 
 class InputManager {
 private:

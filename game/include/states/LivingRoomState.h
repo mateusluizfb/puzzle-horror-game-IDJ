@@ -1,9 +1,10 @@
 #ifndef LIVINGROOMSTATE_H
 #define LIVINGROOMSTATE_H
 
+#include <memory>
 #include "Music.h"
 #include "CollisionSystem.h"
-#include <memory>
+#include "SpriteRenderer.h"
 
 class GameObject;
 
