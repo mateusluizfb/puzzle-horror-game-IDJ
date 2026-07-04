@@ -42,8 +42,8 @@ void Key::NotifyCollision(GameObject& other) {
     keyText->Show();
     TileObject *tile = associated.GetComponent<TileObject>();
     if (tile) tile->Hide();
-    Log::info("KEY - Player collected the bedroom key");
     GlobalSounds::Key().Play(0);
+    Log::info("KEY - Player collected the bedroom key");
   }
 
   if (other.tag == "player" && this->type == Type::LivingRoom) {
@@ -52,6 +52,7 @@ void Key::NotifyCollision(GameObject& other) {
     keyText->Show();
     TileObject *tile = associated.GetComponent<TileObject>();
     if (tile) tile->Hide();
+    GlobalSounds::Key().Play(0);
     Log::info("KEY - Player collected the living room key");
   }
 }
