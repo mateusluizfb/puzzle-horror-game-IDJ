@@ -13,9 +13,12 @@
 #include "IntroState.h"
 #include "GlobalSounds.h"
 
-TitleState::TitleState() : State(), music("game/assets/music/soundtrack.wav")
+TitleState::TitleState() : State(), music("game/assets/music/soundtrack.wav"), cupBreakSound("game/assets/music/cup-breaking.wav")
 {
   Log::info("TITLE_STATE - Initializing TitleState");
+  transitioning = false;
+  textVisible = true;
+  blinkAccumulator = 0.0f;
 }
 
 TitleState::~TitleState() {
@@ -46,7 +49,7 @@ void TitleState::LoadAssets() {
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 250;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   textGameObject->AddComponent(text);
-  this->AddObject(textGameObject);
+  this->promptText = this->AddObject(textGameObject);
 
   //MUSICA
   // music.Play(-1);
@@ -66,11 +69,50 @@ void TitleState::Update(float dt) {
     this->RequestQuit();
   }
 
-  if (inputManager.KeyPress(SPACE_KEY))
+  if (!transitioning && inputManager.KeyPress(SPACE_KEY))
   {
-    GlobalSounds::Button().Play(0);
-    Log::info("TITLE_STATE - Enter key pressed, pushing IntroState");
-    Game::GetInstance().Push(new IntroState());
+    Log::info("TITLE_STATE - Space pressed, starting 3s blink transition");
+    transitioning = true;
+    textVisible = true;
+    blinkAccumulator = 0.0f;
+    blinkTimer.Restart();
+    cupBreakSound.Play(0);
+  }
+
+  if (transitioning)
+  {
+    blinkTimer.Update(dt);
+    blinkAccumulator += dt;
+
+    if (blinkAccumulator >= 0.2f)
+    {
+      blinkAccumulator = 0.0f;
+      textVisible = !textVisible;
+      if (auto go = this->promptText.lock())
+      {
+        Text *t = go->GetComponent<Text>();
+        if (t != nullptr)
+        {
+          if (textVisible) t->Show();
+          else t->Hide();
+        }
+      }
+    }
+
+    if (blinkTimer.Get() >= 2.0f)
+    {
+      Log::info("TITLE_STATE - Blink finished, pushing IntroState");
+      transitioning = false;
+      if (auto go = this->promptText.lock())
+      {
+        Text *t = go->GetComponent<Text>();
+        if (t != nullptr)
+        {
+          t->Show();
+        }
+      }
+      Game::GetInstance().Push(new IntroState());
+    }
   }
 
   if (inputManager.KeyPress(M_KEY))
