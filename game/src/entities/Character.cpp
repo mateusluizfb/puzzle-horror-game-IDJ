@@ -111,7 +111,7 @@ void Character::Update(float dt) {
   {
     Log::info("CHARACTER - Character is dead.");
     // animator->SetAnimation("dead");
-    deathSound.Play(1);
+    deathSound.Play(0);
 
     if (player) Camera::GetInstance().Unfollow();
 

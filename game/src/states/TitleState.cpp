@@ -11,6 +11,7 @@
 #include "EndState.h"
 #include "GameData.h"
 #include "IntroState.h"
+#include "GlobalSounds.h"
 
 TitleState::TitleState() : State(), music("game/assets/music/soundtrack.wav")
 {
@@ -61,6 +62,7 @@ void TitleState::Update(float dt) {
 
   if (inputManager.KeyPress(SPACE_KEY))
   {
+    GlobalSounds::Button().Play(0);
     Log::info("TITLE_STATE - Enter key pressed, pushing IntroState");
     Game::GetInstance().Push(new IntroState());
   }

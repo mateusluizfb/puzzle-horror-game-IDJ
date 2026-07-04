@@ -51,6 +51,10 @@ Sound::~Sound() {
   chunk = nullptr;
 }
 
+bool Sound::IsOpen() {
+  return chunk != nullptr;
+}
+
 void Sound::SetVolume(int volume) {
   if (chunk == nullptr)
   {

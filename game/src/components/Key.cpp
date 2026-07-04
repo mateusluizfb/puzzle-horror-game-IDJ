@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "TileObject.h"
 #include "GameData.h"
+#include "GlobalSounds.h"
 
 Key::Key(GameObject& associated, Key::Type type)
   : Component(associated) {
@@ -42,6 +43,7 @@ void Key::NotifyCollision(GameObject& other) {
     TileObject *tile = associated.GetComponent<TileObject>();
     if (tile) tile->Hide();
     Log::info("KEY - Player collected the bedroom key");
+    GlobalSounds::Key().Play(0);
   }
 
   if (other.tag == "player" && this->type == Type::LivingRoom) {

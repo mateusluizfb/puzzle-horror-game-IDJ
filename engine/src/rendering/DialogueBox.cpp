@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "SpriteRenderer.h"
 #include "Sprite.h"
+#include "GlobalSounds.h"
 
 #include <sstream>
 
@@ -130,12 +131,14 @@ void DialogueBox::Update(float dt)
         if (inputManager.KeyPress(SPACE_KEY)) {
             displayedText = fullText;
             StopTypingSound();
+            GlobalSounds::Button().Play(0);
             currentState = State::TEXT_SHOWN;
         }
         break;
 
     case State::TEXT_SHOWN:
         if (inputManager.KeyPress(SPACE_KEY) || inputManager.KeyPress(SDLK_RETURN)) {
+            GlobalSounds::Button().Play(0);
             if (currentPage < static_cast<int>(pages.size()) - 1) {
                 currentPage++;
                 displayedText = fullText;
@@ -157,6 +160,7 @@ void DialogueBox::Update(float dt)
             NavigateDown();
         }
         if (inputManager.KeyPress(SPACE_KEY)) {
+            GlobalSounds::Button().Play(0);
             finished = true;
         }
         break;

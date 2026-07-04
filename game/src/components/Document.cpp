@@ -10,6 +10,7 @@
 #include "Rect.h"
 #include "State.h"
 #include "Text.h"
+#include "GlobalSounds.h"
 
 Document::Document(GameObject& associated, const std::string& documentText, DialogueBox::PortraitMode portraitMode)
   : Component(associated)
@@ -64,6 +65,7 @@ void Document::NotifyCollision(GameObject& other) {
   InputManager& inputManager = InputManager::GetInstance();
 
   if (inputManager.KeyPress(E_KEY) && !dialogueOpen && !GameData::dialogueActive) {
+    GlobalSounds::Button().Play(0);
     Log::info("DOCUMENT - Opening dialogue");
 
     SDL_Color white = {255, 255, 255, 255};

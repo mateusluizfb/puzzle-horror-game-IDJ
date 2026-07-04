@@ -8,6 +8,7 @@
 #include "GameData.h"
 #include "QuizState.h"
 #include "Log.h"
+#include "GlobalSounds.h"
 
 Rat::Rat(GameObject &associated, int x, int y)
     : Component(associated)
@@ -67,6 +68,7 @@ void Rat::NotifyCollision(GameObject &other) {
     InputManager &inputManager = InputManager::GetInstance();
 
     if (inputManager.KeyPress(E_KEY) && !GameData::dialogueActive) {
+        GlobalSounds::Button().Play(0);
         Log::info("RAT - Pushing QuizState");
         triggered = true;
         QuizState *quizState = new QuizState();

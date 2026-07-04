@@ -1,4 +1,5 @@
 #include "WarningState.h"
+#include "GlobalSounds.h"
 
 WarningState::WarningState() {
 	// Garante que o gerenciador de recursos aloque as fontes antes do RemakeTexture
@@ -68,8 +69,10 @@ void WarningState::Update(float dt) {
 		quitRequested = true;
 
 	// Ao pressionar ESPAÇO, remove este aviso da pilha e empurra o labirinto real
-	if (input.KeyPress(SDLK_SPACE))
+	if (input.KeyPress(SDLK_SPACE)) {
+		GlobalSounds::Button().Play(0);
 		Game::GetInstance().Push(new MazeState());
+	}
 
 	if (input.KeyPress(Z_KEY)) {
 		Log::info("WARNING_STATE - Z key pressed, popping state");

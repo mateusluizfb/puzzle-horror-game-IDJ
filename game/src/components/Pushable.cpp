@@ -8,6 +8,7 @@
 #include "Text.h"
 #include "Wall.h"
 #include "Collision.h"
+#include "GlobalSounds.h"
 
 #include <cmath>
 
@@ -78,6 +79,7 @@ void Pushable::NotifyCollision(GameObject& other) {
 
     if (inputManager.KeyPress(E_KEY))
     {
+      GlobalSounds::Button().Play(0);
       togglePush = !togglePush;
       if (togglePush) {
         gluedPlayer = &other;
