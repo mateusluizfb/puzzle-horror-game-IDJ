@@ -13,7 +13,7 @@ Key::Key(GameObject& associated, Key::Type type)
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
   keyText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32,
-                     Text::BLENDED, "You got the key", white);
+                     Text::BLENDED, "Pegou a chave", white);
   keyText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);

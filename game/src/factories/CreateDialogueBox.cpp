@@ -8,7 +8,8 @@ GameObject* CreateDialogueBox(Rect box,
                               int fontSize,
                               SDL_Color textColor,
                               std::string text,
-                              std::vector<std::string> options)
+                              std::vector<std::string> options,
+                              DialogueBox::PortraitMode portraitMode)
 {
     Log::info("CREATE_DIALOGUE_BOX - Creating dialogue game object");
 
@@ -16,7 +17,7 @@ GameObject* CreateDialogueBox(Rect box,
     go->box = box;
     go->tag = "dialogue";
 
-    DialogueBox* db = new DialogueBox(*go, go->box, fontFile, fontSize, textColor);
+    DialogueBox* db = new DialogueBox(*go, go->box, fontFile, fontSize, textColor, portraitMode);
     db->SetText(text);
     if (!options.empty()) {
         db->SetOptions(options);

@@ -10,6 +10,7 @@
 #include "StageState.h"
 #include "EndState.h"
 #include "GameData.h"
+#include "IntroState.h"
 
 TitleState::TitleState() : State(), music("game/assets/music/soundtrack.wav")
 {
@@ -40,8 +41,8 @@ void TitleState::LoadAssets() {
 
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
-  Text *text = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press SPACE to start", white);
-  textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
+  Text *text = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte ESPACO para iniciar", white);
+  textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 250;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   textGameObject->AddComponent(text);
   this->AddObject(textGameObject);
@@ -60,8 +61,8 @@ void TitleState::Update(float dt) {
 
   if (inputManager.KeyPress(SPACE_KEY))
   {
-    Log::info("TITLE_STATE - Enter key pressed, popping TitleState");
-    Game::GetInstance().Push(new BedroomState());
+    Log::info("TITLE_STATE - Enter key pressed, pushing IntroState");
+    Game::GetInstance().Push(new IntroState());
   }
 
   if (inputManager.KeyPress(M_KEY))

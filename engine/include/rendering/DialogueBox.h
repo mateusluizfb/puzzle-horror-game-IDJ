@@ -9,8 +9,12 @@
 #include <vector>
 #include "Component.h"
 #include "Rect.h"
+#include "Sound.h"
 
 class DialogueBox : public Component {
+public:
+    enum class PortraitMode { STILL, THINKING };
+
 private:
     enum class State { IDLE, TYPING, TEXT_SHOWN, OPTIONS_SHOWN, SELECTION_MADE };
 
@@ -40,6 +44,11 @@ private:
     bool finished;
     bool borderVisible;
 
+    Sound typingSound;
+    bool typingSoundPlaying;
+
+    void StopTypingSound();
+
     void RenderBackground();
     void RenderBorder();
     void RenderText();
@@ -57,7 +66,8 @@ public:
                 Rect box,
                 std::string fontFile,
                 int fontSize,
-                SDL_Color textColor);
+                SDL_Color textColor,
+                PortraitMode portraitMode = PortraitMode::STILL);
 
     ~DialogueBox();
 

@@ -18,7 +18,7 @@ Character::Character(GameObject &associated, std::string sprite)
     hit(false),
     taskQueue(),
     speed(Vec2(0, 0)),
-    linearSpeed(250),
+    linearSpeed(180),
     hp(100),
     deathTimer(Timer()),
     isInvulnerable(false),
@@ -181,7 +181,7 @@ void Character::Update(float dt) {
     associated.box.y += moveDelta.y;
   }
 
-  this->SetLinearSpeed(200);
+  this->SetLinearSpeed(180);
 }
 
 void Character::Render() {

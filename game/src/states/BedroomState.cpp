@@ -98,7 +98,12 @@ void BedroomState::LoadAssets()
     if (it != data.properties.end()) {
       text = it->second;
     }
-    return new Document(go, text);
+    DialogueBox::PortraitMode mode = DialogueBox::PortraitMode::STILL;
+    auto modeIt = data.properties.find("document_portrait_mode");
+    if (modeIt != data.properties.end() && modeIt->second == "thinking") {
+      mode = DialogueBox::PortraitMode::THINKING;
+    }
+    return new Document(go, text, mode);
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);

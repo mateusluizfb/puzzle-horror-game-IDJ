@@ -11,9 +11,10 @@
 #include "State.h"
 #include "Text.h"
 
-Document::Document(GameObject& associated, const std::string& documentText)
+Document::Document(GameObject& associated, const std::string& documentText, DialogueBox::PortraitMode portraitMode)
   : Component(associated)
   , documentText(documentText)
+  , portraitMode(portraitMode)
 {
   Log::debug("DOCUMENT - Registered for object: " + associated.tag +
              " -> text length: " + std::to_string(documentText.size()));
@@ -24,7 +25,7 @@ Document::Document(GameObject& associated, const std::string& documentText)
                         "game/assets/font/neodgm.ttf",
                         32,
                         Text::BLENDED,
-                        "Press E to Read",
+                        "Aperte E para ler",
                         white);
   promptText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
@@ -77,7 +78,8 @@ void Document::NotifyCollision(GameObject& other) {
         box,
         "game/assets/font/neodgm.ttf", 24, white,
         documentText,
-        {});
+        {},
+        portraitMode);
 
     currentState.AddObject(go);
     dialogueObject = currentState.GetObjectPtr(go);
