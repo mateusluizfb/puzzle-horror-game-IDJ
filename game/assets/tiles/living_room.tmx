@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="139">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="140">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset_v2.tsx"/>
@@ -127,7 +127,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="58" name="wall" x="128" y="80" width="60.1543" height="93.8984">
+  <object id="58" name="wall" x="128" y="80" width="38.7677" height="94.4398">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -151,7 +151,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="108" name="wall" x="112" y="48" width="62.8969" height="14.4167">
+  <object id="108" name="wall" x="113.083" y="47.4586" width="62.8969" height="14.4167">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -271,6 +271,12 @@
     <property name="document" type="bool" value="true"/>
     <property name="document_portrait_mode" value="thinking"/>
     <property name="document_text" value="Catequizou índios, morto por índios sendo arrastado por 4km por cavalos. Juan del Castillo (1595-1628). Um dos Santos Mártires das Missões."/>
+   </properties>
+  </object>
+  <object id="139" name="wall" x="166.598" y="80.5583" width="20.359" height="75.2189">
+   <properties>
+    <property name="collider" type="bool" value="true"/>
+    <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

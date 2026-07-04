@@ -29,27 +29,20 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 
 
 void Pushable::Update(float dt) {
-  if (gluedPlayer && gluedPlayer->IsDead()) return;
+  if (gluedPlayer && gluedPlayer->IsDead()) {
+    isTouching = false;
+    return;
+  }
 
-  if (gluedPlayer) {
-    if (glueHorizontal) {
-      associated.box.x = gluedPlayer->box.x + glueOffset.x;
-    } else {
-      associated.box.y = gluedPlayer->box.y + glueOffset.y;
-    }
-
-    if (isTouching) {
-      glueGrace = GLUE_GRACE_FRAMES;
-    } else {
-      --glueGrace;
-    }
-
-    if (glueGrace <= 0) {
-      Character *charComp = gluedPlayer->GetComponent<Character>();
-      if (charComp) charComp->isGlued = false;
-      gluedPlayer = nullptr;
-      togglePush = false;
-      pushText->SetText("Aperte E para empurrar/puxar");
+  if (gluedPlayer && togglePush) {
+    if (glueAxis == GlueAxis::Horizontal) {
+      associated.box.y = glueAnchor;
+      gluedPlayer->box.y = playerAnchor;
+      associated.box.x = gluedPlayer->box.x + blockOffset;
+    } else if (glueAxis == GlueAxis::Vertical) {
+      associated.box.x = glueAnchor;
+      gluedPlayer->box.x = playerAnchor;
+      associated.box.y = gluedPlayer->box.y + blockOffset;
     }
   }
 
@@ -79,49 +72,78 @@ void Pushable::NotifyCollision(GameObject& other) {
 
     Log::info("PUSHABLE - Collided with player, calculating push direction");
     
-    Vec2 blockDir = associated.GetCollisionNormal();
-    other.SetCollisionNormal(blockDir);
-    associated.SetCollisionNormal(Vec2(0, 0));
-
     pushDirection = (associated.box.GetCenter() - other.box.GetCenter()).Normalize();
+
+    Vec2 blockNormal = associated.GetCollisionNormal();
 
     if (inputManager.KeyPress(E_KEY))
     {
       togglePush = !togglePush;
       if (togglePush) {
         gluedPlayer = &other;
-        glueOffset = Vec2(associated.box.x - other.box.x, associated.box.y - other.box.y);
-        glueGrace = GLUE_GRACE_FRAMES;
-        
-        // Use pushDirection instead of blockDir to determine the axis.
-        // pushDirection is calculated as (associated.center - other.center).
+
         if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
-          glueHorizontal = true;
+          glueAxis = GlueAxis::Horizontal;
+          glueAnchor = associated.box.y;
+          playerAnchor = other.box.y;
+          blockOffset = associated.box.x - other.box.x;
         } else {
-          glueHorizontal = false;
+          glueAxis = GlueAxis::Vertical;
+          glueAnchor = associated.box.x;
+          playerAnchor = other.box.x;
+          blockOffset = associated.box.y - other.box.y;
         }
 
         pushText->SetText("Aperte E para soltar");
 
         Character* charComp = other.GetComponent<Character>();
-        if (charComp) charComp->isGlued = true;
+        if (charComp) {
+          charComp->isGlued = true;
+          charComp->glueAxis = static_cast<Character::GlueAxis>(glueAxis);
+        }
       } else {
         gluedPlayer = nullptr;
+        glueAxis = GlueAxis::None;
         pushText->SetText("Aperte E para empurrar/puxar");
 
         Character* charComp = other.GetComponent<Character>();
-        if (charComp) charComp->isGlued = false;
+        if (charComp) {
+          charComp->isGlued = false;
+          charComp->glueAxis = Character::GlueAxis::None;
+        }
       }
     }
 
 
     if (togglePush)
     {
+      // Glued: propagate blockage to the player only on the glue axis,
+      // so the player is halted when the block is wall/pushable-blocked
+      // in the push direction, but never on the perpendicular axis.
+      if (glueAxis == GlueAxis::Horizontal) {
+        other.SetCollisionNormal(Vec2(blockNormal.x, 0));
+      } else {
+        other.SetCollisionNormal(Vec2(0, blockNormal.y));
+      }
       return;
     }
 
     if (!togglePush && isTouching)
     {
+      // Non-glued: if the block is currently blocked by another pushable
+      // on the side the player is pushing toward, halt the player on that
+      // axis (treat the block as immovable), so the player can't drive A
+      // into B.
+      if (blockNormal.x != 0 || blockNormal.y != 0) {
+        if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
+          other.SetCollisionNormal(Vec2(blockNormal.x, 0));
+        } else {
+          other.SetCollisionNormal(Vec2(0, blockNormal.y));
+        }
+      } else {
+        associated.SetCollisionNormal(Vec2(0, 0));
+        other.SetCollisionNormal(Vec2(0, 0));
+      }
       Collision::ResolveOverlap(other, associated);
       return;
     }

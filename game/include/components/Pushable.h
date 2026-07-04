@@ -9,18 +9,20 @@
  
 class Pushable : public Component {
  private:
-   static constexpr int GLUE_GRACE_FRAMES = 2;
-   int glueGrace = 0;
    Vec2 pushDirection;
    float pushSpeed;
    Text *pushText = nullptr;
-  
+ 
  public:
+  enum class GlueAxis { None, Horizontal, Vertical };
+
   bool isTouching = false; 
   bool togglePush = false;
   GameObject* gluedPlayer = nullptr;
-  Vec2 glueOffset = Vec2(0, 0);
-  bool glueHorizontal = false;
+  GlueAxis glueAxis = GlueAxis::None;
+  float glueAnchor = 0.0f;
+  float playerAnchor = 0.0f;
+  float blockOffset = 0.0f;
  
   Pushable(GameObject& associated, float pushSpeed = 100.0f);
   
@@ -30,4 +32,3 @@ class Pushable : public Component {
 };
  
 #endif
-

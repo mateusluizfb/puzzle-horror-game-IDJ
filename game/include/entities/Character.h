@@ -55,6 +55,8 @@ public:
   void TakeDamage();
   
   bool isGlued = false;
+  enum class GlueAxis { None, Horizontal, Vertical };
+  GlueAxis glueAxis = GlueAxis::None;
 
 private:
   std::queue<Command> taskQueue;
