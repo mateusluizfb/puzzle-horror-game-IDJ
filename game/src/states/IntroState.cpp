@@ -46,7 +46,7 @@ void IntroState::SpawnDialogue()
       Game::GetInstance().GetWindowWidth(),
       Game::GetInstance().GetWindowHeight() / 4);
   SDL_Color white = {255, 255, 255, 255};
-  GameObject *dialogueGameObject = CreateDialogueBox(box, "game/assets/font/neodgm.ttf", 32, white, "Nossa que sede... Mas que sensaçããã$1@o estranha... o que foi isso??", {}, DialogueBox::PortraitMode::STILL);
+  GameObject *dialogueGameObject = CreateDialogueBox(box, "game/assets/font/neodgm.ttf", 32, white, "Nossa que sede... Mas que sensação estranha... o que foi isso??", {}, DialogueBox::PortraitMode::STILL);
   this->AddObject(dialogueGameObject);
   Log::debug("INTRO_STATE - Dialogue box game object loaded");
 }

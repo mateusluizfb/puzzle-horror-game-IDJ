@@ -41,7 +41,7 @@ void TitleState::LoadAssets() {
 
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
-  Text *text = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte ESPACO para iniciar", white);
+  Text *text = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte ESPAÇO para iniciar", white);
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 250;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   textGameObject->AddComponent(text);

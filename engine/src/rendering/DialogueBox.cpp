@@ -37,7 +37,7 @@ DialogueBox::DialogueBox(GameObject& associated,
       currentState(State::IDLE),
       finished(false),
       borderVisible(true),
-      continuePrompt("Aperte ESPACO para continuar"),
+      continuePrompt("Aperte ESPAÇO para continuar"),
       typingSound(),
       typingSoundPlaying(false)
 {
@@ -283,7 +283,7 @@ void DialogueBox::RenderContinuePrompt()
     if (!font) return;
 
     int w = 0, h = 0;
-    TTF_SizeText(font, continuePrompt.c_str(), &w, &h);
+    TTF_SizeUTF8(font, continuePrompt.c_str(), &w, &h);
     int x = dialogBox.x + dialogBox.w - w - TEXT_PADDING;
     int y = dialogBox.y + dialogBox.h - h - TEXT_PADDING;
 
@@ -296,7 +296,7 @@ void DialogueBox::RenderSingleLine(const std::string& line, int x, int y, SDL_Co
 {
     SDL_Renderer* renderer = Game::GetRenderer();
 
-    SDL_Surface* surface = TTF_RenderText_Solid(font, line.c_str(), color);
+    SDL_Surface* surface = TTF_RenderUTF8_Solid(font, line.c_str(), color);
     if (!surface) return;
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -328,7 +328,7 @@ std::vector<std::string> DialogueBox::WrapText(const std::string& text)
     while (stream >> word) {
         std::string test = line.empty() ? word : line + " " + word;
         int w, h;
-        TTF_SizeText(font, test.c_str(), &w, &h);
+        TTF_SizeUTF8(font, test.c_str(), &w, &h);
 
         if (w > maxWidth && !line.empty()) {
             lines.push_back(line);
