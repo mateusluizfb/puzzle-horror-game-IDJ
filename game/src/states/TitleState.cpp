@@ -60,6 +60,12 @@ void TitleState::Update(float dt) {
     this->RequestQuit();
   }
 
+  if (inputManager.KeyPress(ESCAPE_KEY))
+  {
+    Log::info("TITLE_STATE - Escape key pressed, quitting game");
+    this->RequestQuit();
+  }
+
   if (inputManager.KeyPress(SPACE_KEY))
   {
     GlobalSounds::Button().Play(0);

@@ -141,9 +141,9 @@ void StageState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("STAGE_STATE - Escape key pressed, popping state");
+    Log::info("STAGE_STATE - Escape key pressed, quitting game");
     //music.Stop();
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   UpdateArray(dt);

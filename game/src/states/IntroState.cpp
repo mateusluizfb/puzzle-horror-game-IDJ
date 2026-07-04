@@ -82,8 +82,8 @@ void IntroState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("INTRO_STATE - Escape key pressed, popping state");
-    this->RequestPop();
+    Log::info("INTRO_STATE - Escape key pressed, quitting game");
+    this->RequestQuit();
   }
 
   if (!introFinished)

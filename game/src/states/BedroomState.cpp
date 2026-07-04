@@ -153,9 +153,9 @@ void BedroomState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("BEDROOM_STATE - Escape key pressed, popping state");
+    Log::info("BEDROOM_STATE - Escape key pressed, quitting game");
     //music.Stop();
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   if (inputManager.KeyPress(Z_KEY))

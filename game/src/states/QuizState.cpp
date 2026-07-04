@@ -80,7 +80,7 @@ void QuizState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   UpdateArray(dt);
