@@ -53,7 +53,6 @@ void QuizState::LoadAssets()
   quizObject->AddComponent(quiz);
   quizObject->AddComponent(quizUI);
   this->AddObject(quizObject);
-  quiz->StartQuiz();
 }
 
 void QuizState::Update(float dt)

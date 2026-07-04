@@ -18,7 +18,9 @@ public:
 private:
   std::weak_ptr<GameObject> dialogueObject;
   bool resultShown;
+  bool introShown = false;
 
+  void ShowIntro(Quiz* quiz);
   void ShowQuestion(Quiz* quiz);
   void ShowResult(Quiz* quiz);
 };

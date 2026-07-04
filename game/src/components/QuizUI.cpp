@@ -7,8 +7,34 @@
 #include "DialogueBox.h"
 
 QuizUI::QuizUI(GameObject &associated)
-  : Component(associated), resultShown(false)
+  : Component(associated), resultShown(false), introShown(false)
   {}
+
+void QuizUI::ShowIntro(Quiz* quiz) {
+  Game &game = Game::GetInstance();
+  State &currentState = game.GetCurrentState();
+
+  Log::info("QUIZ_UI - Showing intro dialogue");
+
+  SDL_Color white = {255, 255, 255, 255};
+  Rect box = Rect(
+      0,
+      Game::GetInstance().GetWindowHeight() / 1.5,
+      Game::GetInstance().GetWindowWidth(),
+      Game::GetInstance().GetWindowHeight() / 4);
+
+  GameObject *go = CreateDialogueBox(
+      box,
+      "game/assets/font/neodgm.ttf", 24, white,
+      "Você quer água é?? Hihihih, vamos ver se você prestou atenção... hihihi...",
+      {},
+      DialogueBox::PortraitMode::RAT_QUIZ);
+
+  currentState.AddObject(go);
+  dialogueObject = currentState.GetObjectPtr(go);
+  GameData::dialogueActive = true;
+  introShown = true;
+}
 
 void QuizUI::ShowQuestion(Quiz* quiz) {
   Game &game = Game::GetInstance();
@@ -72,6 +98,11 @@ void QuizUI::Update(float dt) {
 
     Log::debug("QUIZ_UI - Quiz state: " + std::to_string(static_cast<int>(state)));
 
+    if (state == QuizProgressState::Intro && !introShown) {
+      ShowIntro(quiz);
+      return;
+    }
+
     if (state == QuizProgressState::InProgress) {
       ShowQuestion(quiz);
       return;
@@ -94,6 +125,10 @@ void QuizUI::Update(float dt) {
         Log::info("QUIZ_UI - Result dialogue finished");
         quiz->Finish();
         resultShown = false;
+      } else if (introShown) {
+        Log::info("QUIZ_UI - Intro dialogue finished, starting quiz");
+        quiz->StartQuiz();
+        introShown = false;
       } else {
         Log::info("QUIZ_UI - Question dialogue finished, submitting answer");
         quiz->SubmitAnswer(selectedOption);

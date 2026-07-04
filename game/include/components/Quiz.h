@@ -14,6 +14,7 @@ struct QuizData {
 enum class QuizProgressState
 {
   NotStarted,
+  Intro,
   InProgress,
   Completed,
   Finished
@@ -39,7 +40,7 @@ private:
   std::vector<QuizData> quizData;
   std::vector<int> playerAnswers;
   int currentQuestionIndex;
-  QuizProgressState state = QuizProgressState::NotStarted;
+  QuizProgressState state = QuizProgressState::Intro;
 
   void HandleQuizNotStarted();
 };
