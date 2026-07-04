@@ -16,6 +16,7 @@
 
 class IntroState : public State {
 private:
+  Music music;
   bool transitioned;
   int currentIntroFrame;
   Timer introTimer;

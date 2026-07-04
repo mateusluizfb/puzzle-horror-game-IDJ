@@ -1,6 +1,6 @@
 #include "IntroState.h"
 
-IntroState::IntroState() : State(), transitioned(false), currentIntroFrame(0), introFinished(false), bgGameObject(nullptr)
+IntroState::IntroState() : State(), music("game/assets/music/soundtrack.wav"), transitioned(false), currentIntroFrame(0), introFinished(false), bgGameObject(nullptr)
 {
   Log::info("INTRO_STATE - Initializing state");
 
@@ -35,6 +35,9 @@ void IntroState::LoadAssets()
   bgSprite->SetPosition(0, 75);
   this->AddObject(bgGameObject);
   Log::debug("INTRO_STATE - Background game object loaded");
+
+  // MUSICA
+  music.Play(-1);
 }
 
 void IntroState::SpawnDialogue()

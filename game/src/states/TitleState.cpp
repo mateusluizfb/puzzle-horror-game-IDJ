@@ -48,7 +48,7 @@ void TitleState::LoadAssets() {
   this->AddObject(textGameObject);
 
   //MUSICA
-  music.Play(-1);
+  // music.Play(-1);
 }
 
 void TitleState::Update(float dt) {

@@ -200,5 +200,4 @@ void LivingRoomCorridorState::Resume()
     Log::error("LIVINGROOMCORRIDOR_STATE - Cannot resume: player object not found");
     return;
   }
-  music.Play(-1);
 }
