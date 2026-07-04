@@ -1,6 +1,6 @@
 #include "IntroState.h"
 
-IntroState::IntroState() : State(), transitioned(false)
+IntroState::IntroState() : State(), transitioned(false), currentIntroFrame(0), introFinished(false), bgGameObject(nullptr)
 {
   Log::info("INTRO_STATE - Initializing state");
 
@@ -17,14 +17,28 @@ IntroState::~IntroState()
 
 void IntroState::LoadAssets()
 {
+  Log::debug("INTRO_STATE - Starting black background game object");
+  GameObject *blackBgGameObject = new GameObject();
+  blackBgGameObject->AddComponent(new SpriteRenderer(*blackBgGameObject, "game/assets/img/black_solid_color.png"));
+  SpriteRenderer *blackBgSprite = blackBgGameObject->GetComponent<SpriteRenderer>();
+  blackBgSprite->SetCameraFollower(true);
+  blackBgSprite->SetPosition(0, 0);
+  this->AddObject(blackBgGameObject);
+  Log::debug("INTRO_STATE - Black background game object loaded");
+
   Log::debug("INTRO_STATE - Starting background game object");
-  GameObject *bgGameObject = new GameObject();
-  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/black_solid_color.png"));
+  bgGameObject = new GameObject();
+  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/intro/intro_0.png"));
   SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
   bgSprite->SetCameraFollower(true);
+  bgSprite->SetScale(0.50f, 0.50f);
+  bgSprite->SetPosition(0, 75);
   this->AddObject(bgGameObject);
   Log::debug("INTRO_STATE - Background game object loaded");
+}
 
+void IntroState::SpawnDialogue()
+{
   Log::debug("INTRO_STATE - Starting dialogue box game object");
   Rect box = Rect(
       0,
@@ -35,6 +49,15 @@ void IntroState::LoadAssets()
   GameObject *dialogueGameObject = CreateDialogueBox(box, "game/assets/font/neodgm.ttf", 32, white, "Nossa que sede... Mas que sensaçããã$1@o estranha... o que foi isso??", {}, DialogueBox::PortraitMode::STILL);
   this->AddObject(dialogueGameObject);
   Log::debug("INTRO_STATE - Dialogue box game object loaded");
+}
+
+void IntroState::FinishIntro()
+{
+  introFinished = true;
+  SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
+  bgSprite->Open("game/assets/img/black_solid_color.png");
+  bgSprite->SetScale(1.0f, 1.0f);
+  SpawnDialogue();
 }
 
 void IntroState::Start()
@@ -58,6 +81,33 @@ void IntroState::Update(float dt)
   {
     Log::info("INTRO_STATE - Escape key pressed, popping state");
     this->RequestPop();
+  }
+
+  if (!introFinished)
+  {
+    if (inputManager.KeyPress(SPACE_KEY))
+    {
+      Log::info("INTRO_STATE - Space pressed, skipping intro cutscene");
+      FinishIntro();
+    }
+    else
+    {
+      introTimer.Update(dt);
+      while (introTimer.Get() >= 1.0f)
+      {
+        introTimer.Restart();
+        ++currentIntroFrame;
+        if (currentIntroFrame < 5)
+        {
+          SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
+          bgSprite->Open("game/assets/img/intro/intro_" + std::to_string(currentIntroFrame) + ".png");
+        }
+        else
+        {
+          FinishIntro();
+        }
+      }
+    }
   }
 
   if (!transitioned)

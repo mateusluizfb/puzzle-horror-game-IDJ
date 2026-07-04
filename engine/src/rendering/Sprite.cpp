@@ -80,8 +80,8 @@ void Sprite::Render(int x, int y, int w, int h, float angle)
     dsRect = {
       x,
       y,
-      w * (int) scale.x,
-      h * (int) scale.y
+      (int)(clipRect.w * scale.x),
+      (int)(clipRect.h * scale.y)
     };
   }
 

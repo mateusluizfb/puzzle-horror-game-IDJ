@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "Timer.h"
 #include "Camera.h"
 #include "BedroomState.h"
 #include "CreateDialogueBox.h"
@@ -16,6 +17,13 @@
 class IntroState : public State {
 private:
   bool transitioned;
+  int currentIntroFrame;
+  Timer introTimer;
+  bool introFinished;
+  GameObject* bgGameObject;
+
+  void SpawnDialogue();
+  void FinishIntro();
 
 public:
   IntroState();
