@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "Log.h"
 #include "SpriteRenderer.h"
+#include "Sprite.h"
 
 #include <sstream>
 
@@ -41,13 +42,23 @@ DialogueBox::DialogueBox(GameObject& associated,
 {
     Log::info("DIALOGUE_BOX - Created");
 
-    std::string portraitFile = (portraitMode == PortraitMode::THINKING)
+    std::string portraitFile = (portraitMode == PortraitMode::THINKING || portraitMode == PortraitMode::RAT_QUIZ)
         ? "game/assets/img/kid_large_thinking.png"
         : "game/assets/img/kid_large.png";
     SpriteRenderer *kidLargeSpriteRenderer = new SpriteRenderer(this->associated, portraitFile);
     kidLargeSpriteRenderer->SetScale(0.25, 0.25);
     kidLargeSpriteRenderer->SetPosition(100, 100);
     this->associated.AddComponent(kidLargeSpriteRenderer);
+
+    if (portraitMode == PortraitMode::RAT_QUIZ) {
+        ratPortrait = new Sprite("game/assets/img/rat_smiling.png");
+        ratPortrait->SetScale(0.25, 0.25);
+        ratPortrait->cameraFollower = true;
+        ratPortraitW = ratPortrait->GetWidth();
+        ratPortraitH = ratPortrait->GetHeight();
+        ratPortraitX = Game::GetInstance().GetWindowWidth() - ratPortraitW - 100;
+        ratPortraitY = 10;
+    }
 }
 
 DialogueBox::~DialogueBox()
@@ -57,6 +68,10 @@ DialogueBox::~DialogueBox()
     if (font) {
         TTF_CloseFont(font);
         font = nullptr;
+    }
+    if (ratPortrait) {
+        delete ratPortrait;
+        ratPortrait = nullptr;
     }
 }
 
@@ -171,6 +186,10 @@ void DialogueBox::Render()
 {
     RenderBackground();
     RenderBorder();
+
+    if (ratPortrait) {
+        ratPortrait->Render(ratPortraitX, ratPortraitY, ratPortraitW, ratPortraitH, 0.0f);
+    }
 
     if (!font) return;
 

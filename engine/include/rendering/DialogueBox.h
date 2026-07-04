@@ -11,9 +11,11 @@
 #include "Rect.h"
 #include "Sound.h"
 
+class Sprite;
+
 class DialogueBox : public Component {
 public:
-    enum class PortraitMode { STILL, THINKING };
+    enum class PortraitMode { STILL, THINKING, RAT_QUIZ };
 
 private:
     enum class State { IDLE, TYPING, TEXT_SHOWN, OPTIONS_SHOWN, SELECTION_MADE };
@@ -46,6 +48,12 @@ private:
 
     Sound typingSound;
     bool typingSoundPlaying;
+
+    Sprite *ratPortrait = nullptr;
+    int ratPortraitX = 0;
+    int ratPortraitY = 0;
+    int ratPortraitW = 0;
+    int ratPortraitH = 0;
 
     void StopTypingSound();
 

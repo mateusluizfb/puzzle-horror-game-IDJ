@@ -29,7 +29,8 @@ void QuizUI::ShowQuestion(Quiz* quiz) {
       box,
       "game/assets/font/neodgm.ttf", 24, white,
       question.question,
-      question.options);
+      question.options,
+      DialogueBox::PortraitMode::RAT_QUIZ);
 
   currentState.AddObject(go);
   dialogueObject = currentState.GetObjectPtr(go);
@@ -53,7 +54,8 @@ void QuizUI::ShowResult(Quiz* quiz) {
       box,
       "game/assets/font/neodgm.ttf", 24, white,
       quiz->IsAllCorrect() ? "Ora ora, então você é o bichão mesmo ein..." : "Infelizmente você vai .&@#$%@????++___As!@#%%!@#!!@#¨:!!!@@##:):)sedesedesedesedesedesedesedesede_sede",
-      {});
+      {},
+      DialogueBox::PortraitMode::RAT_QUIZ);
 
   currentState.AddObject(go);
   dialogueObject = currentState.GetObjectPtr(go);

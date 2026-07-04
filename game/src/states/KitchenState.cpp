@@ -24,6 +24,7 @@
 #include "QuizUI.h"
 #include "BedroomState.h"
 #include "Document.h"
+#include "Rat.h"
 
 KitchenState::KitchenState(): State(), music("game/assets/music/soundtrack.wav")
 {
@@ -128,7 +129,12 @@ void KitchenState::LoadAssets()
 
   Log::debug("KITCHEN_STATE - TileObjects loader finished");
 
-  
+  Log::debug("KITCHEN_STATE - Starting Rat game object");
+  GameObject *ratGameObject = new GameObject();
+  Rat *rat = new Rat(*ratGameObject, 700, 190);
+  ratGameObject->AddComponent(rat);
+  this->AddObject(ratGameObject);
+  Log::debug("KITCHEN_STATE - Rat game object loaded");
 }
 
 void KitchenState::Update(float dt)
