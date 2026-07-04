@@ -46,6 +46,8 @@ private:
     bool finished;
     bool borderVisible;
 
+    std::string continuePrompt;
+
     Sound typingSound;
     bool typingSoundPlaying;
 
@@ -61,6 +63,7 @@ private:
     void RenderBorder();
     void RenderText();
     void RenderOptions();
+    void RenderContinuePrompt();
     void BuildPages();
     void UpdateTyping(float dt);
     void UpdateState(float dt);

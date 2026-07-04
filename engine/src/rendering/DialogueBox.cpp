@@ -37,6 +37,7 @@ DialogueBox::DialogueBox(GameObject& associated,
       currentState(State::IDLE),
       finished(false),
       borderVisible(true),
+      continuePrompt("Aperte ESPACO para continuar"),
       typingSound(),
       typingSoundPlaying(false)
 {
@@ -198,6 +199,10 @@ void DialogueBox::Render()
     } else {
         RenderText();
     }
+
+    if (currentState == State::TEXT_SHOWN || currentState == State::OPTIONS_SHOWN) {
+        RenderContinuePrompt();
+    }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -271,6 +276,20 @@ void DialogueBox::RenderOptions()
                          color);
         y += lineH;
     }
+}
+
+void DialogueBox::RenderContinuePrompt()
+{
+    if (!font) return;
+
+    int w = 0, h = 0;
+    TTF_SizeText(font, continuePrompt.c_str(), &w, &h);
+    int x = dialogBox.x + dialogBox.w - w - TEXT_PADDING;
+    int y = dialogBox.y + dialogBox.h - h - TEXT_PADDING;
+
+    SDL_Color promptColor = textColor;
+    promptColor.a = 180;
+    RenderSingleLine(continuePrompt, x, y, promptColor);
 }
 
 void DialogueBox::RenderSingleLine(const std::string& line, int x, int y, SDL_Color color)
