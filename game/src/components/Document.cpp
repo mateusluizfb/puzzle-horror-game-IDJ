@@ -11,6 +11,7 @@
 #include "State.h"
 #include "Text.h"
 #include "GlobalSounds.h"
+#include "Collider.h"
 
 Document::Document(GameObject& associated, const std::string& documentText, DialogueBox::PortraitMode portraitMode)
   : Component(associated)
@@ -32,6 +33,11 @@ Document::Document(GameObject& associated, const std::string& documentText, Dial
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   associated.AddComponent(promptText);
+}
+
+void Document::Start() {
+  Collider *collider = associated.GetComponent<Collider>();
+  collider->disabled = true;
 }
 
 void Document::Update(float /*dt*/) {

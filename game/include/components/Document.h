@@ -23,6 +23,7 @@ public:
            const std::string& documentText,
            DialogueBox::PortraitMode portraitMode = DialogueBox::PortraitMode::STILL);
 
+  void Start() override;
   void Update(float dt) override;
   void Render() override;
   void NotifyCollision(GameObject& other) override;
