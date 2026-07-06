@@ -44,17 +44,19 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
 }
 
 void StagePush::Update(float /*dt*/) {
-  if (isTouching && targetStage == "Locked")
-  {
-    lockedPromptText->Show();
-  } else {
-    lockedPromptText->Hide();
-  }
+  bool locked = (targetStage == "Locked") ||
+                (targetStage == "WarningState" && !GameData::hasLivingRoomKey) ||
+                (targetStage == "LivingRoomCorridorState" && !GameData::hasBedroomKey);
 
-  if (isTouching && targetStage != "Locked") {
+  if (isTouching && locked) {
+    lockedPromptText->Show();
+    promptText->Hide();
+  } else if (isTouching && !locked) {
     promptText->Show();
+    lockedPromptText->Hide();
   } else {
     promptText->Hide();
+    lockedPromptText->Hide();
   }
 
   isTouching = false;
