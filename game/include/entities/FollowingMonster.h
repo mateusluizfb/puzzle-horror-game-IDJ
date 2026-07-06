@@ -25,7 +25,7 @@ private:
 
     void FollowPlayer(float dt, Animator *animator, bool checkProximity);
 
-    float linearSpeed = 80.0f;
+    float linearSpeed = 70.0f;
     Vec2 speed;
     State currentState = State::Stage1;
     Timer flickerTimer;
