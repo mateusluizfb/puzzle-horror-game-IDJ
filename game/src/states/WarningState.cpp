@@ -21,7 +21,7 @@ WarningState::WarningState() {
 	// MISTERIO 1: Os Santos
 	GameObject* rule1Obj = new GameObject();
 	SDL_Color whiteColor = {255, 255, 255, 255};
-	Text* rule1Comp = new Text(*rule1Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Eles observam e conhecem a saida, mas a loucura corrompeu a mente de alguns.", whiteColor);
+	Text* rule1Comp = new Text(*rule1Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Os santos olham pro caminho que te guia, mas a loucura corrompeu a mente de alguns.", whiteColor);
 	rule1Obj->AddComponent(rule1Comp);
 
 	rule1Obj->box.x = 600.0f - (rule1Obj->box.w / 2.0f);
@@ -30,7 +30,7 @@ WarningState::WarningState() {
 
 	// MISTERIO 2: A Luz Branca
 	GameObject* rule2Obj = new GameObject();
-	Text* rule2Comp = new Text(*rule2Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Lembre-se: apenas a luz pura e o seu refugio.", whiteColor);
+	Text* rule2Comp = new Text(*rule2Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "E lembre-se: apenas a luz pura é o seu refugio.", whiteColor);
 	rule2Obj->AddComponent(rule2Comp);
 
 	rule2Obj->box.x = 600.0f - (rule2Obj->box.w / 2.0f);
