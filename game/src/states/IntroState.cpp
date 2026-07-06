@@ -96,7 +96,7 @@ void IntroState::Update(float dt)
     else
     {
       introTimer.Update(dt);
-      while (introTimer.Get() >= 1.0f)
+      while (introTimer.Get() >= 1.5f)
       {
         introTimer.Restart();
         ++currentIntroFrame;
