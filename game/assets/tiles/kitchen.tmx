@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="19">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-down" width="19" height="14" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="25">
  <tileset firstgid="1" source="test_tileset.tsx"/>
  <tileset firstgid="81" source="parede_chao_tileset.tsx"/>
  <tileset firstgid="93" source="furniture_tileset.tsx"/>
@@ -51,7 +51,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,1416,1416,1418,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,1416,1416,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,112,112,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,143,143,0,0,0,0,0,1620,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -141,5 +141,11 @@
     <property name="document_text" value="Um dos fundadores de São Paulo e Rio de Janeiro. Foi dramaturgo,gramatico e poeta nascido nas ilhas canárias, gramaticou o tupi. José de Anchieta (1534-1597). Apostolo do Brasil Dramaturgo, gramatico e poeta nascido nas ilhas canárias."/>
    </properties>
   </object>
+  <object id="19" gid="1416" x="96.8297" y="134.536" width="16" height="16"/>
+  <object id="20" gid="1416" x="144.431" y="135.606" width="16" height="16"/>
+  <object id="21" gid="1417" x="140.954" y="123.572" width="16" height="16"/>
+  <object id="22" gid="1417" x="101.643" y="121.967" width="16" height="16"/>
+  <object id="23" gid="1420" x="186.416" y="40.4035" width="16" height="16"/>
+  <object id="24" gid="1420" x="194.974" y="40.4035" width="16" height="16"/>
  </objectgroup>
 </map>
