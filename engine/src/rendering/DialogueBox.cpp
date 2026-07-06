@@ -204,9 +204,7 @@ void DialogueBox::Render()
         RenderText();
     }
 
-    if (currentState == State::TEXT_SHOWN || currentState == State::OPTIONS_SHOWN) {
-        RenderContinuePrompt();
-    }
+    RenderContinuePrompt();
 }
 
 /* -------------------------------------------------------------------------- */
