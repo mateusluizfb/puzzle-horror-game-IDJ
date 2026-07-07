@@ -13,7 +13,7 @@ Character::Command::Command(CommandType type, float x, float y)
 Character::Character(GameObject &associated, std::string sprite)
   : Component(associated),
     player(nullptr),
-    hitSound("game/audio/Hit1.wav"),
+    hitSound("game/assets/sounds/hit-sound.wav"),
     deathSound("game/audio/Dead.wav"),
     hit(false),
     taskQueue(),
@@ -261,6 +261,7 @@ Vec2 Character::GetCenterPosition() {
 void Character::TakeDamage() {
     if (isInvulnerable) return;
 
+    hitSound.Play(1);
     GameData::playerLives--;
     Log::warning("DANO SOFRIDO! Vidas: " + std::to_string(GameData::playerLives));
 
