@@ -20,16 +20,27 @@ WarningState::WarningState() {
 	// MISTERIO 1: Os Santos
 	GameObject* rule1Obj = new GameObject();
 	SDL_Color whiteColor = {255, 255, 255, 255};
-	Text* rule1Comp = new Text(*rule1Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Eles observam e conhecem a saida, mas a loucura corrompeu a mente de alguns.", whiteColor);
+	Text* rule1Comp = new Text(*rule1Obj, "game/assets/font/neodgm.ttf", 26,
+			Text::BLENDED, "Quando não souber para onde ir os santos conhecem e te guiam ao caminho.", whiteColor);
 	rule1Obj->AddComponent(rule1Comp);
 
 	rule1Obj->box.x = 600.0f - (rule1Obj->box.w / 2.0f);
-	rule1Obj->box.y = 380.0f;
+	rule1Obj->box.y = 340.0f;
 	AddObject(rule1Obj);
+
+	GameObject* rule11Obj = new GameObject();
+	Text* rule11Comp = new Text(*rule11Obj, "game/assets/font/neodgm.ttf", 26,
+			Text::BLENDED, "Mas a loucura corrompeu a mente de alguns.", redColor);
+	rule11Obj->AddComponent(rule11Comp);
+
+	rule11Obj->box.x = 600.0f - (rule11Obj->box.w / 2.0f);
+	rule11Obj->box.y = 380.0f;
+	AddObject(rule11Obj);
 
 	// MISTERIO 2: A Luz Branca
 	GameObject* rule2Obj = new GameObject();
-	Text* rule2Comp = new Text(*rule2Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Lembre-se: apenas a luz pura e o seu refugio.", whiteColor);
+	Text* rule2Comp = new Text(*rule2Obj, "game/assets/font/neodgm.ttf", 26,
+			Text::BLENDED, "Lembre-se: Jamais caminhe pelo rubro...", whiteColor);
 	rule2Obj->AddComponent(rule2Comp);
 
 	rule2Obj->box.x = 600.0f - (rule2Obj->box.w / 2.0f);
@@ -38,11 +49,11 @@ WarningState::WarningState() {
 
 	// MISTERIO 3: O Vermelho
 	GameObject* rule3Obj = new GameObject();
-	Text* rule3Comp = new Text(*rule3Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "E jamais caminhe pelo rubro... Ele anseia por voce.", redColor);
+	Text* rule3Comp = new Text(*rule3Obj, "game/assets/font/neodgm.ttf", 26, Text::BLENDED, "Ele anseia por voce.", redColor);
 	rule3Obj->AddComponent(rule3Comp);
 
 	rule3Obj->box.x = 600.0f - (rule3Obj->box.w / 2.0f);
-	rule3Obj->box.y = 540.0f;
+	rule3Obj->box.y = 500.0f;
 	AddObject(rule3Obj);
 
 	// PROMPT DE CONFIRMACAO (Texto Cinza de instrucao)
