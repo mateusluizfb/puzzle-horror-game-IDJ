@@ -275,7 +275,7 @@ Vec2 Character::GetCenterPosition() {
 void Character::TakeDamage() {
     if (isInvulnerable) return;
 
-    hitSound.Play(1);
+    if (GameData::playerLives > 1) hitSound.Play(1);
     GameData::playerLives--;
     Log::warning("DANO SOFRIDO! Vidas: " + std::to_string(GameData::playerLives));
 
