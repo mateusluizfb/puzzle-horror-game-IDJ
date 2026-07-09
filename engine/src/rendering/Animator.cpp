@@ -88,6 +88,10 @@ void Animator::AddAnimation(std::string name, Animation anim) {
   }
 }
 
+int Animator::GetCurrentFrame() {
+  return currentFrame;
+}
+
 std::string Animator::GetCurrent() {
   return current;
 }
