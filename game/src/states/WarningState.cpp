@@ -1,4 +1,5 @@
 #include "WarningState.h"
+#include "GlobalSounds.h"
 
 WarningState::WarningState() {
 	// Garante que o gerenciador de recursos aloque as fontes antes do RemakeTexture
@@ -59,7 +60,7 @@ WarningState::WarningState() {
 	// PROMPT DE CONFIRMACAO (Texto Cinza de instrucao)
 	GameObject* promptObj = new GameObject();
 	SDL_Color grayColor = {160, 160, 160, 255};
-	Text* promptComp = new Text(*promptObj, "game/assets/font/neodgm.ttf", 22, Text::BLENDED, "Pressione ESPACO para aceitar seu destino...", grayColor);
+	Text* promptComp = new Text(*promptObj, "game/assets/font/neodgm.ttf", 22, Text::BLENDED, "Pressione ESPAÇO para aceitar seu destino...", grayColor);
 	promptObj->AddComponent(promptComp);
 
 	promptObj->box.x = 600.0f - (promptObj->box.w / 2.0f);
@@ -78,9 +79,11 @@ void WarningState::Update(float dt) {
 	if (input.QuitRequested() || input.KeyPress(ESCAPE_KEY))
 		quitRequested = true;
 
-	// Ao pressionar Espaco, remove este aviso da pilha e empurra o labirinto real
-	if (input.KeyPress(SDLK_SPACE))
+	// Ao pressionar ESPAÇO, remove este aviso da pilha e empurra o labirinto real
+	if (input.KeyPress(SDLK_SPACE)) {
+		GlobalSounds::Button().Play(0);
 		Game::GetInstance().Push(new MazeState());
+	}
 
 	if (input.KeyPress(Z_KEY)) {
 		Log::info("WARNING_STATE - Z key pressed, popping state");

@@ -4,6 +4,8 @@
 #include "InputManager.h"
 #include "Log.h"
 #include "SpriteRenderer.h"
+#include "Sprite.h"
+#include "GlobalSounds.h"
 
 #include <sstream>
 
@@ -13,7 +15,8 @@ DialogueBox::DialogueBox(GameObject& associated,
                          Rect box,
                          std::string fontFile,
                          int fontSize,
-                         SDL_Color textColor)
+                         SDL_Color textColor,
+                         PortraitMode portraitMode)
     : Component(associated),
       dialogBox{static_cast<int>(box.x), static_cast<int>(box.y),
                 static_cast<int>(box.w), static_cast<int>(box.h)},
@@ -34,23 +37,55 @@ DialogueBox::DialogueBox(GameObject& associated,
       optionSelectedColor{255, 255, 0, 255},
       currentState(State::IDLE),
       finished(false),
-      borderVisible(true)
+      borderVisible(true),
+      continuePrompt("Aperte ESPAÇO para continuar"),
+      typingSound(),
+      typingSoundPlaying(false)
 {
     Log::info("DIALOGUE_BOX - Created");
 
-    // GameObject *kidLargeGameObject = new GameObject();
-    SpriteRenderer *kidLargeSpriteRenderer = new SpriteRenderer(this->associated, "game/assets/img/kid_large_thinking.png");
+    std::string portraitFile = (portraitMode == PortraitMode::THINKING || portraitMode == PortraitMode::RAT_QUIZ)
+        ? "game/assets/img/kid_large_thinking.png"
+        : "game/assets/img/kid_large.png";
+    SpriteRenderer *kidLargeSpriteRenderer = new SpriteRenderer(this->associated, portraitFile);
     kidLargeSpriteRenderer->SetScale(0.25, 0.25);
     kidLargeSpriteRenderer->SetPosition(100, 100);
     this->associated.AddComponent(kidLargeSpriteRenderer);
+
+    if (portraitMode == PortraitMode::RAT_QUIZ) {
+        ratPortrait = new Sprite("game/assets/img/rat_smiling.png");
+        ratPortrait->SetScale(0.25, 0.25);
+        ratPortrait->cameraFollower = true;
+        ratPortraitW = ratPortrait->GetWidth();
+        ratPortraitH = ratPortrait->GetHeight();
+        ratPortraitX = Game::GetInstance().GetWindowWidth() - ratPortraitW - 100;
+        ratPortraitY = 10;
+    }
 }
 
 DialogueBox::~DialogueBox()
 {
     Log::info("DIALOGUE_BOX - Destroyed");
+    StopTypingSound();
     if (font) {
         TTF_CloseFont(font);
         font = nullptr;
+    }
+    if (ratPortrait) {
+        delete ratPortrait;
+        ratPortrait = nullptr;
+    }
+}
+
+void DialogueBox::StopTypingSound()
+{
+    if (typingSoundPlaying) {
+        try {
+            typingSound.Stop();
+        } catch (const std::runtime_error& e) {
+            Log::error(std::string("DIALOGUE_BOX - Could not stop typing sound: ") + e.what());
+        }
+        typingSoundPlaying = false;
     }
 }
 
@@ -67,6 +102,12 @@ void DialogueBox::Start()
 
     currentState = State::TYPING;
     typingTimer = 0.0f;
+
+    try {
+        typingSound.Open("game/assets/music/typing.mp3");
+    } catch (const std::runtime_error& e) {
+        Log::error(std::string("DIALOGUE_BOX - Could not open typing sound: ") + e.what());
+    }
 }
 
 void DialogueBox::Update(float dt)
@@ -78,15 +119,26 @@ void DialogueBox::Update(float dt)
         break;
 
     case State::TYPING:
+        if (!typingSoundPlaying) {
+            try {
+                typingSound.Play(-1);
+                typingSoundPlaying = true;
+            } catch (const std::runtime_error& e) {
+                Log::error(std::string("DIALOGUE_BOX - Could not play typing sound: ") + e.what());
+            }
+        }
         UpdateTyping(dt);
         if (inputManager.KeyPress(SPACE_KEY)) {
             displayedText = fullText;
+            StopTypingSound();
+            GlobalSounds::Button().Play(0);
             currentState = State::TEXT_SHOWN;
         }
         break;
 
     case State::TEXT_SHOWN:
         if (inputManager.KeyPress(SPACE_KEY) || inputManager.KeyPress(SDLK_RETURN)) {
+            GlobalSounds::Button().Play(0);
             if (currentPage < static_cast<int>(pages.size()) - 1) {
                 currentPage++;
                 displayedText = fullText;
@@ -108,6 +160,7 @@ void DialogueBox::Update(float dt)
             NavigateDown();
         }
         if (inputManager.KeyPress(SPACE_KEY)) {
+            GlobalSounds::Button().Play(0);
             finished = true;
         }
         break;
@@ -129,6 +182,7 @@ void DialogueBox::UpdateTyping(float dt)
 
     if (displayedText.length() >= fullText.length()) {
         displayedText = fullText;
+        StopTypingSound();
         currentState = State::TEXT_SHOWN;
     }
 }
@@ -138,6 +192,10 @@ void DialogueBox::Render()
     RenderBackground();
     RenderBorder();
 
+    if (ratPortrait) {
+        ratPortrait->Render(ratPortraitX, ratPortraitY, ratPortraitW, ratPortraitH, 0.0f);
+    }
+
     if (!font) return;
 
     if (currentState == State::OPTIONS_SHOWN) {
@@ -145,6 +203,8 @@ void DialogueBox::Render()
     } else {
         RenderText();
     }
+
+    RenderContinuePrompt();
 }
 
 /* -------------------------------------------------------------------------- */
@@ -220,11 +280,25 @@ void DialogueBox::RenderOptions()
     }
 }
 
+void DialogueBox::RenderContinuePrompt()
+{
+    if (!font) return;
+
+    int w = 0, h = 0;
+    TTF_SizeUTF8(font, continuePrompt.c_str(), &w, &h);
+    int x = dialogBox.x + dialogBox.w - w - TEXT_PADDING;
+    int y = dialogBox.y + dialogBox.h - h - TEXT_PADDING;
+
+    SDL_Color promptColor = textColor;
+    promptColor.a = 180;
+    RenderSingleLine(continuePrompt, x, y, promptColor);
+}
+
 void DialogueBox::RenderSingleLine(const std::string& line, int x, int y, SDL_Color color)
 {
     SDL_Renderer* renderer = Game::GetRenderer();
 
-    SDL_Surface* surface = TTF_RenderText_Solid(font, line.c_str(), color);
+    SDL_Surface* surface = TTF_RenderUTF8_Solid(font, line.c_str(), color);
     if (!surface) return;
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -256,7 +330,7 @@ std::vector<std::string> DialogueBox::WrapText(const std::string& text)
     while (stream >> word) {
         std::string test = line.empty() ? word : line + " " + word;
         int w, h;
-        TTF_SizeText(font, test.c_str(), &w, &h);
+        TTF_SizeUTF8(font, test.c_str(), &w, &h);
 
         if (w > maxWidth && !line.empty()) {
             lines.push_back(line);
@@ -303,6 +377,7 @@ void DialogueBox::SetText(std::string text)
     if (currentState != State::IDLE) {
         currentState = State::TYPING;
         typingTimer = 0.0f;
+        typingSoundPlaying = false;
     }
 }
 

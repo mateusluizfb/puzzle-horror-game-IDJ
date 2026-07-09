@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include "Component.h"
+#include "DialogueBox.h"
 
 class GameObject;
 class Text;
@@ -11,14 +12,18 @@ class Text;
 class Document : public Component {
 private:
   std::string documentText;
+  DialogueBox::PortraitMode portraitMode = DialogueBox::PortraitMode::STILL;
   Text* promptText = nullptr;
   bool isTouching = false;
   bool dialogueOpen = false;
   std::weak_ptr<GameObject> dialogueObject;
 
 public:
-  Document(GameObject& associated, const std::string& documentText);
+  Document(GameObject& associated,
+           const std::string& documentText,
+           DialogueBox::PortraitMode portraitMode = DialogueBox::PortraitMode::STILL);
 
+  void Start() override;
   void Update(float dt) override;
   void Render() override;
   void NotifyCollision(GameObject& other) override;

@@ -15,6 +15,8 @@
 #include "TileSet.h"
 #include "Wall.h"
 #include "Light.h"
+#include "Document.h"
+#include "DialogueBox.h"
 #include <iostream>
 
 MazeState::MazeState() : State(), music("game/assets/music/soundtrack.wav"),
@@ -87,6 +89,21 @@ void MazeState::LoadAssets()
         "game/assets/tiles/test_tileset.png",
         tileScale
     );
+
+    tileObjects.RegisterComponent("document", [](GameObject &go) -> Component * {
+        const TileObjectData& data = go.GetComponent<TileObject>()->GetData();
+        std::string text;
+        auto it = data.properties.find("document_text");
+        if (it != data.properties.end()) {
+        text = it->second;
+        }
+        DialogueBox::PortraitMode mode = DialogueBox::PortraitMode::STILL;
+        auto modeIt = data.properties.find("document_portrait_mode");
+        if (modeIt != data.properties.end() && modeIt->second == "thinking") {
+        mode = DialogueBox::PortraitMode::THINKING;
+        }
+        return new Document(go, text, mode);
+    });
 
     // Registrando a Fabrica de Componentes do Labirinto
     tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
@@ -224,9 +241,9 @@ void MazeState::Update(float dt) {
 
     if (inputManager.KeyPress(ESCAPE_KEY))
     {
-        Log::info("MAZE_STATE - Escape key pressed, popping state");
+        Log::info("MAZE_STATE - Escape key pressed, quitting game");
         //music.Stop();
-        this->RequestPop();
+        this->RequestQuit();
     }
 
 	if (inputManager.KeyPress(Z_KEY))

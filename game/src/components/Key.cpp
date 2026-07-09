@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "TileObject.h"
 #include "GameData.h"
+#include "GlobalSounds.h"
 
 Key::Key(GameObject& associated, Key::Type type)
   : Component(associated) {
@@ -13,7 +14,7 @@ Key::Key(GameObject& associated, Key::Type type)
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
   keyText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32,
-                     Text::BLENDED, "You got the key", white);
+                     Text::BLENDED, "Pegou a chave", white);
   keyText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
@@ -41,6 +42,7 @@ void Key::NotifyCollision(GameObject& other) {
     keyText->Show();
     TileObject *tile = associated.GetComponent<TileObject>();
     if (tile) tile->Hide();
+    GlobalSounds::Key().Play(0);
     Log::info("KEY - Player collected the bedroom key");
   }
 
@@ -50,6 +52,7 @@ void Key::NotifyCollision(GameObject& other) {
     keyText->Show();
     TileObject *tile = associated.GetComponent<TileObject>();
     if (tile) tile->Hide();
+    GlobalSounds::Key().Play(0);
     Log::info("KEY - Player collected the living room key");
   }
 }

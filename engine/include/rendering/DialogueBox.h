@@ -9,8 +9,14 @@
 #include <vector>
 #include "Component.h"
 #include "Rect.h"
+#include "Sound.h"
+
+class Sprite;
 
 class DialogueBox : public Component {
+public:
+    enum class PortraitMode { STILL, THINKING, RAT_QUIZ };
+
 private:
     enum class State { IDLE, TYPING, TEXT_SHOWN, OPTIONS_SHOWN, SELECTION_MADE };
 
@@ -40,10 +46,24 @@ private:
     bool finished;
     bool borderVisible;
 
+    std::string continuePrompt;
+
+    Sound typingSound;
+    bool typingSoundPlaying;
+
+    Sprite *ratPortrait = nullptr;
+    int ratPortraitX = 0;
+    int ratPortraitY = 0;
+    int ratPortraitW = 0;
+    int ratPortraitH = 0;
+
+    void StopTypingSound();
+
     void RenderBackground();
     void RenderBorder();
     void RenderText();
     void RenderOptions();
+    void RenderContinuePrompt();
     void BuildPages();
     void UpdateTyping(float dt);
     void UpdateState(float dt);
@@ -57,7 +77,8 @@ public:
                 Rect box,
                 std::string fontFile,
                 int fontSize,
-                SDL_Color textColor);
+                SDL_Color textColor,
+                PortraitMode portraitMode = PortraitMode::STILL);
 
     ~DialogueBox();
 

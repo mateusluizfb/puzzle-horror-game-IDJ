@@ -8,6 +8,7 @@
 #include "Text.h"
 #include "Wall.h"
 #include "Collision.h"
+#include "GlobalSounds.h"
 
 #include <cmath>
 
@@ -20,7 +21,7 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 
   GameObject *textGameObject = new GameObject();
   SDL_Color white = {255, 255, 255, 255};
-  pushText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to push/pull", white);
+  pushText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte E para empurrar/puxar", white);
   pushText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
@@ -28,28 +29,25 @@ Pushable::Pushable(GameObject& associated, float pushSpeed)
 }
 
 
-void Pushable::Update(float dt) {  
-  if (gluedPlayer) {
-    // Check if player has moved too far sideways to maintain the glue
-    float distY = std::abs(gluedPlayer->box.GetCenter().y - associated.box.GetCenter().y);
-    float distX = std::abs(gluedPlayer->box.GetCenter().x - associated.box.GetCenter().x);
-    float combinedHeight = (gluedPlayer->box.h + associated.box.h) * 0.75f;
-    float combinedWidth = (gluedPlayer->box.w + associated.box.w) * 0.75f;
+void Pushable::Update(float dt) {
+  if (gluedPlayer && gluedPlayer->IsDead()) {
+    isTouching = false;
+    return;
+  }
 
-    if ((glueHorizontal && distY > combinedHeight) || (!glueHorizontal && distX > combinedWidth)) {
-      gluedPlayer = nullptr;
-      togglePush = false;
-      pushText->SetText("Press E to push");
-    } else {
-      if (glueHorizontal) {
-        associated.box.x = gluedPlayer->box.x + glueOffset.x;
-      } else {
-        associated.box.y = gluedPlayer->box.y + glueOffset.y;
-      }
+  if (gluedPlayer && togglePush) {
+    if (glueAxis == GlueAxis::Horizontal) {
+      associated.box.y = glueAnchor;
+      gluedPlayer->box.y = playerAnchor;
+      associated.box.x = gluedPlayer->box.x + blockOffset;
+    } else if (glueAxis == GlueAxis::Vertical) {
+      associated.box.x = glueAnchor;
+      gluedPlayer->box.x = playerAnchor;
+      associated.box.y = gluedPlayer->box.y + blockOffset;
     }
   }
 
-  if (isTouching && !togglePush) {
+  if (isTouching || togglePush) {
     pushText->Show();
   } else {
     pushText->Hide();
@@ -75,48 +73,79 @@ void Pushable::NotifyCollision(GameObject& other) {
 
     Log::info("PUSHABLE - Collided with player, calculating push direction");
     
-    Vec2 blockDir = associated.GetCollisionNormal();
-    other.SetCollisionNormal(blockDir);
-    associated.SetCollisionNormal(Vec2(0, 0));
-
     pushDirection = (associated.box.GetCenter() - other.box.GetCenter()).Normalize();
+
+    Vec2 blockNormal = associated.GetCollisionNormal();
 
     if (inputManager.KeyPress(E_KEY))
     {
+      GlobalSounds::Button().Play(0);
       togglePush = !togglePush;
       if (togglePush) {
         gluedPlayer = &other;
-        glueOffset = Vec2(associated.box.x - other.box.x, associated.box.y - other.box.y);
-        
-        // Use pushDirection instead of blockDir to determine the axis.
-        // pushDirection is calculated as (associated.center - other.center).
+
         if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
-          glueHorizontal = true;
+          glueAxis = GlueAxis::Horizontal;
+          glueAnchor = associated.box.y;
+          playerAnchor = other.box.y;
+          blockOffset = associated.box.x - other.box.x;
         } else {
-          glueHorizontal = false;
+          glueAxis = GlueAxis::Vertical;
+          glueAnchor = associated.box.x;
+          playerAnchor = other.box.x;
+          blockOffset = associated.box.y - other.box.y;
         }
-        
-        pushText->SetText("Press E to release");
-        
+
+        pushText->SetText("Aperte E para soltar");
+
         Character* charComp = other.GetComponent<Character>();
-        if (charComp) charComp->isGlued = true;
+        if (charComp) {
+          charComp->isGlued = true;
+          charComp->glueAxis = static_cast<Character::GlueAxis>(glueAxis);
+        }
       } else {
         gluedPlayer = nullptr;
-        pushText->SetText("Press E to push");
-        
+        glueAxis = GlueAxis::None;
+        pushText->SetText("Aperte E para empurrar/puxar");
+
         Character* charComp = other.GetComponent<Character>();
-        if (charComp) charComp->isGlued = false;
+        if (charComp) {
+          charComp->isGlued = false;
+          charComp->glueAxis = Character::GlueAxis::None;
+        }
       }
     }
 
 
     if (togglePush)
     {
+      // Glued: propagate blockage to the player only on the glue axis,
+      // so the player is halted when the block is wall/pushable-blocked
+      // in the push direction, but never on the perpendicular axis.
+      if (glueAxis == GlueAxis::Horizontal) {
+        other.SetCollisionNormal(Vec2(blockNormal.x, 0));
+      } else {
+        other.SetCollisionNormal(Vec2(0, blockNormal.y));
+      }
       return;
     }
 
     if (!togglePush && isTouching)
     {
+      // Non-glued: if the block is currently blocked by another pushable
+      // on the side the player is pushing toward, halt the player on that
+      // axis (treat the block as immovable), so the player can't drive A
+      // into B.
+      if (blockNormal.x != 0 || blockNormal.y != 0) {
+        if (std::abs(pushDirection.x) > std::abs(pushDirection.y)) {
+          other.SetCollisionNormal(Vec2(blockNormal.x, 0));
+        } else {
+          other.SetCollisionNormal(Vec2(0, blockNormal.y));
+        }
+      } else {
+        associated.SetCollisionNormal(Vec2(0, 0));
+        other.SetCollisionNormal(Vec2(0, 0));
+      }
       Collision::ResolveOverlap(other, associated);
       return;
     }

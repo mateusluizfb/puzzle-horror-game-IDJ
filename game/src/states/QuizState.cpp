@@ -53,7 +53,6 @@ void QuizState::LoadAssets()
   quizObject->AddComponent(quiz);
   quizObject->AddComponent(quizUI);
   this->AddObject(quizObject);
-  quiz->StartQuiz();
 }
 
 void QuizState::Update(float dt)
@@ -81,7 +80,7 @@ void QuizState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   UpdateArray(dt);

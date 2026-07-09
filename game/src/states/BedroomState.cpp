@@ -46,7 +46,7 @@ void BedroomState::Start()
 
   StartArray();
 
-  //music.Play(-1);
+  // music.Play(-1);
 }
 
 void BedroomState::LoadAssets()
@@ -98,7 +98,12 @@ void BedroomState::LoadAssets()
     if (it != data.properties.end()) {
       text = it->second;
     }
-    return new Document(go, text);
+    DialogueBox::PortraitMode mode = DialogueBox::PortraitMode::STILL;
+    auto modeIt = data.properties.find("document_portrait_mode");
+    if (modeIt != data.properties.end() && modeIt->second == "thinking") {
+      mode = DialogueBox::PortraitMode::THINKING;
+    }
+    return new Document(go, text, mode);
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
@@ -148,9 +153,9 @@ void BedroomState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("BEDROOM_STATE - Escape key pressed, popping state");
+    Log::info("BEDROOM_STATE - Escape key pressed, quitting game");
     //music.Stop();
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   if (inputManager.KeyPress(Z_KEY))

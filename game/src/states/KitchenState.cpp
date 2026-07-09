@@ -24,6 +24,7 @@
 #include "QuizUI.h"
 #include "BedroomState.h"
 #include "Document.h"
+#include "Rat.h"
 
 KitchenState::KitchenState(): State(), music("game/assets/music/soundtrack.wav")
 {
@@ -100,7 +101,12 @@ void KitchenState::LoadAssets()
     if (it != data.properties.end()) {
       text = it->second;
     }
-    return new Document(go, text);
+    DialogueBox::PortraitMode mode = DialogueBox::PortraitMode::STILL;
+    auto modeIt = data.properties.find("document_portrait_mode");
+    if (modeIt != data.properties.end() && modeIt->second == "thinking") {
+      mode = DialogueBox::PortraitMode::THINKING;
+    }
+    return new Document(go, text, mode);
   });
   tileObjects.RegisterComponent("wall", [](GameObject& go) -> Component* {
     return new Wall(go);
@@ -123,7 +129,12 @@ void KitchenState::LoadAssets()
 
   Log::debug("KITCHEN_STATE - TileObjects loader finished");
 
-  
+  Log::debug("KITCHEN_STATE - Starting Rat game object");
+  GameObject *ratGameObject = new GameObject();
+  Rat *rat = new Rat(*ratGameObject, 700, 190);
+  ratGameObject->AddComponent(rat);
+  this->AddObject(ratGameObject);
+  Log::debug("KITCHEN_STATE - Rat game object loaded");
 }
 
 void KitchenState::Update(float dt)
@@ -149,9 +160,9 @@ void KitchenState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("KITCHEN_STATE - Escape key pressed, popping state");
+    Log::info("KITCHEN_STATE - Escape key pressed, quitting game");
     //music.Stop();
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   if (inputManager.KeyPress(Z_KEY))

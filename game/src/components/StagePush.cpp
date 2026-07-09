@@ -15,6 +15,7 @@
 #include "KitchenState.h"
 #include "QuizState.h"
 #include "GameData.h"
+#include "GlobalSounds.h"
 
 StagePush::StagePush(GameObject& associated, const std::string& stageName)
   : Component(associated)
@@ -27,14 +28,14 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
   SDL_Color white = {255, 255, 255, 255};
 
   GameObject* textGameObject = new GameObject();
-  promptText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Press E to open", white);
+  promptText = new Text(*textGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Aperte E para abrir", white);
   promptText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   associated.AddComponent(promptText);
 
   GameObject* lockedTextGameObject = new GameObject();
-  lockedPromptText = new Text(*lockedTextGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Door is locked", white);
+  lockedPromptText = new Text(*lockedTextGameObject, "game/assets/font/neodgm.ttf", 32, Text::BLENDED, "Porta trancada", white);
   lockedPromptText->Hide();
   lockedTextGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   lockedTextGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
@@ -43,17 +44,19 @@ StagePush::StagePush(GameObject& associated, const std::string& stageName)
 }
 
 void StagePush::Update(float /*dt*/) {
-  if (isTouching && targetStage == "Locked")
-  {
-    lockedPromptText->Show();
-  } else {
-    lockedPromptText->Hide();
-  }
+  bool locked = (targetStage == "Locked") ||
+                (targetStage == "WarningState" && !GameData::hasLivingRoomKey) ||
+                (targetStage == "LivingRoomCorridorState" && !GameData::hasBedroomKey);
 
-  if (isTouching && targetStage != "Locked") {
+  if (isTouching && locked) {
+    lockedPromptText->Show();
+    promptText->Hide();
+  } else if (isTouching && !locked) {
     promptText->Show();
+    lockedPromptText->Hide();
   } else {
     promptText->Hide();
+    lockedPromptText->Hide();
   }
 
   isTouching = false;
@@ -94,6 +97,7 @@ void StagePush::NotifyCollision(GameObject& other) {
 
   if (targetStage == "WarningState" && inputManager.KeyPress(E_KEY) && GameData::hasLivingRoomKey)
   {
+    GlobalSounds::Door().Play(0);
     Game::GetInstance().Push(new WarningState());
 	  return;
   }
@@ -105,6 +109,7 @@ void StagePush::NotifyCollision(GameObject& other) {
 
   if (targetStage == "Pop" && inputManager.KeyPress(E_KEY))
   {
+    GlobalSounds::Door().Play(0);
     Log::info("STAGE_PUSH - Requesting current state pop");
     Game::GetInstance().GetCurrentState().RequestPop();
     return;
@@ -112,28 +117,33 @@ void StagePush::NotifyCollision(GameObject& other) {
 
   if (targetStage == "LivingRoomCorridorState" && inputManager.KeyPress(E_KEY) && GameData::hasBedroomKey)
   {
+    GlobalSounds::Door().Play(0);
     Game::GetInstance().Push(new LivingRoomCorridorState());
     return;
   }
 
   if (targetStage == "LivingRoomState" && inputManager.KeyPress(E_KEY))
   {
+    GlobalSounds::Door().Play(0);
     Game::GetInstance().Push(new LivingRoomState());
     return;
   }
 
   if (targetStage == "KitchenState" && inputManager.KeyPress(E_KEY))
   {
+    GlobalSounds::Door().Play(0);
     Game::GetInstance().Push(new KitchenState());
     return;
   }
 
   if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
+    GlobalSounds::Door().Play(0);
     Game::GetInstance().Push(new WaterTankPuzzleState());
     return;
   }
 
   if (targetStage == "QuizState" && inputManager.KeyPress(E_KEY)) {
+    GlobalSounds::Door().Play(0);
     QuizState* quizState = new QuizState();
     quizState->SetIsOverlay();
     Game::GetInstance().Push(quizState);

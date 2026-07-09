@@ -97,7 +97,12 @@ void LivingRoomCorridorState::LoadAssets()
     if (it != data.properties.end()) {
       text = it->second;
     }
-    return new Document(go, text);
+    DialogueBox::PortraitMode mode = DialogueBox::PortraitMode::STILL;
+    auto modeIt = data.properties.find("document_portrait_mode");
+    if (modeIt != data.properties.end() && modeIt->second == "thinking") {
+      mode = DialogueBox::PortraitMode::THINKING;
+    }
+    return new Document(go, text, mode);
   });
   tileObjects.RegisterComponent("pushable", [](GameObject& go) -> Component* {
     return new Pushable(go, 150.0f);
@@ -148,9 +153,9 @@ void LivingRoomCorridorState::Update(float dt)
 
   if (inputManager.KeyPress(ESCAPE_KEY))
   {
-    Log::info("LIVINGROOMCORRIDOR_STATE - Escape key pressed, popping state");
+    Log::info("LIVINGROOMCORRIDOR_STATE - Escape key pressed, quitting game");
     //music.Stop();
-    this->RequestPop();
+    this->RequestQuit();
   }
 
   if (inputManager.KeyPress(Z_KEY))
@@ -195,5 +200,4 @@ void LivingRoomCorridorState::Resume()
     Log::error("LIVINGROOMCORRIDOR_STATE - Cannot resume: player object not found");
     return;
   }
-  music.Play(-1);
 }

@@ -18,7 +18,7 @@ Character::Character(GameObject &associated, std::string sprite)
     hit(false),
     taskQueue(),
     speed(Vec2(0, 0)),
-    linearSpeed(250),
+    linearSpeed(180),
     hp(100),
     deathTimer(Timer()),
     isInvulnerable(false),
@@ -114,7 +114,7 @@ void Character::Update(float dt) {
   {
     Log::info("CHARACTER - Character is dead.");
     // animator->SetAnimation("dead");
-    deathSound.Play(1);
+    deathSound.Play(0);
 
     if (player) Camera::GetInstance().Unfollow();
 
@@ -146,14 +146,19 @@ void Character::Update(float dt) {
       {
         case CommandType::MOVE:
         {
+          Vec2 cmd = item.pos;
           if (isGlued)
           {
-            this->SetLinearSpeed(150.0f);
+            if (glueAxis == GlueAxis::Horizontal) {
+              cmd.y = 0;
+            } else if (glueAxis == GlueAxis::Vertical) {
+              cmd.x = 0;
+            }
           }
 
           // In case the taskQueue enqueues the same move direction twice,
           // in might happen when pressing two arrows for diagonal movement
-          moveDir = moveDir + item.pos;
+          moveDir = moveDir + cmd;
           break;
         }
       }
@@ -200,7 +205,7 @@ void Character::Update(float dt) {
     associated.box.y += moveDelta.y;
   }
 
-  this->SetLinearSpeed(200);
+  this->SetLinearSpeed(180);
 }
 
 void Character::Render() {

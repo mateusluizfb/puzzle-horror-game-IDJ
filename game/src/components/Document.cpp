@@ -10,10 +10,13 @@
 #include "Rect.h"
 #include "State.h"
 #include "Text.h"
+#include "GlobalSounds.h"
+#include "Collider.h"
 
-Document::Document(GameObject& associated, const std::string& documentText)
+Document::Document(GameObject& associated, const std::string& documentText, DialogueBox::PortraitMode portraitMode)
   : Component(associated)
   , documentText(documentText)
+  , portraitMode(portraitMode)
 {
   Log::debug("DOCUMENT - Registered for object: " + associated.tag +
              " -> text length: " + std::to_string(documentText.size()));
@@ -24,12 +27,17 @@ Document::Document(GameObject& associated, const std::string& documentText)
                         "game/assets/font/neodgm.ttf",
                         32,
                         Text::BLENDED,
-                        "Press E to Read",
+                        "Aperte E para ler",
                         white);
   promptText->Hide();
   textGameObject->box.x = (Game::GetInstance().GetWindowWidth() / 2) - 150;
   textGameObject->box.y = (Game::GetInstance().GetWindowHeight() - 100);
   associated.AddComponent(promptText);
+}
+
+void Document::Start() {
+  Collider *collider = associated.GetComponent<Collider>();
+  collider->disabled = true;
 }
 
 void Document::Update(float /*dt*/) {
@@ -63,6 +71,7 @@ void Document::NotifyCollision(GameObject& other) {
   InputManager& inputManager = InputManager::GetInstance();
 
   if (inputManager.KeyPress(E_KEY) && !dialogueOpen && !GameData::dialogueActive) {
+    GlobalSounds::Button().Play(0);
     Log::info("DOCUMENT - Opening dialogue");
 
     SDL_Color white = {255, 255, 255, 255};
@@ -77,7 +86,8 @@ void Document::NotifyCollision(GameObject& other) {
         box,
         "game/assets/font/neodgm.ttf", 24, white,
         documentText,
-        {});
+        {},
+        portraitMode);
 
     currentState.AddObject(go);
     dialogueObject = currentState.GetObjectPtr(go);
