@@ -22,7 +22,8 @@ class EndState : public State {
     void Resume() override;
 
   private:
-    Music backgroundMusic;
+    Sound backgroundMusic;
+    bool playMusic = false;
 
     Timer jumpscareTimer;
     bool jumpscareActive = false;

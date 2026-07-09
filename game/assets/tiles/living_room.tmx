@@ -83,7 +83,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="51" name="wall" x="208" y="112" width="31.3885" height="48.576">
+  <object id="51" name="wall" x="210" y="112" width="29.3885" height="45.4809">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -121,13 +121,13 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="57" name="wall" x="112" y="128" width="15.1543" height="63.5651">
+  <object id="57" name="wall" x="112" y="128" width="15.1543" height="61.8984">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="58" name="wall" x="128" y="80" width="38.7677" height="94.4398">
+  <object id="58" name="wall" x="128" y="80" width="38.7677" height="92.7731">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -163,7 +163,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="113" name="                         " gid="433" x="32" y="176" width="16" height="16">
+  <object id="113" name="                         " gid="433" x="16" y="160" width="16" height="16">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="key" type="bool" value="true"/>
@@ -259,7 +259,7 @@
     <property name="pushable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="137" name="wall" x="16" y="176" width="15.7928" height="22.5209">
+  <object id="137" name="wall" x="16" y="175.333" width="15.7928" height="23.1876">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -273,7 +273,7 @@
     <property name="document_text" value="Catequizou índios, morto por índios sendo arrastado por 4km por cavalos. Juan del Castillo (1595-1628). Um dos Santos Mártires das Missões."/>
    </properties>
   </object>
-  <object id="139" name="wall" x="166.598" y="80.5583" width="20.359" height="75.2189">
+  <object id="139" name="wall" x="166.598" y="80.5583" width="18.6923" height="75.2189">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>

@@ -9,7 +9,7 @@
 
 class TitleState : public State {
 private:
-  Music music;
+  Sound music;
   Sound cupBreakSound;
   Timer blinkTimer;
   std::weak_ptr<GameObject> promptText;

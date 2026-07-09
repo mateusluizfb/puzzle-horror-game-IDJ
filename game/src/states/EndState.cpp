@@ -114,7 +114,7 @@ void EndState::Update(float dt) {
       }
 
       jumpscareActive = false;
-      backgroundMusic.Play(0);
+      playMusic = true;
     }
   }
 
@@ -131,6 +131,11 @@ void EndState::Update(float dt) {
       popRequested = true;
       Game::GetInstance().Push(new TitleState());
     }
+  }
+
+  if (playMusic) {
+    backgroundMusic.Play(0);
+    playMusic = false;
   }
 
   UpdateArray(dt);
@@ -156,6 +161,8 @@ void EndState::Start() {
       }
     }
     scream.Play(0);
+  } else {
+    playMusic = true;
   }
 }
 void EndState::Pause() {}
