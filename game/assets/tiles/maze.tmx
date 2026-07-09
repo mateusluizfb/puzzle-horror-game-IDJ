@@ -390,7 +390,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="34" name="wall" x="933.165" y="1085.83" width="23.67" height="144.833">
+  <object id="34" name="wall" x="947.665" y="1085.83" width="9.17" height="144.833">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -414,7 +414,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="38" name="wall" x="933.335" y="1086.17" width="210.83" height="17.3333">
+  <object id="38" name="wall" x="947.835" y="1086.17" width="196.33" height="17.3333">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -558,12 +558,12 @@
     <property name="side" value="down"/>
    </properties>
   </object>
-  <object id="69" name="saint" gid="73" x="913.667" y="1200" width="16" height="16">
+  <object id="69" name="saint" gid="73" x="913.667" y="1202" width="16" height="16">
    <properties>
     <property name="saint" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="70" name="saint" gid="73" x="881" y="1200" width="16" height="16">
+  <object id="70" name="saint" gid="73" x="881" y="1202" width="16" height="16">
    <properties>
     <property name="saint" type="bool" value="true"/>
    </properties>
@@ -677,7 +677,7 @@
    </properties>
    <point/>
   </object>
-  <object id="179" name="light" x="920" y="1207.5">
+  <object id="179" name="light" x="920" y="1209">
    <properties>
     <property name="b" type="int" value="255"/>
     <property name="g" type="int" value="255"/>
@@ -757,7 +757,7 @@
    </properties>
    <point/>
   </object>
-  <object id="212" name="light" x="920" y="1200">
+  <object id="212" name="light" x="920" y="1203">
    <properties>
     <property name="b" type="int" value="255"/>
     <property name="g" type="int" value="255"/>
