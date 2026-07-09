@@ -37,6 +37,7 @@ public:
   void Render();
   void SetScale(Vec2 scale);
   void SetOffset(Vec2 offset);
+  Vec2 GetScale() const { return scale; }
   Rect& GetBox();
   void SetComposite(bool composite) { isComposite = composite; }
   bool GetIsComposite() const { return isComposite; }

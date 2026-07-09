@@ -51,12 +51,20 @@ Character::~Character() {
 
 void Character::Start() {
   Log::info("CHARACTER - Starting character component");
+  associated.AddComponent(new Collider(associated, Vec2(0.75, 0.75), Vec2(0, 0)));
 }
 
 void Character::Update(float dt) {
   Animator* animator = associated.GetComponent<Animator>();
 
   if (associated.IsDead()) return;
+
+  if (Collider* collider = associated.GetComponent<Collider>()) {
+    Vec2 s = collider->GetScale();
+    collider->SetOffset(Vec2(
+      associated.box.w * (1.0f - s.x) / 2.0f,
+      associated.box.h * (1.0f - s.y) / 2.0f));
+  }
 
   Vec2 blockDir = associated.GetCollisionNormal();
   associated.SetCollisionNormal(Vec2(0, 0));

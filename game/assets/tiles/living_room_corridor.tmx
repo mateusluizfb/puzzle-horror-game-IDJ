@@ -97,7 +97,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="10" name="wall" x="-9.95292" y="18.1425" width="18.8615" height="112.059">
+  <object id="10" name="wall" x="-9.95292" y="18.1425" width="20.8615" height="112.059">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
@@ -121,7 +121,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="17" name="wall" x="10.2801" y="63.9343" width="21.1064" height="30.1314">
+  <object id="17" name="wall" x="12.2801" y="63.9343" width="19.1064" height="30.1314">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>

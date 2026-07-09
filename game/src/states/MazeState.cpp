@@ -66,12 +66,10 @@ void MazeState::LoadAssets()
 			"game/assets/img/Player_Small.png");
     character->player = character;
 
-    Collider* collider = new Collider(*characterGameObject, Vec2(1, 1), Vec2(1, 1));
     PlayerController* playerController = new PlayerController(*characterGameObject);
 	Light* heroLight = new Light(*characterGameObject, "game/assets/img/light.png", 0.2f, 255, 255, 255, 200);
 
     characterGameObject->AddComponent(character);
-    characterGameObject->AddComponent(collider);
     characterGameObject->AddComponent(playerController);
 	characterGameObject->AddComponent(heroLight);
     characterGameObject->tag = "player";

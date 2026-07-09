@@ -71,7 +71,7 @@
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" name="wall" x="64" y="160" width="178.81" height="20.6086">
+  <object id="7" name="wall" x="64" y="157.75" width="178.81" height="22.8586">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>

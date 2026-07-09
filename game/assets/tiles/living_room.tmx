@@ -59,13 +59,13 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="3" name="wall" x="-6.66667" y="16.6667" width="15.1468" height="209.442">
+  <object id="3" name="wall" x="-6.66667" y="16.6667" width="16.8135" height="209.442">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="5" name="wall" x="9.66667" y="215" width="281.121" height="13.75">
+  <object id="5" name="wall" x="9.66667" y="213" width="281.121" height="15.75">
    <properties>
     <property name="collider" type="bool" value="true"/>
     <property name="wall" type="bool" value="true"/>
