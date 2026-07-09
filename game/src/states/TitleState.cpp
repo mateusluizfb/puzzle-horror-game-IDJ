@@ -13,7 +13,7 @@
 #include "IntroState.h"
 #include "GlobalSounds.h"
 
-TitleState::TitleState() : State(), music("game/assets/music/soundtrack.wav"), cupBreakSound("game/assets/music/cup-breaking.wav")
+TitleState::TitleState() : State(), music("game/assets/music/title_music.mp3"), cupBreakSound("game/assets/music/cup-breaking.wav")
 {
   Log::info("TITLE_STATE - Initializing TitleState");
   transitioning = false;
@@ -52,7 +52,7 @@ void TitleState::LoadAssets() {
   this->promptText = this->AddObject(textGameObject);
 
   //MUSICA
-  // music.Play(-1);
+  music.Play(-1);
 }
 
 void TitleState::Update(float dt) {
@@ -111,6 +111,8 @@ void TitleState::Update(float dt) {
           t->Show();
         }
       }
+
+      music.Stop();
       Game::GetInstance().Push(new IntroState());
     }
   }

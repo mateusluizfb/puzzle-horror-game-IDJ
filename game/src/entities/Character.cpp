@@ -43,6 +43,7 @@ Character::Character(GameObject &associated, std::string sprite)
   animator->SetAnimation("idle_down");
 
   stepSound.Open("game/assets/sounds/step-sound.mp3");
+  stepSound.SetVolume(32);
   lastStepFrame = -1;
 }
 

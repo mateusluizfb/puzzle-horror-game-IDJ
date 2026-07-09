@@ -129,7 +129,7 @@ void KitchenState::LoadAssets()
 
   Log::debug("KITCHEN_STATE - Starting Rat game object");
   GameObject *ratGameObject = new GameObject();
-  Rat *rat = new Rat(*ratGameObject, 700, 190);
+  Rat *rat = new Rat(*ratGameObject, 700, 205);
   ratGameObject->AddComponent(rat);
   this->AddObject(ratGameObject);
   Log::debug("KITCHEN_STATE - Rat game object loaded");

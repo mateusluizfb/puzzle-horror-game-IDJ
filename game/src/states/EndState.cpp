@@ -26,7 +26,7 @@ EndState::EndState() : State(), backgroundMusic() {
     bgGameObject->AddComponent(bgTextSpriteRenderer);
     this->AddObject(bgTextGameObject);
 
-    // backgroundMusic.Open("game/audio/endStateWin.ogg");
+    backgroundMusic.Open("game/assets/music/win_music.wav");
   } else {
     GameObject *bgGameObject = new GameObject();
     SpriteRenderer *bgSpriteRenderer = new SpriteRenderer(*bgGameObject, "game/assets/img/game_over_screen.png");
@@ -58,6 +58,8 @@ EndState::EndState() : State(), backgroundMusic() {
     scream.SetVolume(32);
 
     jumpscareActive = true;
+
+    backgroundMusic.Open("game/assets/music/lose_music.wav");
   }
 }
 
@@ -112,6 +114,7 @@ void EndState::Update(float dt) {
       }
 
       jumpscareActive = false;
+      backgroundMusic.Play(0);
     }
   }
 
