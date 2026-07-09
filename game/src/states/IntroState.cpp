@@ -103,7 +103,7 @@ void IntroState::Update(float dt)
         if (currentIntroFrame < 5)
         {
           SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
-          bgSprite->Open("game/assets/img/intro/intro_" + std::to_string(currentIntroFrame) + ".png");
+          bgSprite->Open("game/assets/img/intro/Tela" + std::to_string(currentIntroFrame) + ".png");
         }
         else
         {
