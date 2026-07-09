@@ -18,7 +18,7 @@ Rat::Rat(GameObject &associated, int x, int y)
     SpriteRenderer *spriteRenderer = new SpriteRenderer(associated,
             "game/assets/spritesheets/rat.png", 8, 2);
     Animator *animator = new Animator(associated);
-    Collider *collider = new Collider(associated, Vec2(1, 1), Vec2(0, 0));
+    Collider *collider = new Collider(associated, Vec2(1.25, 1.25), Vec2(0, 0));
     collider->disabled = true;
 
     spriteRenderer->SetPosition(x, y);
