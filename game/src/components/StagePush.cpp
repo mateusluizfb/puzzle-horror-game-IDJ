@@ -48,15 +48,29 @@ void StagePush::Update(float /*dt*/) {
                 (targetStage == "WarningState" && !GameData::hasLivingRoomKey) ||
                 (targetStage == "LivingRoomCorridorState" && !GameData::hasBedroomKey);
 
-  if (isTouching && locked) {
-    lockedPromptText->Show();
-    promptText->Hide();
-  } else if (isTouching && !locked) {
-    promptText->Show();
-    lockedPromptText->Hide();
+	// O SISTEMA DE TRAVA COM PRIORIDADE (PORTA = NIVEL 3)
+    int myPriority = 3;
+	bool canTakeFocus = (GameData::activeInteraction == nullptr ||
+                         GameData::activeInteraction == this ||
+                         myPriority > GameData::interactionPriority);
+
+  if (isTouching && canTakeFocus) {
+	  GameData::activeInteraction = this;
+	  GameData::interactionPriority = myPriority;
+	  if (locked) {
+		  lockedPromptText->Show();
+		  promptText->Hide();
+	  } else {
+		  promptText->Show();
+		  lockedPromptText->Hide();
+	  }
   } else {
-    promptText->Hide();
-    lockedPromptText->Hide();
+        if (GameData::activeInteraction == this) {
+            GameData::activeInteraction = nullptr;
+            GameData::interactionPriority = 0;
+        }
+		promptText->Hide();
+		lockedPromptText->Hide();
   }
 
   isTouching = false;
@@ -79,6 +93,11 @@ void StagePush::NotifyCollision(GameObject& other) {
 
   Log::info("StagePush - Transition to stage: " + targetStage);
   triggered = true;
+
+  if (GameData::activeInteraction == this) {
+            GameData::activeInteraction = nullptr;
+            GameData::interactionPriority = 0;
+        }
 
   if (targetStage == "TitleState") {
     Game::GetInstance().Push(new TitleState());

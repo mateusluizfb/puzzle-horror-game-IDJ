@@ -24,7 +24,7 @@ Key::Key(GameObject& associated, Key::Type type)
 void Key::Update(float dt) {
   if (collected) {
     timer += dt;
-    if (timer >= 3.0f) {
+    if (timer >= 3.0f || GameData::activeInteraction != nullptr) {
       keyText->Hide();
       associated.RequestDelete();
     }

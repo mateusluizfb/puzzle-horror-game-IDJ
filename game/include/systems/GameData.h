@@ -14,6 +14,8 @@ class GameData {
     static int playerLives;
     static bool hasLivingRoomKey;
     static bool hasBedroomKey;
+	static void* activeInteraction;
+    static int interactionPriority;
 };
 
 #endif

@@ -65,11 +65,31 @@ void Pushable::Update(float dt) {
 		}
 	}
 
-	if (isTouching || gluedPlayer != nullptr) {
-		pushText->Show();
-	} else {
-		pushText->Hide();
-	}
+	// O SISTEMA DE TRAVA COM PRIORIDADE (CAIXA = NIVEL 1)
+    int myPriority = 1; // Caixa tem prioridade baixa
+    bool wantsToInteract = (isTouching || gluedPlayer != nullptr);
+
+    if (wantsToInteract) {
+        // Pega a trava se: Estiver livre, OU ja for o dono, OU prioridade MAIOR que a do dono atual
+        if (GameData::activeInteraction == nullptr ||
+            GameData::activeInteraction == this ||
+            myPriority > GameData::interactionPriority) {
+
+            GameData::activeInteraction = this;
+            GameData::interactionPriority = myPriority;
+            pushText->Show();
+        } else {
+            // Se o dono atual for mais forte do que eu
+            pushText->Hide();
+        }
+    } else {
+        // Se eu nao quero mais interagir e era o dono, liberto o microfone E zero a prioridade
+        if (GameData::activeInteraction == this) {
+            GameData::activeInteraction = nullptr;
+            GameData::interactionPriority = 0;
+        }
+        pushText->Hide();
+    }
 
 	isTouching = false;
 }
@@ -104,10 +124,10 @@ InputManager &inputManager = InputManager::GetInstance();
                 float blockDirX = (dx < 0) ? 1.0f : -1.0f;
                 gluedPlayer->SetCollisionNormal(Vec2(blockDirX, 0));
             }
-        } 
+        }
         else if (glueAxis == GlueAxis::Vertical) {
             gluedPlayer->box.y = associated.box.y - blockOffset;
-            
+
             // So bloqueia o caminhar do jogador se a batida foi VERTICAL
             if (std::abs(dy) > std::abs(dx)) {
                 float blockDirY = (dy < 0) ? 1.0f : -1.0f;
@@ -115,7 +135,7 @@ InputManager &inputManager = InputManager::GetInstance();
             }
         }
         return;
-    }	
+    }
 
 	// INTERACAO COM O JOGADOR
     if (other.tag == "player") {

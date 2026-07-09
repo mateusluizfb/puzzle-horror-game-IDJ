@@ -41,24 +41,34 @@ void Document::Start() {
 }
 
 void Document::Update(float /*dt*/) {
-  if (isTouching) {
-    promptText->Show();
-  } else {
-    promptText->Hide();
-  }
-  isTouching = false;
+	// O SISTEMA DE TRAVA COM PRIORIDADE (DOCUMENTO = NIVEL 2)
+	int myPriority = 2;
+	if (isTouching && (GameData::activeInteraction == nullptr ||
+				GameData::activeInteraction == this ||
+				myPriority > GameData::interactionPriority)) {
+		GameData::activeInteraction = this;
+		GameData::interactionPriority = myPriority;
+		promptText->Show();
+	} else {
+		if (GameData::activeInteraction == this) {
+			GameData::activeInteraction = nullptr;
+			GameData::interactionPriority = 0;
+		}
+		promptText->Hide();
+	}
+	isTouching = false;
 
-  if (!dialogueObject.expired()) {
-    auto go = dialogueObject.lock();
-    DialogueBox* db = go->GetComponent<DialogueBox>();
-    if (db && db->IsFinished()) {
-      Log::info("DOCUMENT - Dialogue finished, closing");
-      go->RequestDelete();
-      GameData::dialogueActive = false;
-      dialogueOpen = false;
-      dialogueObject.reset();
-    }
-  }
+	if (!dialogueObject.expired()) {
+		auto go = dialogueObject.lock();
+		DialogueBox* db = go->GetComponent<DialogueBox>();
+		if (db && db->IsFinished()) {
+			Log::info("DOCUMENT - Dialogue finished, closing");
+			go->RequestDelete();
+			GameData::dialogueActive = false;
+			dialogueOpen = false;
+			dialogueObject.reset();
+		}
+	}
 }
 
 void Document::Render() {}
