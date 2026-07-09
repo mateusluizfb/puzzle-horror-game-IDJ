@@ -28,10 +28,10 @@ void IntroState::LoadAssets()
 
   Log::debug("INTRO_STATE - Starting background game object");
   bgGameObject = new GameObject();
-  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/intro/intro_0.png"));
+  bgGameObject->AddComponent(new SpriteRenderer(*bgGameObject, "game/assets/img/intro/Tela0.png"));
   SpriteRenderer *bgSprite = bgGameObject->GetComponent<SpriteRenderer>();
   bgSprite->SetCameraFollower(true);
-  bgSprite->SetScale(0.50f, 0.50f);
+  bgSprite->SetScale(5.0f, 5.0f);
   bgSprite->SetPosition(0, 75);
   this->AddObject(bgGameObject);
   Log::debug("INTRO_STATE - Background game object loaded");
