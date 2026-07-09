@@ -44,6 +44,9 @@ Character::Character(GameObject &associated, std::string sprite)
 
   stepSound.Open("game/assets/sounds/step-sound.mp3");
   stepSound.SetVolume(32);
+
+  hitSound.SetVolume(32);
+
   lastStepFrame = -1;
 }
 
@@ -275,7 +278,7 @@ Vec2 Character::GetCenterPosition() {
 void Character::TakeDamage() {
     if (isInvulnerable) return;
 
-    if (GameData::playerLives > 1) hitSound.Play(1);
+    if (GameData::playerLives > 1) hitSound.Play(0);
     GameData::playerLives--;
     Log::warning("DANO SOFRIDO! Vidas: " + std::to_string(GameData::playerLives));
 

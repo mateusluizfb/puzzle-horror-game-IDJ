@@ -168,7 +168,7 @@
     <property name="collider" type="bool" value="true"/>
     <property name="document" type="bool" value="true"/>
     <property name="document_portrait_mode" value="thinking"/>
-    <property name="document_text" value="Santo da paz e da caridade (no santo), poderes sobrenaturais. Frei Galvão - Santo da paz e da caridade (1739-1822). Curador dos pobres e enfermos."/>
+    <property name="document_text" value="Santo da paz e da caridade, poderes sobrenaturais. Frei Galvão - Santo da paz e da caridade (1739-1822). Curador dos pobres e enfermos."/>
    </properties>
   </object>
   <object id="30" gid="494" x="128" y="144" width="16" height="16">
