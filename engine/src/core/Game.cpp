@@ -185,8 +185,6 @@ void Game::Push(State* state)
 
 void Game::StateStackPush(State* state)
 {
-  previousState = stateStack.empty() ? nullptr : stateStack.top().get();
-
   stateStack.push(std::unique_ptr<State>(state));
   stateStack.top()->Start();
   stateStack.top()->LoadAssets();
@@ -219,17 +217,12 @@ void Game::Run()
       }
       continue;
     }
-\
+
     if (storedState != nullptr) {
       Log::info("GAME - Pushing new state");
 
       stateStack.top()->Pause();
       this->StateStackPush(storedState);
-    }
-
-    if (stateStack.top()->isOverlay && previousState != nullptr) {
-      previousState->Update(dt);
-      previousState->Render();
     }
 
     stateStack.top()->Update(dt);

@@ -6,7 +6,9 @@
 #include "Game.h"
 #include "InputManager.h"
 #include "GameData.h"
-#include "QuizState.h"
+#include "Quiz.h"
+#include "QuizUI.h"
+#include "EndState.h"
 #include "Log.h"
 #include "GlobalSounds.h"
 
@@ -56,6 +58,22 @@ void Rat::Update(float /*dt*/) {
 
     isTouching = false;
     triggered = false;
+
+    if (quizStarted) {
+        std::weak_ptr<GameObject> quizObj = Game::GetInstance().GetCurrentState().GetObjectByTag("quiz");
+        auto quizGo = quizObj.lock();
+        if (!quizGo) {
+            quizStarted = false;
+            return;
+        }
+        Quiz *quiz = quizGo->GetComponent<Quiz>();
+        if (quiz && quiz->GetState() == QuizProgressState::Finished) {
+            Log::info("RAT - Quiz finished, pushing EndState");
+            GameData::playerVictory = quiz->IsAllCorrect();
+            Game::GetInstance().Push(new EndState());
+            quizStarted = false;
+        }
+    }
 }
 
 void Rat::Render() {}
@@ -67,12 +85,37 @@ void Rat::NotifyCollision(GameObject &other) {
 
     InputManager &inputManager = InputManager::GetInstance();
 
-    if (inputManager.KeyPress(E_KEY) && !GameData::dialogueActive) {
+    if (inputManager.KeyPress(E_KEY) && !GameData::dialogueActive && !quizStarted) {
         GlobalSounds::Button().Play(0);
-        Log::info("RAT - Pushing QuizState");
+        Log::info("RAT - Starting quiz");
+
         triggered = true;
-        QuizState *quizState = new QuizState();
-        quizState->SetIsOverlay();
-        Game::GetInstance().Push(quizState);
+        quizStarted = true;
+
+        std::vector<QuizData> quizData = {
+            {
+                "Esse santo foi versado em várias áreas da língua e o primeiro a transcrever o Tupi, ajudou a fundar São Paulo e Rio de Janeiro.",
+                {"José de Anchieta", "São Francisco", "São José"},
+                0
+            },
+            {
+                "Esse missionário foi morto por aqueles a quem ensinava a piedade e a compaixão cristã.",
+                {"Judas", "William Carey", "Juan del Castillo"},
+                2
+            },
+            {
+                "Este santo brasileiro, cercado de rumores sobrenaturais, ficou conhecido por suas pílulas milagrosas.",
+                {"Frei Gilson", "Frei Galvão", "Frei Damião"},
+                1
+            }
+        };
+
+        State &currentState = Game::GetInstance().GetCurrentState();
+        GameObject *quizObject = new GameObject();
+        QuizUI *quizUI = new QuizUI(*quizObject);
+        Quiz *quiz = new Quiz(*quizObject, quizData);
+        quizObject->AddComponent(quiz);
+        quizObject->AddComponent(quizUI);
+        currentState.AddObject(quizObject);
     }
 }

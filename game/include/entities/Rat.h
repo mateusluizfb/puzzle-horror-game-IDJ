@@ -20,6 +20,7 @@ private:
     Text *promptText = nullptr;
     bool isTouching = false;
     bool triggered = false;
+    bool quizStarted = false;
 };
 
 #endif

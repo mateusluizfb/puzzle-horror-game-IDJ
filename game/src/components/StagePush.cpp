@@ -13,7 +13,6 @@
 #include "LivingRoomCorridorState.h"
 #include "LivingRoomState.h"
 #include "KitchenState.h"
-#include "QuizState.h"
 #include "GameData.h"
 #include "GlobalSounds.h"
 
@@ -158,14 +157,6 @@ void StagePush::NotifyCollision(GameObject& other) {
   if (targetStage == "WaterTankPuzzleState" && inputManager.KeyPress(E_KEY)) {
     GlobalSounds::Door().Play(0);
     Game::GetInstance().Push(new WaterTankPuzzleState());
-    return;
-  }
-
-  if (targetStage == "QuizState" && inputManager.KeyPress(E_KEY)) {
-    GlobalSounds::Door().Play(0);
-    QuizState* quizState = new QuizState();
-    quizState->SetIsOverlay();
-    Game::GetInstance().Push(quizState);
     return;
   }
 

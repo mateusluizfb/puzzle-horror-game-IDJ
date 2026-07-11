@@ -2,8 +2,7 @@
 #include "State.h"
 
 State::State()
-  : isOverlay(false),
-    popRequested(false),
+  : popRequested(false),
     quitRequested(false),
     started(false) {}
 
@@ -118,8 +117,4 @@ void State::RenderArray()
   {
     objectArray[i]->Render();
   }
-}
-
-void State::SetIsOverlay() {
-  isOverlay = true;
 }
